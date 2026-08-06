@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BharYat</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+    <header class="site-header">
+        <nav class="navbar">
+            <!-- Logo -->
+            <div class="logo">
+                <a href="index.html">
+                    <img src="./images/logo.png" alt="BharYat Logo">
+                </a>
+            </div>
+
+            <!-- Navigation -->
+            <div class="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="#parts-finder">Parts Finder</a></li>
+                    <li><a href="#costiq">CostIQ</a></li>
+                    <li><a href="#exchange">Exchange</a></li>
+                    <li><a href="#insight">Insight</a></li>
+                    <li><a href="#lab">Lab</a></li>
+                </ul>
+            </div>
+
+            <!-- Right Side -->
+            <div class="nav-actions">
+                <a href="/login" class="login-btn">Login</a>
+                <button class="menu-toggle" type="button" aria-label="Open Navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+    <main>
+
+        <!-- =========================
+             HERO
+        ========================== -->
+        <section class="hero" id="hero">
+            <!-- Background -->
+            <div class="hero-bg">
+                <div class="circle circle-1"></div>
+                <div class="circle circle-2"></div>
+            </div>
+
+            <div class="hero-container">
+                <!-- LEFT -->
+                <article class="hero-content">
+                    <p class="hero-tag">AI-Powered Electronic Component Intelligence</p>
+                    <h1 class="hero-title">
+                        <span>Find</span> Faster.<br>
+                        <span>Decide</span> Smarter.<br>
+                        <span>Buy</span> Better.
+                    </h1>
+                    <p class="hero-description">
+                        Source millions of electronic components with AI-powered search, real-time supplier
+                        intelligence, pricing insights and lifecycle analysis—all in one procurement platform.
+                    </p>
+
+                    <!-- Search -->
+                    <form class="hero-search" id="hero-search-form">
+                        <input id="part-search" name="query" type="search"
+                            placeholder="Search MPN, Part Number, Manufacturer or Upload BOM..." autocomplete="off"
+                            aria-label="Search electronic components">
+                        <button class="search-btn" id="search-btn" type="submit"
+                            aria-label="Search Components">Search</button>
+                    </form>
+
+                    <!-- CTA -->
+                    <div class="hero-buttons">
+                        <a href="/search" class="btn btn-primary">Start Searching</a>
+                        <a href="/contact" class="btn btn-secondary">Book Demo</a>
+                    </div>
+                </article>
+
+                <!-- RIGHT -->
+                <div class="hero-slider">
+                    <div class="hero-slide active">
+                        <video autoplay muted loop playsinline>
+                            <source src="./assets/videos/vid1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="hero-slide">
+                        <img src="./assets/images/hero1.jpg" alt="PCB Manufacturing">
+                    </div>
+                    <div class="hero-slide">
+                        <video autoplay muted loop playsinline>
+                            <source src="./assets/videos/vid2.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+
+                <div class="hero-overlay"></div>
+
+                <div class="hero-pagination">
+                    <span class="active"></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <div class="scroll-indicator">
+                    <span></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================
+     QUANTUM AI FLOW
+========================== -->
+        <section class="quantum-section" id="quantum-ai">
+            <div class="quantum-container">
+
+                <div class="q-top-header">
+                    <h2>It's not AI.<br><span class="q-gradient-text">It's Quantum AI.</span></h2>
+                </div>
+
+                <div class="flow">
+                    <div class="wire left"></div>
+                    <div class="wire right"></div>
+
+                    <!-- LEFT: Incoming Signals -->
+                    <div class="inputs">
+                        <div class="column-title">Incoming Signals</div>
+                        <div class="feed-stack">
+                            <div class="feed-card">
+                                <div class="feed-icon">N</div>
+                                <div><strong>Semiconductor News</strong><span>Fab expansion, shutdowns, demand
+                                        shifts</span></div>
+                            </div>
+                            <div class="feed-card">
+                                <div class="feed-icon">R</div>
+                                <div><strong>RSS & Industry Feeds</strong><span>Daily updates across memory, MCU</span>
+                                </div>
+                            </div>
+                            <div class="feed-card">
+                                <div class="feed-icon">$</div>
+                                <div><strong>Pricing Signals</strong><span>Authorized, street and historical price
+                                        movement</span></div>
+                            </div>
+                            <div class="feed-card">
+                                <div class="feed-icon">S</div>
+                                <div><strong>Supplier Inventory</strong><span>Global stock, quantity, region</span>
+                                </div>
+                            </div>
+                            <div class="feed-card">
+                                <div class="feed-icon">L</div>
+                                <div><strong>Lead Time & Lifecycle</strong><span>Active, NRND, EOL events</span></div>
+                            </div>
+                            <div class="feed-card">
+                                <div class="feed-icon">!</div>
+                                <div><strong>Risk & Authenticity</strong><span>Counterfeit, supplier confidence</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CENTER: Engine & Pieces -->
+                    <div class="engine-wrap">
+                        <div class="stream-label">Multi-source signal fusion</div>
+
+                        <div class="quantum-image">
+                            <img class="piece piece1" src="./assets/images/piece1.png" alt="p1">
+                            <img class="piece piece2" src="./assets/images/piece2.png" alt="p2">
+                            <img class="piece piece3" src="./assets/images/piece3.png" alt="p3">
+                            <img class="piece piece4" src="./assets/images/piece4.png" alt="p4">
+                            <img class="piece piece5" src="./assets/images/piece5.png" alt="p5">
+                            <img class="piece piece6" src="./assets/images/piece6.png" alt="p6">
+                        </div>
+
+                        <div class="engine">
+                            <div class="engine-core">
+                                <div class="q">Q</div>
+                                <h3>Quantum AI</h3>
+                                <p>Correlates, scores, predicts and explains</p>
+                            </div>
+                            <div class="engine-status" id="status">Processing live market signals…</div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: Output Decisions -->
+                    <div class="outputs">
+                        <div class="column-title text-right">Decision Recommendations</div>
+                        <div class="output-stack">
+                            <div class="output-card">
+                                <div class="output-icon">✓</div>
+                                <div><strong>Buy Now</strong><span>Price likely to rise within 30 days</span></div>
+                            </div>
+                            <div class="output-card">
+                                <div class="output-icon">↗</div>
+                                <div><strong>Increase Buffer Stock</strong><span>Lead time risk is trending
+                                        upward</span></div>
+                            </div>
+                            <div class="output-card">
+                                <div class="output-icon">⇄</div>
+                                <div><strong>Qualify Alternate Supplier</strong><span>Primary supplier concentration is
+                                        high</span></div>
+                            </div>
+                            <div class="output-card">
+                                <div class="output-icon alert">⚠</div>
+                                <div><strong>Avoid Current Offer</strong><span>Counterfeit and pricing risk above
+                                        threshold</span></div>
+                            </div>
+                            <div class="output-card">
+                                <div class="output-icon">◎</div>
+                                <div><strong>Monitor, Do Not Buy</strong><span>Supply improving and prices may
+                                        soften</span></div>
+                            </div>
+                            <div class="output-card">
+                                <div class="output-icon">92</div>
+                                <div><strong>QScore Updated</strong><span>Overall procurement confidence: 92/100</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- =========================
+             SOURCEQ STEPS (ZIG-ZAG)
+        ========================== -->
+        <section class="sourceq-section" id="sourceq-steps" style="position: relative; overflow: hidden;">
+
+            <!-- JAVASCRIPT ANIMATED CONNECTION SHAPES -->
+            <div class="connection-shape shape-1-to-2"></div>
+            <div class="connection-shape shape-2-to-3"></div>
+
+            <div class="sourceq-container" style="position: relative; z-index: 1;">
+
+                <!-- Center Intro -->
+                <div class="sourceq-header">
+                    <h2>SourceQ Intelligence</h2>
+                    <p>The Ultimate Electronic Component Engine</p>
+                </div>
+
+                <!-- Step 01: Find Faster (Image Right) -->
+                <div class="step-row">
+                    <div class="step-text">
+                        <span class="step-number">01</span><span> Find Faster</span>
+                        <h3>QRadar</h3>
+                        <p>Search millions of components instantly with our AI-powered engine. Upload your BOM and let
+                            the system do the heavy lifting.</p>
+                        <ul class="step-features">
+                            <li>Multi-source component search</li>
+                            <li>Stock and pricing visibility</li>
+                            <li>Cross references and alternatives</li>
+                        </ul>
+                    </div>
+                    <div class="step-visual">
+                        <div class="dashboard-mockup" style="position: relative; z-index: 2;">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrwW61DFlYi2pDaXzEnmtFLI_JWGjNCO8o7aMrxUFM6A&s=10" 
+                                 alt="Search Dashboard" style="width:100%; height:100%; object-fit:cover; border-radius:20px;">
+                            
+                            <!-- Layer 1: Floating Icon -->
+                            <div class="floating-badge badge-qradar">
+                                <span style="font-size: 28px; color: #fff;">🔍</span>
+                            </div>
+
+                            <!-- Layer 2: Floating Mini Card -->
+                            <div class="floating-mini-card pos-bottom-right">
+                                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=100&h=100" alt="Microchip">
+                                <div>
+                                    <strong>Component Match</strong>
+                                    <span style="color: #00D084;">In-stock: 15,000 units</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 02: Decide Smarter (Image Left - Reverse) -->
+                <div class="step-row reverse">
+                    <div class="step-text">
+                        <span class="step-number">02</span><span> Decide Smarter</span>
+                        <h3>QLens</h3>
+                        <p>Make data-driven decisions with predictive pricing analytics, lifecycle risk assessments, and historical trend data.</p>
+                        <ul class="step-features">
+                            <li>Price and lead-time intelligence</li>
+                            <li>Lifecycle and shortage risk</li>
+                            <li>Quantum AI recommendations</li>
+                        </ul>
+                    </div>
+                    <div class="step-visual">
+                        <div class="dashboard-mockup analytics" style="position: relative; z-index: 2;">
+                            <img src="https://media.istockphoto.com/id/2198117854/photo/complexity-of-thought-processes-and-the-human-mind-thoughts-creativity-emotions.jpg?s=612x612&w=0&k=20&c=nsNg3663dlvX6xx0S95S9xyD4ybOBgXB_eUWCqYIkb8=" 
+                                 alt="Analytics Dashboard" style="width:100%; height:100%; object-fit:cover; border-radius:20px;">
+                            
+                            <!-- Layer 1: Floating Icon -->
+                            <div class="floating-badge badge-qlens">
+                                <span style="font-size: 28px; color: #fff;">📊</span>
+                            </div>
+
+                            <!-- Layer 2: Floating Mini Card -->
+                            <div class="floating-mini-card pos-bottom-left">
+                                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=100&h=100" alt="Data">
+                                <div>
+                                    <strong>Price Forecast</strong>
+                                    <span style="color: #ff8290;">Expected to rise 12%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 03: Buy Better (Image Right) -->
+                <div class="step-row">
+                    <div class="step-text">
+                        <span class="step-number">03</span><span> Buy Better</span>
+                        <h3>QProcure</h3>
+                        <p>Connect with vetted global suppliers, optimize your procurement costs, and track your shipments seamlessly.</p>
+                        <ul class="step-features">
+                            <li>RFQ management</li>
+                            <li>Supplier comparison</li>
+                            <li>Global sourcing execution</li>
+                        </ul>
+                    </div>
+                    <div class="step-visual">
+                        <div class="dashboard-mockup procurement" style="position: relative; z-index: 2;">
+                            <img src="https://media.istockphoto.com/id/2237056850/photo/distributor-online-shopping-management-frontend-and-backend-developer-customer-relationship.jpg?s=612x612&w=0&k=20&c=JXtYU-K3DeuEpZO_iSfYW-vHeVFMZ9yWXHCiPUm4CJY=" 
+                                 alt="Procurement Dashboard" style="width:100%; height:100%; object-fit:cover; border-radius:20px;">
+                            
+                            <!-- Layer 1: Floating Icon -->
+                            <div class="floating-badge badge-qprocure">
+                                <span style="font-size: 28px; color: #fff;">🛒</span>
+                            </div>
+
+                            <!-- Layer 2: Floating Mini Card -->
+                            <div class="floating-mini-card pos-bottom-right">
+                                <img src="https://images.unsplash.com/photo-1586528116311-ad8ed7c66364?auto=format&fit=crop&q=80&w=100&h=100" alt="Supplier">
+                                <div>
+                                    <strong>Supplier Vetted</strong>
+                                    <span style="color: #65a7ff;">Confidence: 98/100</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- =========================
+             LIVE RECOMMENDATION TICKER
+        ========================== -->
+        <section class="ticker-section">
+            <div class="ticker-container">
+                <div class="ticker-title">Live Recommendation Stream</div>
+                <div class="ticker-window">
+                    <div class="ticker-track">
+                        <!-- Ticker Items -->
+                        <span class="tick"><span class="dot"></span>DDR5 demand rising — advance planned
+                            purchases</span>
+                        <span class="tick"><span class="dot"></span>MLCC supply stable — maintain normal coverage</span>
+                        <span class="tick"><span class="dot"></span>NOR pricing easing — defer non-urgent order</span>
+                        <span class="tick"><span class="dot"></span>Automotive MCU lead time tightening — qualify second
+                            source</span>
+                        <span class="tick"><span class="dot"></span>Supplier risk detected — request traceability
+                            evidence</span>
+                        <!-- Duplicate Items for seamless infinite loop -->
+                        <span class="tick"><span class="dot"></span>DDR5 demand rising — advance planned
+                            purchases</span>
+                        <span class="tick"><span class="dot"></span>MLCC supply stable — maintain normal coverage</span>
+                        <span class="tick"><span class="dot"></span>NOR pricing easing — defer non-urgent order</span>
+                        <span class="tick"><span class="dot"></span>Automotive MCU lead time tightening — qualify second
+                            source</span>
+                        <span class="tick"><span class="dot"></span>Supplier risk detected — request traceability
+                            evidence</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================
+             FUTURE SECTIONS
+        ========================== -->
+
+        <section id="products"></section>
+        <section id="contact"></section>
+
+    </main>
+
+    <script src="./js/main.js"></script>
+</body>
+
+</html>
