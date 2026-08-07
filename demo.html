@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum AI - Angled Orbits & JS Scroll Animation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===================================
+           GLOBAL STYLES
+        =================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Inter", sans-serif; }
+
+        body {
+            background-color: #050816;
+            color: #ffffff;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: radial-gradient(circle at 50% 50%, rgba(101, 167, 255, 0.08), transparent 70%);
+        }
+
+        /* Hero Section for Scrolling Space */
+        .hero {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* ===================================
+           QUANTUM SECTION (Original Trigger)
+        =================================== */
+        .quantum-section {
+            width: 100%;
+            position: relative;
+            padding: 100px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .system-viewport {
+            position: relative;
+            width: 100%;
+            height: 600px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Angled Orbits Wrapper */
+        .angle-wrapper {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: rotate(-15deg); 
+        }
+
+        .system-wrapper {
+            position: absolute;
+            width: 1050px;
+            height: 1050px;
+            transform: scaleY(0.35); 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ===================================
+           🔥 CENTER ENGINE & PIECES
+        =================================== */
+        .engine-wrap {
+            position: absolute;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Container size badha diya gaya hai taaki pieces faili hui dikhein */
+        .quantum-image {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* CSS Purple Circle Hata Diya! Sirf Image ko bada kiya gaya hai */
+        .engine {
+            position: relative;
+            width: 250px;  /* Image ka size bada kar diya */
+            height: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .core-image { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; 
+            z-index: 2; 
+            /* Thoda glow effect add kiya image ke around */
+            filter: drop-shadow(0 0 40px rgba(143, 108, 255, 0.5));
+        }
+
+        /* Original Pieces Positioning (CSS Animations Removed for JS to Work) */
+        .piece { 
+            position: absolute; 
+            transition: transform 0.1s ease-out; 
+            filter: drop-shadow(0 0 20px rgba(0, 180, 255, .2)); 
+        }
+        
+        .piece1 { width: 90px; left: 0%; top: 20%; }        
+        .piece2 { width: 100px; right: -5%; top: 40%; }     
+        .piece3 { width: 95px; left: 40%; top: -15%; }      
+        .piece4 { width: 80px; right: 15%; bottom: -15%; }  
+        .piece5 { width: 70px; left: 10%; top: 30%; }       
+        .piece6 { width: 80px; right: 42%; bottom: 1%; }
+
+        /* ===================================
+           ORBITS & PLANETS
+        =================================== */
+        .orbit {
+            position: absolute;
+            border: 5px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            pointer-events: none; 
+            transition: border-color 0.3s ease;
+        }
+
+        .orbit-1 { width: 350px; height: 350px; animation: spin 25s linear infinite -5s; }
+        .orbit-2 { width: 500px; height: 500px; animation: spin 35s linear infinite -18s; }
+        .orbit-3 { width: 650px; height: 650px; animation: spin 45s linear infinite -30s; }
+        .orbit-4 { width: 800px; height: 800px; animation: spin 55s linear infinite -10s; }
+        .orbit-5 { width: 950px; height: 950px; animation: spin 65s linear infinite -45s; }
+        .orbit-6 { width: 1100px; height: 1100px; animation: spin 75s linear infinite -20s; }
+
+        .planet-anchor { position: absolute; top: 0; left: 50%; width: 0; height: 0; }
+        .planet-counter { position: absolute; width: 0; height: 0; }
+        
+        .orbit-1 .planet-counter { animation: counter 25s linear infinite -5s; }
+        .orbit-2 .planet-counter { animation: counter 35s linear infinite -18s; }
+        .orbit-3 .planet-counter { animation: counter 45s linear infinite -30s; }
+        .orbit-4 .planet-counter { animation: counter 55s linear infinite -10s; }
+        .orbit-5 .planet-counter { animation: counter 65s linear infinite -45s; }
+        .orbit-6 .planet-counter { animation: counter 75s linear infinite -20s; }
+
+        .planet-unsquish { position: absolute; transform: scaleY(2.85); }
+
+        .planet {
+            position: absolute;
+            transform: translate(-50%, -50%); 
+            cursor: pointer;
+            pointer-events: auto; 
+        }
+
+        /* Text/Icon ko wapas 15deg seedha kiya gaya hai */
+        .planet-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px; 
+            transform: rotate(15deg); 
+        }
+
+        .planet-icon { font-size: 32px; filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4)); transition: transform 0.3s ease; }
+        
+        .planet-text {
+            white-space: nowrap; color: #dce4ef; font-size: 13px; font-weight: 600;
+            background: rgba(15, 23, 42, 0.85); padding: 6px 14px; border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(5px); transition: all 0.3s ease;
+        }
+
+        /* PERFECT INDIVIDUAL HOVER PAUSE */
+        .orbit:has(.planet:hover) { animation-play-state: paused !important; border-color: rgba(255, 255, 255, 0.6); z-index: 999; }
+        .orbit:has(.planet:hover) .planet-counter { animation-play-state: paused !important; }
+        .planet:hover .planet-icon { transform: scale(1.2); }
+        .planet:hover .planet-text { border-color: #65a7ff; background: rgba(30, 41, 59, 0.95); color: #fff;}
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes counter { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
+
+        /* Responsive */
+        @media (max-width: 1200px) { .angle-wrapper { transform: rotate(-15deg) scale(0.8); } }
+        @media (max-width: 768px) {
+            .system-viewport { height: 350px; }
+            .angle-wrapper { transform: rotate(-15deg) scale(0.45); }
+            .planet-text { font-size: 16px; } 
+            .engine-wrap { transform: scale(0.6); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Scroll Top Space -->
+    <section class="hero" id="hero">
+        <h1>Scroll Down for Animation 👇</h1>
+    </section>
+
+    <!-- Original Trigger Section Add Kar Diya -->
+    <section class="quantum-section" id="quantum-ai">
+        <div class="system-viewport">
+            
+            <!-- CENTER ENGINE (Only Image, No Purple Circle) -->
+            <div class="engine-wrap">
+                <div class="quantum-image">
+                    <!-- Aapke pieces -->
+                    <img class="piece piece1" src="./assets/images/piece1.png" alt="p1" onerror="this.style.background='#8f6cff';">
+                    <img class="piece piece2" src="./assets/images/piece2.png" alt="p2" onerror="this.style.background='#8f6cff';">
+                    <img class="piece piece3" src="./assets/images/piece3.png" alt="p3" onerror="this.style.background='#8f6cff';">
+                    <img class="piece piece4" src="./assets/images/piece4.png" alt="p4" onerror="this.style.background='#8f6cff';">
+                    <img class="piece piece5" src="./assets/images/piece5.png" alt="p5" onerror="this.style.background='#8f6cff';">
+                    <img class="piece piece6" src="./assets/images/piece6.png" alt="p6" onerror="this.style.background='#8f6cff';">
+                </div>
+
+                <div class="engine">
+                    <!-- Nayi Core Image ko hi bada kar diya gaya hai -->
+                    <img class="core-image" src="./assets/images/quantum-core.png" alt="Quantum Core" onerror="this.style.background='#240b6e'; this.style.borderRadius='50%';">
+                </div>
+            </div>
+
+            <!-- ANGLED ORBIT WRAPPER -->
+            <div class="angle-wrapper">
+                <div class="system-wrapper">
+                    
+                    <div class="orbit orbit-1">
+                        <div class="planet-anchor"><div class="planet-counter"><div class="planet-unsquish">
+                            <div class="planet"><div class="planet-content">
+                                <div class="planet-icon">💲</div><div class="planet-text">Price Competitiveness</div>
+                            </div></div>
+                        </div></div></div>
+                    </div>
+
+                    <div class="orbit orbit-2">
+                        <div class="planet-anchor"><div class="planet-counter"><div class="planet-unsquish">
+                            <div class="planet"><div class="planet-content">
+                                <div class="planet-icon">📦</div><div class="planet-text">Supply Availability</div>
+                            </div></div>
+                        </div></div></div>
+                    </div>
+
+                    <div class="orbit orbit-3">
+                        <div class="planet-anchor"><div class="planet-counter"><div class="planet-unsquish">
+                            <div class="planet"><div class="planet-content">
+                                <div class="planet-icon">⏳</div><div class="planet-text">Lead Time Outlook</div>
+                            </div></div>
+                        </div></div></div>
+                    </div>
+
+                    <div class="orbit orbit-4">
+                        <div class="planet-anchor"><div class="planet-counter"><div class="planet-unsquish">
+                            <div class="planet"><div class="planet-content">
+                                <div class="planet-icon">🤝</div><div class="planet-text">Supplier Confidence</div>
+                            </div></div>
+                        </div></div></div>
+                    </div>
+
+                    <div class="orbit orbit-5">
+                        <div class="planet-anchor"><div class="planet-counter"><div class="planet-unsquish">
+                            <div class="planet"><div class="planet-content">
+                                <div class="planet-icon">♻️</div><div class="planet-text">Lifecycle Health</div>
+                            </div></div>
+                        </div></div></div>
+                    </div>
+
+                    <div class="orbit orbit-6">
+                        <div class="planet-anchor"><div class="planet-counter"><div class="planet-unsquish">
+                            <div class="planet"><div class="planet-content">
+                                <div class="planet-icon">🛡️</div><div class="planet-text">Counterfeit Risk</div>
+                            </div></div>
+                        </div></div></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scroll Bottom Space -->
+    <section class="hero" id="hero">
+        <h1>Scroll Up 👆</h1>
+    </section>
+
+    <!-- AAPKA ORIGINAL SCROLL ANIMATION (main.js wala) -->
+    <script>
+        // Exact script logic taken from your main.js file
+        window.addEventListener("scroll", () => {
+            
+            // --- 1. QUANTUM AI PIECES ANIMATION ---
+            const quantumSection = document.querySelector(".quantum-section");
+            const pieces = document.querySelectorAll(".piece");
+
+            if (quantumSection && pieces.length > 0) {
+                const qRect = quantumSection.getBoundingClientRect();
+                const qScrollableDistance = window.innerHeight * 1.5; 
+                const qScrolledAmount = window.innerHeight - qRect.top;
+                
+                let qProgress = Math.min(Math.max(qScrolledAmount / qScrollableDistance, 0), 1);
+                const isMobile = window.innerWidth <= 768;
+
+                pieces.forEach((piece, index) => {
+                    const multiplier = isMobile ? 15 : 60; 
+                    const moveY = (index % 2 === 0 ? 1 : -1) * (index + 1) * multiplier * qProgress;
+                    const moveX = (index % 2 !== 0 ? 1 : -1) * (index * 10) * qProgress;
+
+                    // Apply scroll-based transform
+                    piece.style.transform = `
+                        translate(${moveX}px, ${moveY}px)
+                        rotate(${qProgress * 45}deg)
+                        scale(${1 + qProgress * 0.2})
+                    `;
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,8 +1,8 @@
-const menuToggle=document.querySelector(".menu-toggle");
-const navMenu=document.querySelector(".nav-menu");
-menuToggle.addEventListener("click",()=>{
-menuToggle.classList.toggle("active");
-navMenu.classList.toggle("active");
+const menuToggle = document.querySelector(".menu-toggle");
+const navMenu = document.querySelector(".nav-menu");
+menuToggle.addEventListener("click", () => {
+    menuToggle.classList.toggle("active");
+    navMenu.classList.toggle("active");
 });
 
 /* =====================================
@@ -12,149 +12,106 @@ const slides = document.querySelectorAll(".hero-slide");
 const dots = document.querySelectorAll(".hero-pagination span");
 let currentSlide = 0;
 
-function showSlide(index){
-    slides.forEach(slide=>{
-        slide.classList.remove("active");
-    });
-    dots.forEach(dot=>{
-        dot.classList.remove("active");
-    });
-
+function showSlide(index) {
+    slides.forEach(slide => { slide.classList.remove("active"); });
+    dots.forEach(dot => { dot.classList.remove("active"); });
     slides[index].classList.add("active");
     dots[index].classList.add("active");
 }
 
-function nextSlide(){
+function nextSlide() {
     currentSlide++;
-    if(currentSlide >= slides.length){
-        currentSlide = 0;
-    }
+    if (currentSlide >= slides.length) { currentSlide = 0; }
     showSlide(currentSlide);
 }
 
-setInterval(nextSlide,5000);
-dots.forEach((dot,index)=>{
-    dot.addEventListener("click",()=>{
-        currentSlide=index;
+setInterval(nextSlide, 5000);
+dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+        currentSlide = index;
         showSlide(currentSlide);
     });
 });
 
+/* =====================================
+   ALL SCROLL ANIMATIONS (COMBINED)
+===================================== */
+let tickingViewport = false;
 
-// =====================================
-// QUANTUM AI DECISION FLOW ANIMATION
-// =====================================
-
-// 1. Cycle Cards Logic
-const feedCards = [...document.querySelectorAll(".feed-card")];
-const outputCards = [...document.querySelectorAll(".output-card")];
-const status = document.getElementById("status");
-
-const statuses = [
-    "Reading global news and RSS feeds…",
-    "Normalizing supplier and price data…",
-    "Evaluating lifecycle and lead-time shifts…",
-    "Calculating confidence and risk…",
-    "Generating decision recommendations…"
-];
-
-let feedIndex = 0;
-let outputIndex = 0;
-let statusIndex = 0;
-
-function cycleInputs() {
-    if(feedCards.length === 0) return;
-    feedCards.forEach(card => card.classList.remove("active"));
-    feedCards[feedIndex].classList.add("active");
-    feedIndex = (feedIndex + 1) % feedCards.length;
-}
-
-function cycleOutputs() {
-    if(outputCards.length === 0) return;
-    outputCards.forEach(card => card.classList.remove("active"));
-    outputCards[outputIndex].classList.add("active");
-    outputIndex = (outputIndex + 1) % outputCards.length;
-}
-
-function cycleStatus() {
-    if(!status) return;
-    status.textContent = statuses[statusIndex];
-    statusIndex = (statusIndex + 1) % statuses.length;
-}
-
-cycleInputs();
-cycleOutputs();
-cycleStatus();
-
-setInterval(cycleInputs, 1100);
-setInterval(cycleOutputs, 1450);
-setInterval(cycleStatus, 1800);
-
-// 2. The Floating Scroll Animation
 window.addEventListener("scroll", () => {
-    const section = document.querySelector(".quantum-section");
-    const pieces = document.querySelectorAll(".piece");
-
-    if (!section || pieces.length === 0) return;
-
-    const rect = section.getBoundingClientRect();
     
-    // Adjusted logic for smoother flow without relying on header height
-    const scrollableDistance = window.innerHeight * 1.5; 
-    const scrolledAmount = window.innerHeight - rect.top;
+// --- QUANTUM AI PIECES ZOOM-IN & FLOAT ANIMATION ---
+const quantumSection = document.querySelector(".quantum-section");
+const pieces = document.querySelectorAll(".piece");
+const systemViewport = document.getElementById("solar-system-viewport");
 
-    let progress = scrolledAmount / scrollableDistance;
-    progress = Math.min(Math.max(progress, 0), 1);
+if (systemViewport) {
+    systemViewport.style.opacity = "1";
+}
 
-    const isMobile = window.innerWidth <= 768;
+if (!tickingViewport) {
+    window.requestAnimationFrame(() => {
+        if (quantumSection && pieces.length > 0) {
+            const qRect = quantumSection.getBoundingClientRect();
+            const qScrollableDistance = window.innerHeight * 1.5; 
+            const qScrolledAmount = window.innerHeight - qRect.top;
+            
+            // Progress 0 se 1 tak calculate hogi
+            let qProgress = Math.min(Math.max(qScrolledAmount / qScrollableDistance, 0), 1);
+            const isMobile = window.innerWidth <= 768;
 
-    pieces.forEach((piece, index) => {
-        // Multipliers set to make pieces move nicely but not too far
-        const multiplier = isMobile ? 15 : 60; 
-        const moveY = (index % 2 === 0 ? 1 : -1) * (index + 1) * multiplier * progress;
-        const moveX = (index % 2 !== 0 ? 1 : -1) * (index * 10) * progress;
+            pieces.forEach((piece, index) => {
+                // 1. Translation multiplier bada diya taaki pieces zyada dur se travel karke aayein
+                const multiplier = isMobile ? 60 : 200; 
+                
+                // Start mein pieces thodi dur (offset position) par rahengi aur scroll ke sath 0 (center/final pos) par aayengi
+                const moveY = (index % 2 === 0 ? 1 : -1) * (index + 1) * multiplier * (1 - qProgress);
+                const moveX = (index % 2 !== 0 ? 1 : -1) * (index * 25) * (1 - qProgress);
 
-        piece.style.transform = `
-            translate(${moveX}px, ${moveY}px)
-            rotate(${progress * 45}deg)
-            scale(${1 + progress * 0.2})
-        `;
+                // 2. Scale ko 0.2 (bahut chota/dur) se shuru karke 1 (normal size) tak laana
+                const currentScale = 0.2 + (qProgress * 0.8); // 0.2 se start hokar 1.0 tak jayega
+
+                // Apply cinematic zoom-in transform
+                piece.style.transform = `
+                    translate(${moveX}px, ${moveY}px)
+                    rotate(${qProgress * 620}deg)
+                    scale(${currentScale})
+                `;
+                
+                // Optional: Jab tak dur hain tab tak opacity kam rahe, paas aate hi clear ho jaye
+                piece.style.opacity = qProgress;
+            });
+        }
+        tickingViewport = false;
     });
-});
+    tickingViewport = true;
+}
 
-
-
-// =====================================
-// SOURCEQ ZIG-ZAG CONNECTION SHAPES JS
-// =====================================
-window.addEventListener("scroll", () => {
-    const section = document.getElementById("sourceq-steps");
+    // --- 2. SOURCEQ ZIG-ZAG CONNECTION SHAPES ---
+    const zigZagSection = document.getElementById("sourceq-steps");
     const shape1 = document.querySelector(".shape-1-to-2");
     const shape2 = document.querySelector(".shape-2-to-3");
 
-    if (!section) return;
+    if (zigZagSection) {
+        const zRect = zigZagSection.getBoundingClientRect();
+        const zScrollDistance = window.innerHeight + zRect.height;
+        const zScrolled = window.innerHeight - zRect.top;
 
-    // Section ke hisab se kitna scroll kiya hai uski calculation
-    const rect = section.getBoundingClientRect();
-    const scrollDistance = window.innerHeight + rect.height;
-    const scrolled = window.innerHeight - rect.top;
+        let zProgress = Math.max(0, Math.min(zScrolled / zScrollDistance, 1));
 
-    // Progress 0 se 1 ke beech rahega
-    let progress = Math.max(0, Math.min(scrolled / scrollDistance, 1));
+        if (shape1) {
+            const moveX = -zProgress * 400; 
+            const moveY = zProgress * 600;  
+            shape1.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${zProgress * 90}deg)`;
+        }
 
-    // Shape 1 (Blue): Step 1 (Right) se Step 2 (Left) ki taraf slide hoga
-    if (shape1) {
-        // Move Left (-X) and Down (Y)
-        const moveX = -progress * 400; // Left movement
-        const moveY = progress * 600;  // Down movement
-        shape1.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${progress * 90}deg)`;
-    }
-
-    // Shape 2 (Green): Step 2 (Left) se Step 3 (Right) ki taraf slide hoga
-    if (shape2) {
-        // Move Right (+X) and Down (Y)
-        const moveX = progress * 400; // Right movement
-        const moveY = progress * 600; // Down movement
-        shape2.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${-progress * 90}deg)`;
+        if (shape2) {
+            const moveX = zProgress * 400; 
+            const moveY = zProgress * 600; 
+            shape2.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${-zProgress * 90}deg)`;
+        }
     }
 });
+
+// Trigger scroll once on load
+window.dispatchEvent(new Event('scroll'));
