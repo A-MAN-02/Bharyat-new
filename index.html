@@ -20,24 +20,46 @@
         <nav class="navbar">
             <div class="logo">
     <a href="index.html" class="brand-logo">
-        <span class="logo-source">Source</span>
-        <div class="logo-q-wrapper">
-            <svg class="quantum-q-svg" viewBox="0 0 140 140" width="55" height="55">
-                <!-- Rotating Orbit 1 -->
-                <g class="orbit-group orbitl-1">
-                    <ellipse cx="70" cy="65" rx="60" ry="22" fill="none" stroke="#65a7ff" stroke-width="2.5" transform="rotate(-25 70 65)" />
-                    <circle cx="125" cy="50" r="4.5" fill="#65a7ff" />
-                </g>
-                <!-- Rotating Orbit 2 -->
-                <g class="orbit-group orbitl-2">
-                    <ellipse cx="70" cy="65" rx="60" ry="22" fill="none" stroke="#00D084" stroke-width="2.5" transform="rotate(35 70 65)" />
-                    <circle cx="125" cy="80" r="4.5" fill="#00D084" />
-                </g>
-                
-                <!-- The Letter Q (Circle + Magnifying Tail) -->
-                <circle cx="70" cy="60" r="32" fill="none" stroke="#00D084" stroke-width="8" class="q-circle" />
-                <line x1="90" y1="82" x2="115" y2="112" stroke="#00D084" stroke-width="8" stroke-linecap="round" class="q-tail" />
-            </svg>
+        <div class="logo-wrapper">
+            <!-- Top Row: Source aur Q ek sath ek hi line me -->
+            <div class="brand-main">
+                <span class="logo-source">Source</span>
+                <div class="logo-q-wrapper">
+                    <!-- 3D Rotating 3-Orbit Quantum-Q SVG -->
+                    <svg class="quantum-q-svg" viewBox="0 0 140 140" width="50" height="50">
+                        <defs>
+                            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feGaussianBlur stdDeviation="3" result="blur" />
+                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
+                        </defs>
+                        
+                        <!-- Orbit 1 -->
+                        <g class="orbit-group orbitl-1">
+                            <ellipse cx="70" cy="70" rx="52" ry="18" fill="none" stroke="#65a7ff" stroke-width="2" transform="rotate(-30 70 70)" />
+                            <circle cx="25" cy="45" r="3.5" fill="#65a7ff" />
+                        </g>
+                        
+                        <!-- Orbit 2 -->
+                        <g class="orbit-group orbitl-2">
+                            <ellipse cx="70" cy="70" rx="52" ry="18" fill="none" stroke="#00D084" stroke-width="2" transform="rotate(30 70 70)" />
+                            <circle cx="115" cy="95" r="3.5" fill="#00D084" />
+                        </g>
+
+                        <!-- Orbit 3 -->
+                        <g class="orbit-group orbitl-3">
+                            <ellipse cx="70" cy="70" rx="18" ry="52" fill="none" stroke="#4fe0d7" stroke-width="2" transform="rotate(15 70 70)" />
+                            <circle cx="70" cy="20" r="3.5" fill="#4fe0d7" />
+                        </g>
+                        
+                        <!-- The Letter Q -->
+                        <circle cx="70" cy="65" r="28" fill="none" stroke="#00D084" stroke-width="7" class="q-circle" filter="url(#glow)" />
+                        <line x1="88" y1="83" x2="112" y2="108" stroke="#00D084" stroke-width="7" stroke-linecap="round" class="q-tail" filter="url(#glow)" />
+                    </svg>
+                </div>
+            </div>
+            <!-- Bottom Row: Tagline inke niche -->
+            <span class="logo-tagline">NOT JUST AI. <span>QUANTUM AI.</span></span>
         </div>
     </a>
 </div>

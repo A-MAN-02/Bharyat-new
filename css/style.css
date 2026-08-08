@@ -33,21 +33,33 @@ button, input { font-family: inherit; }
 =================================== */
 header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: var(--bg-primary); box-shadow: 0 2px 20px rgba(0, 0, 0, .15); }
 nav { max-width: 1300px; height: var(--navbar-height); margin: auto; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
 
 .brand-logo {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.logo-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Source aur Q ke liye single row container */
+.brand-main {
     display: flex;
     align-items: center;
-    gap: 2px;
-    text-decoration: none;
+    gap: 4px; /* Source aur Q ke beech ka gap minimum rakha hai */
 }
 
 .logo-source {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 800;
     color: #ffffff;
-    letter-spacing: -0.8px;
+    letter-spacing: -0.5px;
+    line-height: 1;
 }
 
 .logo-q-wrapper {
@@ -57,39 +69,66 @@ nav { max-width: 1300px; height: var(--navbar-height); margin: auto; padding: 0 
     justify-content: center;
 }
 
+/* Tagline Source aur Q ke bilkul niche */
+.logo-tagline {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 8.5px;
+    font-weight: 600;
+    color: #4fe0d7;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+    margin-top: 1px;
+}
+
+.logo-tagline span {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* 3D Rotating Orbits Animation */
 .quantum-q-svg {
     overflow: visible;
+    transform: rotateX(15deg) rotateY(-15deg);
+    transform-style: preserve-3d;
 }
 
 .orbitl-1 {
-    transform-origin: 70px 65px;
-    animation: rotateOrbit1 7s linear infinite;
+    transform-origin: 70px 70px;
+    animation: rotateOrbitl1 9s linear infinite;
 }
 
 .orbitl-2 {
-    transform-origin: 70px 65px;
-    animation: rotateOrbit2 10s linear infinite reverse;
+    transform-origin: 70px 70px;
+    animation: rotateOrbitl2 12s linear infinite reverse;
 }
 
-@keyframes rotateOrbit1 {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+.orbitl-3 {
+    transform-origin: 70px 70px;
+    animation: rotateOrbitl3 15s linear infinite;
 }
 
-@keyframes rotateOrbit2 {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+@keyframes rotateOrbitl1 {
+    from { transform: rotate(0deg) rotateX(20deg); }
+    to { transform: rotate(360deg) rotateX(20deg); }
+}
+
+@keyframes rotateOrbitl2 {
+    from { transform: rotate(0deg) rotateY(-20deg); }
+    to { transform: rotate(360deg) rotateY(-20deg); }
+}
+
+@keyframes rotateOrbitl3 {
+    from { transform: rotate(0deg) rotateZ(45deg); }
+    to { transform: rotate(360deg) rotateZ(45deg); }
 }
 
 .q-circle, .q-tail {
-    filter: drop-shadow(0 0 10px rgba(0, 208, 132, 0.5));
     transition: var(--transition);
 }
 
 .brand-logo:hover .q-circle,
 .brand-logo:hover .q-tail {
     stroke: #00F5A0;
-    filter: drop-shadow(0 0 16px rgba(0, 245, 160, 0.8));
 }
 .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
 .nav-links a { position: relative; color: var(--text); font-size: 17px; font-weight: 500; transition: var(--transition); }
@@ -223,7 +262,7 @@ nav { max-width: 1300px; height: var(--navbar-height); margin: auto; padding: 0 
 .orbit-4 .planet-counter { animation: counter 55s linear infinite -10s; }
 .orbit-5 .planet-counter { animation: counter 65s linear infinite -45s; }
 .orbit-6 .planet-counter { animation: counter 75s linear infinite -20s; }
- 
+
 /* 🌟 PLANETS & HOVER */
 .planet-unsquish { position: absolute; transform: scaleY(2.85); }
 .planet { position: absolute; transform: translate(-50%, -50%); cursor: pointer; pointer-events: auto; }
