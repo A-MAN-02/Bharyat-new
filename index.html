@@ -19,10 +19,28 @@
     <header class="site-header">
         <nav class="navbar">
             <div class="logo">
-                <a href="index.html">
-                    <img src="./images/logo.png" alt="BharYat Logo">
-                </a>
-            </div>
+    <a href="index.html" class="brand-logo">
+        <span class="logo-source">Source</span>
+        <div class="logo-q-wrapper">
+            <svg class="quantum-q-svg" viewBox="0 0 140 140" width="55" height="55">
+                <!-- Rotating Orbit 1 -->
+                <g class="orbit-group orbitl-1">
+                    <ellipse cx="70" cy="65" rx="60" ry="22" fill="none" stroke="#65a7ff" stroke-width="2.5" transform="rotate(-25 70 65)" />
+                    <circle cx="125" cy="50" r="4.5" fill="#65a7ff" />
+                </g>
+                <!-- Rotating Orbit 2 -->
+                <g class="orbit-group orbitl-2">
+                    <ellipse cx="70" cy="65" rx="60" ry="22" fill="none" stroke="#00D084" stroke-width="2.5" transform="rotate(35 70 65)" />
+                    <circle cx="125" cy="80" r="4.5" fill="#00D084" />
+                </g>
+                
+                <!-- The Letter Q (Circle + Magnifying Tail) -->
+                <circle cx="70" cy="60" r="32" fill="none" stroke="#00D084" stroke-width="8" class="q-circle" />
+                <line x1="90" y1="82" x2="115" y2="112" stroke="#00D084" stroke-width="8" stroke-linecap="round" class="q-tail" />
+            </svg>
+        </div>
+    </a>
+</div>
             <div class="nav-menu">
                 <ul class="nav-links">
                     <li><a href="#parts-finder">Parts Finder</a></li>

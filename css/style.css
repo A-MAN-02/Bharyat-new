@@ -33,10 +33,64 @@ button, input { font-family: inherit; }
 =================================== */
 header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: var(--bg-primary); box-shadow: 0 2px 20px rgba(0, 0, 0, .15); }
 nav { max-width: 1300px; height: var(--navbar-height); margin: auto; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
-.logo { flex-shrink: 0; }
-.logo img { height: 40px; transition: var(--transition); }
-.logo img:hover { transform: scale(1.05); }
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&display=swap');
 
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    text-decoration: none;
+}
+
+.logo-source {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.8px;
+}
+
+.logo-q-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantum-q-svg {
+    overflow: visible;
+}
+
+.orbitl-1 {
+    transform-origin: 70px 65px;
+    animation: rotateOrbit1 7s linear infinite;
+}
+
+.orbitl-2 {
+    transform-origin: 70px 65px;
+    animation: rotateOrbit2 10s linear infinite reverse;
+}
+
+@keyframes rotateOrbit1 {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes rotateOrbit2 {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.q-circle, .q-tail {
+    filter: drop-shadow(0 0 10px rgba(0, 208, 132, 0.5));
+    transition: var(--transition);
+}
+
+.brand-logo:hover .q-circle,
+.brand-logo:hover .q-tail {
+    stroke: #00F5A0;
+    filter: drop-shadow(0 0 16px rgba(0, 245, 160, 0.8));
+}
 .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
 .nav-links a { position: relative; color: var(--text); font-size: 17px; font-weight: 500; transition: var(--transition); }
 .nav-links a:hover { color: var(--primary); }
@@ -144,7 +198,7 @@ nav { max-width: 1300px; height: var(--navbar-height); margin: auto; padding: 0 
 .core-image { width: 100%; height: 100%; object-fit: contain; z-index: 2; filter: drop-shadow(0 0 40px rgba(143, 108, 255, 0.5)); }
 
 /* 🌟 FLOATING PIECES */
-.piece { position: absolute; transition: transform 0.1s ease-out; filter: drop-shadow(0 0 20px rgba(0, 180, 255, .2)); }
+.piece { position: absolute; transition: transform 0.1s ease-out;  filter: drop-shadow(0 0 20px rgba(0, 180, 255, .2)); }
 .piece1 { width: 90px; left: 20%; top: 20%; }        
 .piece2 { width: 100px; right: 20%; top: 70%; }     
 .piece3 { width: 95px; left: 44%; top: -32%; }      
@@ -169,7 +223,7 @@ nav { max-width: 1300px; height: var(--navbar-height); margin: auto; padding: 0 
 .orbit-4 .planet-counter { animation: counter 55s linear infinite -10s; }
 .orbit-5 .planet-counter { animation: counter 65s linear infinite -45s; }
 .orbit-6 .planet-counter { animation: counter 75s linear infinite -20s; }
-
+ 
 /* 🌟 PLANETS & HOVER */
 .planet-unsquish { position: absolute; transform: scaleY(2.85); }
 .planet { position: absolute; transform: translate(-50%, -50%); cursor: pointer; pointer-events: auto; }
@@ -216,7 +270,7 @@ nav { max-width: 1300px; height: var(--navbar-height); margin: auto; padding: 0 
 @keyframes cardFloat { 0% { transform: translateY(0); } 100% { transform: translateY(-35px); } }
 
 /* JS CONNECTION SHAPES */
-.connection-shape { position: absolute; border-radius: 40px; opacity: 0.6; filter: blur(14px); z-index: 0; }
+.connection-shape { position: absolute; border-radius: 40px; opacity: 0.6; filter: blur(14px); z-index: 0;will-change: transform; }
 .shape-1-to-2 { width: 240px; height: 240px; background: linear-gradient(135deg, rgba(101, 167, 255, 0.6), rgba(158, 125, 255, 0.1)); top: 250px; right: 5%; }
 .shape-2-to-3 { width: 220px; height: 220px; background: linear-gradient(135deg, rgba(0, 208, 132, 0.6), rgba(79, 224, 215, 0.1)); top: 800px; left: 5%; }
 
