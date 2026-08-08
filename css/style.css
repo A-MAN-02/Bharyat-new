@@ -50,7 +50,7 @@ nav { max-width: 1300px; height: var(--navbar-height); margin: auto; padding: 0 
 .brand-main {
     display: flex;
     align-items: center;
-    gap: 4px; /* Source aur Q ke beech ka gap minimum rakha hai */
+    gap: 0px; /* Source aur Q ke beech ka gap minimum rakha hai */
 }
 
 .logo-source {
@@ -277,6 +277,259 @@ nav { max-width: 1300px; height: var(--navbar-height); margin: auto; padding: 0 
 
 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 @keyframes counter { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
+
+/* ====================================================
+   CUSTOMER INTELLIGENCE CONSULTING SECTION
+==================================================== */
+.consulting-section {
+    background: var(--bg-primary);
+    padding: 80px 0 100px 0;
+    position: relative;
+    color: #fff;
+    text-align: center;
+}
+
+.consulting-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.consulting-header h2 {
+    font-size: clamp(32px, 4vw, 46px);
+    font-weight: 800;
+    margin-bottom: 16px;
+    background: linear-gradient(90deg, #ffffff, #aeb8c5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.consulting-subtags {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 60px;
+    color: var(--text-secondary);
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.consulting-subtags span {
+    display: inline-flex;
+    align-items: center;
+}
+
+.consulting-subtags span:not(:last-child):after {
+    content: "•";
+    margin-left: 16px;
+    color: var(--primary);
+}
+
+/* Nodes Grid / Flow */
+.consulting-nodes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+}
+
+.consulting-node {
+    flex: 1;
+    min-width: 180px;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(5, 8, 22, 0.95));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transition: var(--transition);
+}
+
+.consulting-node:hover {
+    transform: translateY(-8px);
+    border-color: rgba(0, 208, 132, 0.4);
+    box-shadow: 0 25px 50px rgba(0, 208, 132, 0.15);
+}
+
+.node-icon-wrap {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 0 0 20px rgba(0, 208, 132, 0.2);
+}
+
+.consulting-node h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.4;
+}
+
+.consulting-action {
+    margin-top: 20px;
+}
+
+.consulting-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 36px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 14px;
+    transition: var(--transition);
+    box-shadow: 0 10px 30px rgba(0, 208, 132, 0.3);
+}
+
+.consulting-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0, 208, 132, 0.4);
+}
+
+/* Responsive for Nodes */
+@media (max-width: 992px) {
+    .consulting-nodes {
+        justify-content: center;
+    }
+    .consulting-node {
+        min-width: 45%;
+    }
+}
+@media (max-width: 576px) {
+    .consulting-node {
+        min-width: 100%;
+    }
+    .consulting-subtags span:not(:last-child):after {
+        display: none;
+    }
+    .consulting-subtags {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+
+/* ====================================================
+   CONSULTING MODAL FORM STYLING
+==================================================== */
+.consulting-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 8, 22, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+
+.consulting-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.consulting-modal {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(5, 8, 22, 0.99));
+    border: 1px solid rgba(0, 208, 132, 0.3);
+    border-radius: 24px;
+    padding: 40px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+    color: #fff;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.consulting-modal-overlay.active .consulting-modal {
+    transform: translateY(0);
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.modal-close:hover {
+    color: var(--primary);
+}
+
+.consulting-modal h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+    color: #fff;
+}
+
+.consulting-modal p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.consulting-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: left;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #dce4ef;
+}
+
+.form-group input, 
+.form-group textarea {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+    font-family: inherit;
+    transition: var(--transition);
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 10px rgba(0, 208, 132, 0.2);
+}
 
 /* ====================================================
    LIVE RECOMMENDATION TICKER SECTION

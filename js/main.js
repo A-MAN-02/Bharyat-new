@@ -115,3 +115,29 @@ if (!tickingViewport) {
 
 // Trigger scroll once on load
 window.dispatchEvent(new Event('scroll'));
+
+
+
+/* =====================================
+   CONSULTING MODAL FORM HANDLER
+===================================== */
+const consultingBtn = document.getElementById("consultingBtn");
+const consultingModal = document.getElementById("consultingModal");
+const closeModal = document.getElementById("closeModal");
+
+if (consultingBtn && consultingModal && closeModal) {
+    consultingBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        consultingModal.classList.add("active");
+    });
+
+    closeModal.addEventListener("click", () => {
+        consultingModal.classList.remove("active");
+    });
+
+    consultingModal.addEventListener("click", (e) => {
+        if (e.target === consultingModal) {
+            consultingModal.classList.remove("active");
+        }
+    });
+}

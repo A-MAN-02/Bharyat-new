@@ -53,8 +53,8 @@
                         </g>
                         
                         <!-- The Letter Q -->
-                        <circle cx="70" cy="65" r="28" fill="none" stroke="#00D084" stroke-width="7" class="q-circle" filter="url(#glow)" />
-                        <line x1="88" y1="83" x2="112" y2="108" stroke="#00D084" stroke-width="7" stroke-linecap="round" class="q-tail" filter="url(#glow)" />
+                        <circle cx="70" cy="65" r="28" fill="none" stroke="#00D084" stroke-width="13" class="q-circle" filter="url(#glow)" />
+                        <line x1="88" y1="83" x2="112" y2="108" stroke="#00D084" stroke-width="15" stroke-linecap="round" class="q-tail" filter="url(#glow)" />
                     </svg>
                 </div>
             </div>
@@ -239,7 +239,7 @@
                     <!-- Step 01: QRadar -->
                     <div class="step-row">
                         <div class="step-text">
-                            <span class="step-number">01</span><span>Find Faster</span>
+                            <span class="step-number">01</span><span>Search Faster.</span>
                             <h3>QRadar</h3>
                             <p>Search millions of components instantly with our AI-powered engine. Upload your BOM and let the system do the heavy lifting.</p>
                             <ul class="step-features">
@@ -268,7 +268,7 @@
                     <!-- Step 02: QLens -->
                     <div class="step-row reverse">
                         <div class="step-text">
-                            <span class="step-number">02</span><span>Decide Smarter</span>
+                            <span class="step-number">02</span><span>Analyze Deeper.</span>
                             <h3>QLens</h3>
                             <p>Make data-driven decisions with predictive pricing analytics, lifecycle risk assessments, and historical trend data.</p>
                             <ul class="step-features">
@@ -297,7 +297,7 @@
                     <!-- Step 03: QProcure -->
                     <div class="step-row">
                         <div class="step-text">
-                            <span class="step-number">03</span><span>Buy Better</span>
+                            <span class="step-number">03</span><span>Procure Smarter.</span>
                             <h3>QProcure</h3>
                             <p>Connect with vetted global suppliers, optimize your procurement costs, and track your shipments seamlessly.</p>
                             <ul class="step-features">
@@ -326,6 +326,81 @@
                 </div>
 
             </div>
+        </section>
+
+
+
+        <!-- =========================
+             CUSTOMER INTELLIGENCE CONSULTING
+        ========================== -->
+        <section class="consulting-section" id="consulting">
+            <div class="consulting-container">
+                <div class="consulting-header">
+                    <h2>Customer Intelligence Consulting</h2>
+                    <div class="consulting-subtags">
+                        <span>R&D Collaboration</span>
+                        <span>Key BOM Forecasting</span>
+                        <span>Scenario & Inventory Planning</span>
+                        <span>Supplier Concentration Modeling</span>
+                        <span>News & Event Impact Modeling</span>
+                    </div>
+                </div>
+
+                <div class="consulting-nodes">
+                    <div class="consulting-node">
+                        <div class="node-icon-wrap" style="color: #9e7dff; border-color: rgba(158,125,255,0.3);">👥</div>
+                        <h4>R&D Collaboration</h4>
+                    </div>
+                    <div class="consulting-node">
+                        <div class="node-icon-wrap" style="color: #65a7ff; border-color: rgba(101,167,255,0.3);">📈</div>
+                        <h4>Key BOM Forecasting</h4>
+                    </div>
+                    <div class="consulting-node">
+                        <div class="node-icon-wrap" style="color: #4fe0d7; border-color: rgba(79,224,215,0.3);">🔀</div>
+                        <h4>Scenario & Inventory Planning</h4>
+                    </div>
+                    <div class="consulting-node">
+                        <div class="node-icon-wrap" style="color: #00D084; border-color: rgba(0,208,132,0.3);">🌐</div>
+                        <h4>Supplier Concentration Modeling</h4>
+                    </div>
+                    <div class="consulting-node">
+                        <div class="node-icon-wrap" style="color: #9e7dff; border-color: rgba(158,125,255,0.3);">📰</div>
+                        <h4>News & Event Impact Modeling</h4>
+                    </div>
+                </div>
+
+                <!-- Button update karein -->
+<div class="consulting-action">
+    <a href="#" id="consultingBtn" class="consulting-btn">Connect with our team</a>
+</div>
+
+<!-- Requirement Form Modal (Body ke andhar sabse niche add karein) -->
+<div class="consulting-modal-overlay" id="consultingModal">
+    <div class="consulting-modal">
+        <button class="modal-close" id="closeModal">&times;</button>
+        <h3>Intelligence Consulting</h3>
+        <p>Fill out your requirements below and our team will get back to you shortly.</p>
+        
+        <form class="consulting-form" id="requirementForm" onsubmit="event.preventDefault(); alert('Requirement submitted successfully!'); consultingModal.classList.remove('active');">
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+                <label>Work Email</label>
+                <input type="email" placeholder="name@company.com" required>
+            </div>
+            <div class="form-group">
+                <label>Requirement Details</label>
+                <textarea rows="4" placeholder="Describe your requirement (e.g., BOM Forecasting, R&D Collaboration...)" required></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%; border: none; cursor: pointer; padding: 14px; font-weight: 600;">Submit Requirement</button>
+        </form>
+    </div>
+</div>
+            </div>
+
+            
         </section>
 
         <!-- =========================
