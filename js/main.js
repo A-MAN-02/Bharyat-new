@@ -116,6 +116,48 @@ if (!tickingViewport) {
 // Trigger scroll once on load
 window.dispatchEvent(new Event('scroll'));
 
+document.addEventListener("DOMContentLoaded", () => {
+    const mockupCard = document.getElementById('mockupCard');
+    const searchIconBtn = document.getElementById('searchIconBtn');
+    const searchBar = document.getElementById('searchBar');
+    const closeSearchBtn = document.getElementById('closeSearchBtn');
+    const inlineSearchInput = document.getElementById('inlineSearchInput');
+
+    if (searchIconBtn && mockupCard) {
+        // Open search bar on clicking green icon
+        searchIconBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mockupCard.classList.add('search-active');
+            inlineSearchInput.focus();
+        });
+
+        // Close on clicking 'X' button
+        closeSearchBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            mockupCard.classList.remove('search-active');
+            inlineSearchInput.value = '';
+        });
+
+        // Close when clicking anywhere else on the screen
+        document.addEventListener('click', (e) => {
+            if (mockupCard.classList.contains('search-active')) {
+                if (!searchBar.contains(e.target) && !searchIconBtn.contains(e.target)) {
+                    mockupCard.classList.remove('search-active');
+                    inlineSearchInput.value = '';
+                }
+            }
+        });
+    }
+});
+
+// Handle search and redirect to second page
+function handleInlineSearch(event) {
+    event.preventDefault();
+    const query = document.getElementById('inlineSearchInput').value.trim();
+    if (query) {
+        window.location.href = `search-results.html?q=${encodeURIComponent(query)}`;
+    }
+}   
 
 
 /* =====================================
@@ -141,3 +183,5 @@ if (consultingBtn && consultingModal && closeModal) {
         }
     });
 }
+
+

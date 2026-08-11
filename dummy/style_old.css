@@ -383,7 +383,7 @@ nav {
     border: 1px solid rgba(0, 208, 132, .25);
     color: #B9FFD8;
     padding: 10px 22px;
-    font-size: 25px;
+    font-size: 14px;
     font-weight: 600;
     backdrop-filter: blur(15px);
 }
@@ -392,7 +392,7 @@ nav {
     animation-delay: .4s;
     margin: 18px 0 12px;
     line-height: .95;
-    font-size: clamp(2.8rem, 5vw, 4.8rem);
+    font-size: clamp(2.8rem, 5vw, 4.3rem);
     font-weight: 800;
     letter-spacing: -3px;
     color: #ffffff;
@@ -406,15 +406,61 @@ nav {
     animation-delay: .6s;
     max-width: 560px;
     margin-bottom: 20px;
-    font-size: 25px;
+    font-size: 17px;
     line-height: 1.5;
     color: rgba(255, 255, 255, .72);
 }
 
+.hero-search {
+    animation-delay: .8s;
+    display: flex;
+    align-items: center;
+    margin-top: 18px;
+    padding: 6px;
+    border-radius: 18px;
+    background: rgba(17, 24, 39, .75);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, .08);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .25);
+}
 
+.hero-search input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 15px 20px;
+    background: transparent;
+    color: white;
+    font-size: 16px;
+}
 
+.hero-search input::placeholder {
+    color: rgba(255, 255, 255, .45);
+}
 
+.search-btn {
+    border: none;
+    padding: 15px 24px;
+    border-radius: 14px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
 
+.search-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.hero-buttons {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: 18px;
+}
 
 .btn-primary,
 .btn-secondary {
@@ -765,39 +811,6 @@ nav {
     height: 650px;
     animation: spin 45s linear infinite -30s;
 }
-
-/* 🌟 NAYE 3 ORBITS (4, 5, 6) */
-.orbit-4 {
-    width: 800px;
-    height: 800px;
-    animation: spin 55s linear infinite -40s;
-}
-
-.orbit-5 {
-    width: 950px;
-    height: 950px;
-    animation: spin 65s linear infinite -50s;
-}
-
-.orbit-6 {
-    width: 1100px;
-    height: 1100px;
-    animation: spin 75s linear infinite -60s;
-}
-
-/* Naye Orbits ke Counter Animations */
-.orbit-4 .planet-counter {
-    animation: counter 55s linear infinite -40s;
-}
-
-.orbit-5 .planet-counter {
-    animation: counter 65s linear infinite -50s;
-}
-
-.orbit-6 .planet-counter {
-    animation: counter 75s linear infinite -60s;
-}
-
 
 .planet-anchor {
     position: absolute;
@@ -1796,32 +1809,7 @@ nav {
     background: linear-gradient(135deg, #064e3b, #022c22);
 }
 
-/* ====================================================
-   FIXED SEARCH BAR EXPAND & ICON BLUR STYLING
-==================================================== */
-.dashboard-mockup.search-active img.card-bg {
-    filter: blur(8px) brightness(0.4);
-    transform: scale(1.05);
-}
 
-.dashboard-mockup.search-active .blur-target-group {
-    filter: blur(8px);
-    pointer-events: none;
-}
-
-.dashboard-mockup.search-active .expandable-search-bar {
-    width: calc(100% - 40px) !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-}
-
-.expandable-search-bar input::placeholder {
-    color: #64748B;
-}
-
-.search-close-btn:hover {
-    color: #fff !important;
-}
 
 /* .dashboard-mockup img {
     width: 100%;
@@ -1906,9 +1894,26 @@ nav {
         font-size: 18px;
     }
 
+    .hero-search {
+        width: 100%;
+        flex-direction: column;
+        gap: 12px;
+        padding: 14px;
+    }
 
+    .hero-search input {
+        width: 100%;
+        padding: 16px;
+    }
 
-  
+    .search-btn {
+        width: 100%;
+    }
+
+    .hero-buttons {
+        width: 100%;
+        flex-direction: column;
+    }
 
     .btn-primary,
     .btn-secondary {

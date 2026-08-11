@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BharYat - Quantum AI</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="style_old.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -110,9 +110,16 @@
                         intelligence, pricing insights and lifecycle analysis—all in one procurement platform.
                     </p>
 
+                    <form class="hero-search" id="hero-search-form">
+                        <input id="part-search" name="query" type="search"
+                            placeholder="Search MPN, Part Number, Manufacturer or Upload BOM..." autocomplete="off">
+                        <button class="search-btn" id="search-btn" type="submit">Search</button>
+                    </form>
 
-
-
+                    <div class="hero-buttons">
+                        <a href="/search" class="btn btn-primary">Start Searching</a>
+                        <a href="/contact" class="btn btn-secondary">Book Demo</a>
+                    </div>
                 </article>
 
                 <div class="hero-slider">
@@ -168,105 +175,54 @@
                 </div>
 
                 <div class="angle-wrapper">
-                   <div class="system-wrapper">
+                    <div class="system-wrapper">
 
-    <!-- 1. Price Competitiveness -->
-    <div class="orbit orbit-1">
-        <div class="planet-anchor">
-            <div class="planet-counter">
-                <div class="planet-unsquish">
-                    <div class="planet">
-                        <div class="planet-content">
-                            <div class="planet-icon">💲</div>
-                            <div class="planet-text">Price Competitiveness</div>
+                        <div class="orbit orbit-1">
+                            <div class="planet-anchor">
+                                <div class="planet-counter">
+                                    <div class="planet-unsquish">
+                                        <div class="planet">
+                                            <div class="planet-content">
+                                                <div class="planet-icon">🔍</div>
+                                                <div class="planet-text">QRadar Intelligence</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- 2. Supply Availability -->
-    <div class="orbit orbit-2">
-        <div class="planet-anchor">
-            <div class="planet-counter">
-                <div class="planet-unsquish">
-                    <div class="planet">
-                        <div class="planet-content">
-                            <div class="planet-icon">📦</div>
-                            <div class="planet-text">Supply Availability</div>
+                        <div class="orbit orbit-2">
+                            <div class="planet-anchor">
+                                <div class="planet-counter">
+                                    <div class="planet-unsquish">
+                                        <div class="planet">
+                                            <div class="planet-content">
+                                                <div class="planet-icon">📊</div>
+                                                <div class="planet-text">QLens Analytics</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- 3. Lead Time Outlook -->
-    <div class="orbit orbit-3">
-        <div class="planet-anchor">
-            <div class="planet-counter">
-                <div class="planet-unsquish">
-                    <div class="planet">
-                        <div class="planet-content">
-                            <div class="planet-icon">⏱️</div>
-                            <div class="planet-text">Lead Time Outlook</div>
+                        <div class="orbit orbit-3">
+                            <div class="planet-anchor">
+                                <div class="planet-counter">
+                                    <div class="planet-unsquish">
+                                        <div class="planet">
+                                            <div class="planet-content">
+                                                <div class="planet-icon">🛒</div>
+                                                <div class="planet-text">QProcure Execution</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- 4. Supplier Confidence -->
-    <div class="orbit orbit-4">
-        <div class="planet-anchor">
-            <div class="planet-counter">
-                <div class="planet-unsquish">
-                    <div class="planet">
-                        <div class="planet-content">
-                            <div class="planet-icon">🛡️</div>
-                            <div class="planet-text">Supplier Confidence</div>
-                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 5. Lifecycle Health -->
-    <div class="orbit orbit-5">
-        <div class="planet-anchor">
-            <div class="planet-counter">
-                <div class="planet-unsquish">
-                    <div class="planet">
-                        <div class="planet-content">
-                            <div class="planet-icon">📈</div>
-                            <div class="planet-text">Lifecycle Health</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 6. Counterfeit Risk -->
-    <div class="orbit orbit-6">
-        <div class="planet-anchor">
-            <div class="planet-counter">
-                <div class="planet-unsquish">
-                    <div class="planet">
-                        <div class="planet-content">
-                            <div class="planet-icon">⚠️</div>
-                            <div class="planet-text">Counterfeit Risk</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
                 </div>
             </div>
         </section>
@@ -315,7 +271,7 @@
                                         </clipPath>
                                     </defs>
 
-
+                                   
 
                                     <!-- Pulsing Rings -->
                                     <circle class="ring-inline" cx="16" cy="16" r="8.4" stroke="url(#gradTealInline)"
@@ -345,7 +301,7 @@
                                 <span> radar</span>
                             </h3>
 
-
+                            
 
                             <p>Search millions of components instantly with our AI-powered engine. Upload your BOM and
                                 let the system do the heavy lifting.</p>
@@ -356,46 +312,19 @@
                             </ul>
                         </div>
                         <div class="step-visual">
-                            <!-- Dashboard Mockup Card with Search Expand & Icon Blur Support -->
-                            <div class="dashboard-mockup" id="mockupCard" style="position: relative; overflow: hidden;">
-                                <!-- Background Image -->
-                                <img class="card-bg"
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrwW61DFlYi2pDaXzEnmtFLI_JWGjNCO8o7aMrxUFM6A&s=10"
-                                    alt="Search Dashboard"
-                                    style="width: 100%; height: 100%; object-fit: cover; transition: filter 400ms cubic-bezier(.4, 0, .2, 1), transform 400ms cubic-bezier(.4, 0, .2, 1);">
-
-                                <!-- Blur Target Group (Image ke sath Icon aur Mini-Card dono blur honge) -->
-                                <div class="blur-target-group"
-                                    style="position: absolute; inset: 0; transition: filter 400ms cubic-bezier(.4, 0, .2, 1);">
-                                    <!-- Green Search Icon Badge -->
-                                    <div class="floating-badge badge-qradar" id="searchIconBtn" title="Click to search"
-                                        style="cursor: pointer;">
-                                        <span style="font-size: 24px; color: #fff;">🔍</span>
-                                    </div>
-
-                                    <!-- Floating Mini Card (Component Match) -->
-                                    <div class="floating-mini-card pos-bottom-right">
-                                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=100&h=100"
-                                            alt="Microchip">
-                                        <div>
-                                            <strong>Component Match</strong>
-                                            <span style="color: #00D084;">In-stock: 15,000 units</span>
-                                        </div>
-                                    </div>
+                            <div class="dashboard-mockup" style="position: relative;">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrwW61DFlYi2pDaXzEnmtFLI_JWGjNCO8o7aMrxUFM6A&s=10"
+                                    alt="Search Dashboard " style="width: 100%; height: 100%; object-fit: cover;">
+                                <div class="floating-badge badge-qradar">
+                                    <span style="font-size: 24px; color: #fff;">🔍</span>
                                 </div>
-
-                                <!-- Stretchable Search Bar -->
-                                <div class="expandable-search-bar" id="searchBar"
-                                    style="position: absolute; top: 20px; left: 20px; width: 65px; height: 65px; background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(0, 208, 132, 0.5); border-radius: 18px; display: flex; align-items: center; padding: 0 15px; z-index: 15; opacity: 0; pointer-events: none; transition: all 400ms cubic-bezier(.4, 0, .2, 1); box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
-                                    <form id="inlineSearchForm" onsubmit="handleInlineSearch(event)"
-                                        style="width: 100%; display: flex; align-items: center; gap: 10px;">
-                                        <span style="font-size: 20px;">🔍</span>
-                                        <input type="text" id="inlineSearchInput" placeholder="Search components..."
-                                            autocomplete="off"
-                                            style="width: 100%; background: transparent; border: none; color: #fff; font-size: 16px; outline: none;">
-                                        <button type="button" class="search-close-btn" id="closeSearchBtn"
-                                            style="background: none; border: none; color: #64748B; font-size: 20px; cursor: pointer;">&times;</button>
-                                    </form>
+                                <div class="floating-mini-card pos-bottom-right">
+                                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=100&h=100"
+                                        alt="Microchip">
+                                    <div>
+                                        <strong>Component Match</strong>
+                                        <span style="color: #00D084;">In-stock: 15,000 units</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -406,44 +335,30 @@
                         <div class="step-text">
                             <span class="step-number">02</span><span>Analyze Deeper.</span>
                             <!-- Animated QLens Header -->
-                            <br>
-                            <h3
-                                style="display: inline-flex; align-items: flex-end; font-family: sans-serif; font-weight: 700; font-size: 38px; color: #EAEEF4; margin: 0 0 20px 0;">
-                                <svg width="38" height="45" viewBox="0 0 34 40"
-                                    style="margin-bottom:-2px; overflow:visible;" filter="url(#glowCyanInline)">
-                                    <defs>
-                                        <linearGradient id="gradCyanInline" x1="0" y1="0" x2="34" y2="40"
-                                            gradientUnits="userSpaceOnUse">
-                                            <stop offset="0%" stop-color="#8FE0F7" />
-                                            <stop offset="100%" stop-color="#2E9DC2" />
-                                        </linearGradient>
-                                        <filter id="glowCyanInline" x="-60%" y="-60%" width="220%" height="220%">
-                                            <feGaussianBlur stdDeviation="1.4" result="b" />
-                                            <feMerge>
-                                                <feMergeNode in="b" />
-                                                <feMergeNode in="SourceGraphic" />
-                                            </feMerge>
-                                        </filter>
-                                        <clipPath id="clipLensInline">
-                                            <circle cx="15" cy="15" r="12.1" />
-                                        </clipPath>
-                                    </defs>
+                             <br>
+                            <h3 style="display: inline-flex; align-items: flex-end; font-family: sans-serif; font-weight: 700; font-size: 38px; color: #EAEEF4; margin: 0 0 20px 0;">
+                              <svg width="38" height="45" viewBox="0 0 34 40" style="margin-bottom:-2px; overflow:visible;" filter="url(#glowCyanInline)">
+                                <defs>
+                                  <linearGradient id="gradCyanInline" x1="0" y1="0" x2="34" y2="40" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#8FE0F7"/><stop offset="100%" stop-color="#2E9DC2"/>
+                                  </linearGradient>
+                                  <filter id="glowCyanInline" x="-60%" y="-60%" width="220%" height="220%">
+                                    <feGaussianBlur stdDeviation="1.4" result="b"/>
+                                    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                                  </filter>
+                                  <clipPath id="clipLensInline"><circle cx="15" cy="15" r="12.1"/></clipPath>
+                                </defs>
 
+                               
 
-
-                                    <circle cx="15" cy="15" r="12.1" stroke="url(#gradCyanInline)" stroke-width="3.3"
-                                        fill="none" />
-                                    <circle class="ring-pulse-lens-inline" cx="15" cy="15" r="7.3"
-                                        stroke="url(#gradCyanInline)" stroke-width="1.95" fill="none" opacity="0.6" />
-                                    <circle cx="15" cy="15" r="3.4" stroke="url(#gradCyanInline)" stroke-width="1.8"
-                                        fill="none" opacity="0.9" />
-                                    <g clip-path="url(#clipLensInline)">
-                                        <rect class="glint-lens-inline" x="-4" y="-4" width="8" height="46"
-                                            fill="#FFFFFF" opacity="0.5" transform="rotate(20 15 15)" />
-                                    </g>
-                                    <line class="tail-line-lens-inline" x1="23.5" y1="23.5" x2="31.5" y2="35"
-                                        stroke="url(#gradCyanInline)" stroke-width="4.2" stroke-linecap="round" />
-                                </svg>lens
+                                <circle cx="15" cy="15" r="12.1" stroke="url(#gradCyanInline)" stroke-width="3.3" fill="none"/>
+                                <circle class="ring-pulse-lens-inline" cx="15" cy="15" r="7.3" stroke="url(#gradCyanInline)" stroke-width="1.95" fill="none" opacity="0.6"/>
+                                <circle cx="15" cy="15" r="3.4" stroke="url(#gradCyanInline)" stroke-width="1.8" fill="none" opacity="0.9"/>
+                                <g clip-path="url(#clipLensInline)">
+                                  <rect class="glint-lens-inline" x="-4" y="-4" width="8" height="46" fill="#FFFFFF" opacity="0.5" transform="rotate(20 15 15)"/>
+                                </g>
+                                <line class="tail-line-lens-inline" x1="23.5" y1="23.5" x2="31.5" y2="35" stroke="url(#gradCyanInline)" stroke-width="4.2" stroke-linecap="round"/>
+                              </svg>lens
                             </h3>
                             <p>Make data-driven decisions with predictive pricing analytics, lifecycle risk assessments,
                                 and historical trend data.</p>
@@ -478,37 +393,25 @@
                         <div class="step-text">
                             <span class="step-number">03</span><span>Procure Smarter.</span>
                             <!-- Animated QProcure Header -->
-                            <h3
-                                style="display: flex; align-items: flex-end; font-family: sans-serif; font-weight: 700; font-size: 38px; color: #EAEEF4; margin: 0 0 20px 0;">
-                                <svg width="38" height="45" viewBox="0 0 34 40"
-                                    style="margin-bottom:-2px; overflow:visible;" filter="url(#glowPurpleInline)">
-                                    <defs>
-                                        <linearGradient id="gradPurpleInline" x1="0" y1="0" x2="34" y2="40"
-                                            gradientUnits="userSpaceOnUse">
-                                            <stop offset="0%" stop-color="#C3B4FF" />
-                                            <stop offset="100%" stop-color="#7C61E0" />
-                                        </linearGradient>
-                                        <filter id="glowPurpleInline" x="-60%" y="-60%" width="220%" height="220%">
-                                            <feGaussianBlur stdDeviation="1.4" result="b" />
-                                            <feMerge>
-                                                <feMergeNode in="b" />
-                                                <feMergeNode in="SourceGraphic" />
-                                            </feMerge>
-                                        </filter>
-                                    </defs>
+                            <h3 style="display: flex; align-items: flex-end; font-family: sans-serif; font-weight: 700; font-size: 38px; color: #EAEEF4; margin: 0 0 20px 0;">
+                              <svg width="38" height="45" viewBox="0 0 34 40" style="margin-bottom:-2px; overflow:visible;" filter="url(#glowPurpleInline)">
+                                <defs>
+                                  <linearGradient id="gradPurpleInline" x1="0" y1="0" x2="34" y2="40" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#C3B4FF"/><stop offset="100%" stop-color="#7C61E0"/>
+                                  </linearGradient>
+                                  <filter id="glowPurpleInline" x="-60%" y="-60%" width="220%" height="220%">
+                                    <feGaussianBlur stdDeviation="1.4" result="b"/>
+                                    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                                  </filter>
+                                </defs>
 
+                                
 
-
-                                    <circle cx="16" cy="16" r="13.4" stroke="url(#gradPurpleInline)" stroke-width="3.3"
-                                        fill="none" opacity="0.9" />
-                                    <circle class="ring-pulse-procure" cx="16" cy="16" r="13.4"
-                                        stroke="url(#gradPurpleInline)" stroke-width="2.4" fill="none" />
-                                    <path class="check-draw-procure" d="M9.5 16 L14.5 21.5 L23 10.5"
-                                        stroke="url(#gradPurpleInline)" stroke-width="3.9" stroke-linecap="round"
-                                        stroke-linejoin="round" fill="none" />
-                                    <line class="tail-line-procure" x1="24" y1="24" x2="31" y2="35"
-                                        stroke="url(#gradPurpleInline)" stroke-width="3.9" stroke-linecap="round" />
-                                </svg>procure
+                                <circle cx="16" cy="16" r="13.4" stroke="url(#gradPurpleInline)" stroke-width="3.3" fill="none" opacity="0.9"/>
+                                <circle class="ring-pulse-procure" cx="16" cy="16" r="13.4" stroke="url(#gradPurpleInline)" stroke-width="2.4" fill="none"/>
+                                <path class="check-draw-procure" d="M9.5 16 L14.5 21.5 L23 10.5" stroke="url(#gradPurpleInline)" stroke-width="3.9" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                <line class="tail-line-procure" x1="24" y1="24" x2="31" y2="35" stroke="url(#gradPurpleInline)" stroke-width="3.9" stroke-linecap="round"/>
+                              </svg>procure
                             </h3>
                             <p>Connect with vetted global suppliers, optimize your procurement costs, and track your
                                 shipments seamlessly.</p>
@@ -721,7 +624,7 @@
         </div>
     </footer>
 
-    <script src="./js/main.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 
 </html>
