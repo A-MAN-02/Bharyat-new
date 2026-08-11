@@ -19,57 +19,62 @@
     <header class="site-header">
         <nav class="navbar">
             <div class="logo">
-    <a href="index.html" class="brand-logo">
-        <div class="logo-wrapper">
-            <!-- Top Row: Source aur Q ek sath ek hi line me -->
-            <div class="brand-main">
-                <span class="logo-source">Source</span>
-                <div class="logo-q-wrapper">
-                    <!-- 3D Rotating 3-Orbit Quantum-Q SVG -->
-                    <svg class="quantum-q-svg" viewBox="0 0 140 140" width="50" height="50">
-                        <defs>
-                            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                                <feGaussianBlur stdDeviation="3" result="blur" />
-                                <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                            </filter>
-                        </defs>
-                        
-                        <!-- Orbit 1 -->
-                        <g class="orbit-group orbitl-1">
-                            <ellipse cx="70" cy="70" rx="52" ry="18" fill="none" stroke="#65a7ff" stroke-width="2" transform="rotate(-30 70 70)" />
-                            <circle cx="25" cy="45" r="3.5" fill="#65a7ff" />
-                        </g>
-                        
-                        <!-- Orbit 2 -->
-                        <g class="orbit-group orbitl-2">
-                            <ellipse cx="70" cy="70" rx="52" ry="18" fill="none" stroke="#00D084" stroke-width="2" transform="rotate(30 70 70)" />
-                            <circle cx="115" cy="95" r="3.5" fill="#00D084" />
-                        </g>
+                <a href="index.html" class="brand-logo">
+                    <div class="logo-wrapper">
+                        <!-- Top Row: Source aur Q ek sath ek hi line me -->
+                        <div class="brand-main">
+                            <span class="logo-source">Source</span>
+                            <div class="logo-q-wrapper">
+                                <!-- 3D Rotating 3-Orbit Quantum-Q SVG -->
+                                <svg class="quantum-q-svg" viewBox="0 0 140 140" width="50" height="50">
+                                    <defs>
+                                        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                                            <feGaussianBlur stdDeviation="3" result="blur" />
+                                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                                        </filter>
+                                    </defs>
 
-                        <!-- Orbit 3 -->
-                        <g class="orbit-group orbitl-3">
-                            <ellipse cx="70" cy="70" rx="18" ry="52" fill="none" stroke="#4fe0d7" stroke-width="2" transform="rotate(15 70 70)" />
-                            <circle cx="70" cy="20" r="3.5" fill="#4fe0d7" />
-                        </g>
-                        
-                        <!-- The Letter Q -->
-                        <circle cx="70" cy="65" r="28" fill="none" stroke="#00D084" stroke-width="13" class="q-circle" filter="url(#glow)" />
-                        <line x1="88" y1="83" x2="112" y2="108" stroke="#00D084" stroke-width="15" stroke-linecap="round" class="q-tail" filter="url(#glow)" />
-                    </svg>
-                </div>
+                                    <!-- Orbit 1 -->
+                                    <g class="orbit-group orbitl-1">
+                                        <ellipse cx="70" cy="70" rx="52" ry="18" fill="none" stroke="#65a7ff"
+                                            stroke-width="2" transform="rotate(-30 70 70)" />
+                                        <circle cx="25" cy="45" r="3.5" fill="#65a7ff" />
+                                    </g>
+
+                                    <!-- Orbit 2 -->
+                                    <g class="orbit-group orbitl-2">
+                                        <ellipse cx="70" cy="70" rx="52" ry="18" fill="none" stroke="#00D084"
+                                            stroke-width="2" transform="rotate(30 70 70)" />
+                                        <circle cx="115" cy="95" r="3.5" fill="#00D084" />
+                                    </g>
+
+                                    <!-- Orbit 3 -->
+                                    <g class="orbit-group orbitl-3">
+                                        <ellipse cx="70" cy="70" rx="18" ry="52" fill="none" stroke="#4fe0d7"
+                                            stroke-width="2" transform="rotate(15 70 70)" />
+                                        <circle cx="70" cy="20" r="3.5" fill="#4fe0d7" />
+                                    </g>
+
+                                    <!-- The Letter Q -->
+                                    <circle cx="70" cy="65" r="28" fill="none" stroke="#00D084" stroke-width="13"
+                                        class="q-circle" filter="url(#glow)" />
+                                    <line x1="88" y1="83" x2="112" y2="108" stroke="#00D084" stroke-width="15"
+                                        stroke-linecap="round" class="q-tail" filter="url(#glow)" />
+                                </svg>
+                            </div>
+                        </div>
+                        <!-- Bottom Row: Tagline inke niche -->
+                        <span class="logo-tagline">NOT JUST AI. <span>QUANTUM AI.</span></span>
+                    </div>
+                </a>
             </div>
-            <!-- Bottom Row: Tagline inke niche -->
-            <span class="logo-tagline">NOT JUST AI. <span>QUANTUM AI.</span></span>
-        </div>
-    </a>
-</div>
             <div class="nav-menu">
                 <ul class="nav-links">
-                    <li><a href="#parts-finder">Parts Finder</a></li>
-                    <li><a href="#costiq">CostIQ</a></li>
-                    <li><a href="#exchange">Exchange</a></li>
-                    <li><a href="#insight">Insight</a></li>
-                    <li><a href="#lab">Lab</a></li>
+                    <li><a href="#parts-finder">QRadar</a></li>
+                    <li><a href="#costiq">QLens</a></li>
+                    <li><a href="#exchange">QProcure</a></li>
+                    <li><a href="#insight">Consulting</a></li>
+                    <li><a href="#lab">Insights</a></li>
                 </ul>
             </div>
             <div class="nav-actions">
@@ -105,26 +110,23 @@
                         intelligence, pricing insights and lifecycle analysis—all in one procurement platform.
                     </p>
 
-                    <form class="hero-search" id="hero-search-form">
-                        <input id="part-search" name="query" type="search" placeholder="Search MPN, Part Number, Manufacturer or Upload BOM..." autocomplete="off">
-                        <button class="search-btn" id="search-btn" type="submit">Search</button>
-                    </form>
+                   
 
-                    <div class="hero-buttons">
-                        <a href="/search" class="btn btn-primary">Start Searching</a>
-                        <a href="/contact" class="btn btn-secondary">Book Demo</a>
-                    </div>
                 </article>
 
                 <div class="hero-slider">
                     <div class="hero-slide active">
-                        <video autoplay muted loop playsinline><source src="./assets/videos/vid1.mp4" type="video/mp4"></video>
+                        <video autoplay muted loop playsinline>
+                            <source src="./assets/videos/vid1.mp4" type="video/mp4">
+                        </video>
                     </div>
                     <div class="hero-slide">
                         <img src="./assets/images/hero1.jpg" alt="PCB Manufacturing">
                     </div>
                     <div class="hero-slide">
-                        <video autoplay muted loop playsinline><source src="./assets/videos/vid2.mp4" type="video/mp4"></video>
+                        <video autoplay muted loop playsinline>
+                            <source src="./assets/videos/vid2.mp4" type="video/mp4">
+                        </video>
                     </div>
                 </div>
 
@@ -139,17 +141,17 @@
         <!-- =========================
         QUANTUM AI FLOW (CLEANED 3D ORBITS)
         ========================== -->
+        <!-- =========================
+        QUANTUM AI FLOW (SVG 6-COMPONENT ORBITS - CONFLICT FREE)
+        ========================== -->
         <section class="quantum-section" id="quantum-ai">
-            
             <div class="quantum-container">
                 <div class="q-top-header">
                     <h2>It's not AI.<br><span class="q-gradient-text">It's Quantum AI.</span></h2>
                 </div>
             </div>
 
-            <!-- Full-Width Angled Orbits -->
             <div class="system-viewport" id="solar-system-viewport">
-                
                 <div class="engine-wrap">
                     <div class="quantum-image">
                         <img class="piece piece1" src="./assets/images/piece1.png" alt="p1">
@@ -164,58 +166,82 @@
                     </div>
                 </div>
 
+                <!-- Unique Class SVG Orbits to prevent logo conflict -->
                 <div class="angle-wrapper">
-                    <div class="system-wrapper">
-                        
-                        <div class="orbit orbit-1">
-                            <div class="planet-anchor"><div class="planet-counter"><div class="planet-unsquish">
-                                <div class="planet"><div class="planet-content">
-                                    <div class="planet-icon">💲</div><div class="planet-text">Price Competitiveness</div>
-                                </div></div>
-                            </div></div></div>
-                        </div>
+                    <svg class="q-main-svg" viewBox="0 0 140 140" width="360" height="360">
 
-                        <div class="orbit orbit-2">
-                            <div class="planet-anchor"><div class="planet-counter"><div class="planet-unsquish">
-                                <div class="planet"><div class="planet-content">
-                                    <div class="planet-icon">📦</div><div class="planet-text">Supply Availability</div>
-                                </div></div>
-                            </div></div></div>
-                        </div>
+                        <!-- Orbit 1 -->
+                        <g class="q-orbit-group q-orbitl-1">
+                            <ellipse cx="70" cy="70" rx="85" ry="12" fill="none" stroke="#65a7ff" stroke-width=".8"
+                                transform="rotate(-30 70 70)" />
 
-                        <div class="orbit orbit-3">
-                            <div class="planet-anchor"><div class="planet-counter"><div class="planet-unsquish">
-                                <div class="planet"><div class="planet-content">
-                                    <div class="planet-icon">⏳</div><div class="planet-text">Lead Time Outlook</div>
-                                </div></div>
-                            </div></div></div>
-                        </div>
+                            <foreignObject x="50" y="5" width="150" height="70" style="overflow: visible;">
+                                <div class="q-counter-node q-c1" style="display: flex; justify-content: center;">
+                                    <div class="q-orbit-node-box">
+                                        <span class="icon">💲</span>
+                                        <span class="label">Price Competitiveness</span>
+                                    </div>
+                                </div>
+                            </foreignObject>
 
-                        <div class="orbit orbit-4">
-                            <div class="planet-anchor"><div class="planet-counter"><div class="planet-unsquish">
-                                <div class="planet"><div class="planet-content">
-                                    <div class="planet-icon">🤝</div><div class="planet-text">Supplier Confidence</div>
-                                </div></div>
-                            </div></div></div>
-                        </div>
+                            <foreignObject x="-80" y="80" width="150" height="70" style="overflow: visible;">
+                                <div class="q-counter-node q-c1" style="display: flex; justify-content: center;">
+                                    <div class="q-orbit-node-box">
+                                        <span class="icon">📦</span>
+                                        <span class="label">Supply Availability</span>
+                                    </div>
+                                </div>
+                            </foreignObject>
+                        </g>
 
-                        <div class="orbit orbit-5">
-                            <div class="planet-anchor"><div class="planet-counter"><div class="planet-unsquish">
-                                <div class="planet"><div class="planet-content">
-                                    <div class="planet-icon">♻️</div><div class="planet-text">Lifecycle Health</div>
-                                </div></div>
-                            </div></div></div>
-                        </div>
+                        <!-- Orbit 2 -->
+                        <g class="q-orbit-group q-orbitl-2">
+                            <ellipse cx="70" cy="70" rx="85" ry="12" fill="none" stroke="#00D084" stroke-width=".8"
+                                transform="rotate(30 70 70)" />
 
-                        <div class="orbit orbit-6">
-                            <div class="planet-anchor"><div class="planet-counter"><div class="planet-unsquish">
-                                <div class="planet"><div class="planet-content">
-                                    <div class="planet-icon">🛡️</div><div class="planet-text">Counterfeit Risk</div>
-                                </div></div>
-                            </div></div></div>
-                        </div>
+                            <foreignObject x="75" y="85" width="150" height="70" style="overflow: visible;">
+                                <div class="q-counter-node q-c2" style="display: flex; justify-content: center;">
+                                    <div class="q-orbit-node-box">
+                                        <span class="icon">⏱️</span>
+                                        <span class="label">Lead Time Outlook</span>
+                                    </div>
+                                </div>
+                            </foreignObject>
 
-                    </div>
+                            <foreignObject x="-75" y="-5" width="150" height="70" style="overflow: visible;">
+                                <div class="q-counter-node q-c2" style="display: flex; justify-content: center;">
+                                    <div class="q-orbit-node-box">
+                                        <span class="icon">🤝</span>
+                                        <span class="label">Supplier Confidence</span>
+                                    </div>
+                                </div>
+                            </foreignObject>
+                        </g>
+
+                        <!-- Orbit 3 -->
+                        <g class="q-orbit-group q-orbitl-3">
+                            <ellipse cx="70" cy="70" rx="12" ry="85" fill="none" stroke="#4fe0d7" stroke-width=".8"
+                                transform="rotate(15 70 70)" />
+
+                            <foreignObject x="15" y="-25" width="150" height="70" style="overflow: visible;">
+                                <div class="q-counter-node q-c3" style="display: flex; justify-content: center;">
+                                    <div class="q-orbit-node-box">
+                                        <span class="icon">🔋</span>
+                                        <span class="label">Lifecycle Health</span>
+                                    </div>
+                                </div>
+                            </foreignObject>
+
+                            <foreignObject x="-15" y="130" width="150" height="70" style="overflow: visible;">
+                                <div class="q-counter-node q-c3" style="display: flex; justify-content: center;">
+                                    <div class="q-orbit-node-box">
+                                        <span class="icon">🛡️</span>
+                                        <span class="label">Counterfeit Risk</span>
+                                    </div>
+                                </div>
+                            </foreignObject>
+                        </g>
+                    </svg>
                 </div>
             </div>
         </section>
@@ -240,8 +266,64 @@
                     <div class="step-row">
                         <div class="step-text">
                             <span class="step-number">01</span><span>Search Faster.</span>
-                            <h3>QRadar</h3>
-                            <p>Search millions of components instantly with our AI-powered engine. Upload your BOM and let the system do the heavy lifting.</p>
+                            <h3
+                                style="display: flex; align-items: flex-end; font-family: sans-serif; font-weight: 700; font-size: 24px; color: #EAEEF4; margin: 0;">
+                                <svg width="32" height="38" viewBox="0 0 34 40"
+                                    style="margin-right: -0.06em; margin-bottom: -2px; overflow: visible;"
+                                    filter="url(#glowTeal)">
+                                    <!-- Inline Gradients & Filters -->
+                                    <defs>
+                                        <linearGradient id="gradTealInline" x1="0" y1="0" x2="34" y2="40"
+                                            gradientUnits="userSpaceOnUse">
+                                            <stop offset="0%" stop-color="#5CF0C4" />
+                                            <stop offset="100%" stop-color="#1FA383" />
+                                        </linearGradient>
+                                        <filter id="glowTeal" x="-60%" y="-60%" width="220%" height="220%">
+                                            <feGaussianBlur stdDeviation="1.4" result="b" />
+                                            <feMerge>
+                                                <feMergeNode in="b" />
+                                                <feMergeNode in="SourceGraphic" />
+                                            </feMerge>
+                                        </filter>
+                                        <clipPath id="clipRadarInline">
+                                            <circle cx="16" cy="16" r="13.4" />
+                                        </clipPath>
+                                    </defs>
+
+                                   
+
+                                    <!-- Pulsing Rings -->
+                                    <circle class="ring-inline" cx="16" cy="16" r="8.4" stroke="url(#gradTealInline)"
+                                        stroke-width="2.1" fill="none" />
+                                    <circle class="ring-inline r2" cx="16" cy="16" r="8.4" stroke="url(#gradTealInline)"
+                                        stroke-width="2.1" fill="none" />
+
+                                    <!-- Outer Circle -->
+                                    <circle cx="16" cy="16" r="13.4" stroke="url(#gradTealInline)" stroke-width="3.3"
+                                        fill="none" />
+
+                                    <!-- Rotating Sweep -->
+                                    <g class="sweep-inline" clip-path="url(#clipRadarInline)">
+                                        <path d="M16 16 L16 1.5 A14.5 14.5 0 0 1 29 9.25 Z" fill="url(#gradTealInline)"
+                                            opacity="0.35" />
+                                        <line x1="16" y1="16" x2="16" y2="2" stroke="url(#gradTealInline)"
+                                            stroke-width="2.7" stroke-linecap="round" />
+                                    </g>
+
+                                    <!-- Tail Line -->
+                                    <line class="tail-inline" x1="24" y1="24" x2="31" y2="35"
+                                        stroke="url(#gradTealInline)" stroke-width="3.9" stroke-linecap="round" />
+
+                                    <!-- Center Dot -->
+                                    <circle cx="16" cy="16" r="2.6" fill="#5CF0C4" />
+                                </svg>
+                                <span> radar</span>
+                            </h3>
+
+                            
+
+                            <p>Search millions of components instantly with our AI-powered engine. Upload your BOM and
+                                let the system do the heavy lifting.</p>
                             <ul class="step-features">
                                 <li>Multi-source component search</li>
                                 <li>Stock and pricing visibility</li>
@@ -250,12 +332,14 @@
                         </div>
                         <div class="step-visual">
                             <div class="dashboard-mockup" style="position: relative;">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrwW61DFlYi2pDaXzEnmtFLI_JWGjNCO8o7aMrxUFM6A&s=10" alt="Search Dashboard " style="width: 100%; height: 100%; object-fit: cover;">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrwW61DFlYi2pDaXzEnmtFLI_JWGjNCO8o7aMrxUFM6A&s=10"
+                                    alt="Search Dashboard " style="width: 100%; height: 100%; object-fit: cover;">
                                 <div class="floating-badge badge-qradar">
                                     <span style="font-size: 24px; color: #fff;">🔍</span>
                                 </div>
                                 <div class="floating-mini-card pos-bottom-right">
-                                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=100&h=100" alt="Microchip">
+                                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=100&h=100"
+                                        alt="Microchip">
                                     <div>
                                         <strong>Component Match</strong>
                                         <span style="color: #00D084;">In-stock: 15,000 units</span>
@@ -269,8 +353,34 @@
                     <div class="step-row reverse">
                         <div class="step-text">
                             <span class="step-number">02</span><span>Analyze Deeper.</span>
-                            <h3>QLens</h3>
-                            <p>Make data-driven decisions with predictive pricing analytics, lifecycle risk assessments, and historical trend data.</p>
+                            <!-- Animated QLens Header -->
+                             <br>
+                            <h3 style="display: inline-flex; align-items: flex-end; font-family: sans-serif; font-weight: 700; font-size: 38px; color: #EAEEF4; margin: 0 0 20px 0;">
+                              <svg width="38" height="45" viewBox="0 0 34 40" style="margin-bottom:-2px; overflow:visible;" filter="url(#glowCyanInline)">
+                                <defs>
+                                  <linearGradient id="gradCyanInline" x1="0" y1="0" x2="34" y2="40" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#8FE0F7"/><stop offset="100%" stop-color="#2E9DC2"/>
+                                  </linearGradient>
+                                  <filter id="glowCyanInline" x="-60%" y="-60%" width="220%" height="220%">
+                                    <feGaussianBlur stdDeviation="1.4" result="b"/>
+                                    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                                  </filter>
+                                  <clipPath id="clipLensInline"><circle cx="15" cy="15" r="12.1"/></clipPath>
+                                </defs>
+
+                               
+
+                                <circle cx="15" cy="15" r="12.1" stroke="url(#gradCyanInline)" stroke-width="3.3" fill="none"/>
+                                <circle class="ring-pulse-lens-inline" cx="15" cy="15" r="7.3" stroke="url(#gradCyanInline)" stroke-width="1.95" fill="none" opacity="0.6"/>
+                                <circle cx="15" cy="15" r="3.4" stroke="url(#gradCyanInline)" stroke-width="1.8" fill="none" opacity="0.9"/>
+                                <g clip-path="url(#clipLensInline)">
+                                  <rect class="glint-lens-inline" x="-4" y="-4" width="8" height="46" fill="#FFFFFF" opacity="0.5" transform="rotate(20 15 15)"/>
+                                </g>
+                                <line class="tail-line-lens-inline" x1="23.5" y1="23.5" x2="31.5" y2="35" stroke="url(#gradCyanInline)" stroke-width="4.2" stroke-linecap="round"/>
+                              </svg>lens
+                            </h3>
+                            <p>Make data-driven decisions with predictive pricing analytics, lifecycle risk assessments,
+                                and historical trend data.</p>
                             <ul class="step-features">
                                 <li>Price and lead-time intelligence</li>
                                 <li>Lifecycle and shortage risk</li>
@@ -279,12 +389,15 @@
                         </div>
                         <div class="step-visual">
                             <div class="dashboard-mockup analytics" style="position: relative;">
-                                <img style="width: 100%; height: 100%; object-fit: cover;" src="https://media.istockphoto.com/id/2198117854/photo/complexity-of-thought-processes-and-the-human-mind-thoughts-creativity-emotions.jpg?s=612x612&w=0&k=20&c=nsNg3663dlvX6xx0S95S9xyD4ybOBgXB_eUWCqYIkb8=" alt="Analytics Dashboard">
+                                <img style="width: 100%; height: 100%; object-fit: cover;"
+                                    src="https://media.istockphoto.com/id/2198117854/photo/complexity-of-thought-processes-and-the-human-mind-thoughts-creativity-emotions.jpg?s=612x612&w=0&k=20&c=nsNg3663dlvX6xx0S95S9xyD4ybOBgXB_eUWCqYIkb8="
+                                    alt="Analytics Dashboard">
                                 <div class="floating-badge badge-qlens">
                                     <span style="font-size: 24px; color: #fff;">📊</span>
                                 </div>
                                 <div class="floating-mini-card pos-bottom-left">
-                                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=100&h=100" alt="Data">
+                                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=100&h=100"
+                                        alt="Data">
                                     <div>
                                         <strong>Price Forecast</strong>
                                         <span style="color: #ff8290;">Expected to rise 12%</span>
@@ -298,8 +411,29 @@
                     <div class="step-row">
                         <div class="step-text">
                             <span class="step-number">03</span><span>Procure Smarter.</span>
-                            <h3>QProcure</h3>
-                            <p>Connect with vetted global suppliers, optimize your procurement costs, and track your shipments seamlessly.</p>
+                            <!-- Animated QProcure Header -->
+                            <h3 style="display: flex; align-items: flex-end; font-family: sans-serif; font-weight: 700; font-size: 38px; color: #EAEEF4; margin: 0 0 20px 0;">
+                              <svg width="38" height="45" viewBox="0 0 34 40" style="margin-bottom:-2px; overflow:visible;" filter="url(#glowPurpleInline)">
+                                <defs>
+                                  <linearGradient id="gradPurpleInline" x1="0" y1="0" x2="34" y2="40" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#C3B4FF"/><stop offset="100%" stop-color="#7C61E0"/>
+                                  </linearGradient>
+                                  <filter id="glowPurpleInline" x="-60%" y="-60%" width="220%" height="220%">
+                                    <feGaussianBlur stdDeviation="1.4" result="b"/>
+                                    <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                                  </filter>
+                                </defs>
+
+                                
+
+                                <circle cx="16" cy="16" r="13.4" stroke="url(#gradPurpleInline)" stroke-width="3.3" fill="none" opacity="0.9"/>
+                                <circle class="ring-pulse-procure" cx="16" cy="16" r="13.4" stroke="url(#gradPurpleInline)" stroke-width="2.4" fill="none"/>
+                                <path class="check-draw-procure" d="M9.5 16 L14.5 21.5 L23 10.5" stroke="url(#gradPurpleInline)" stroke-width="3.9" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                                <line class="tail-line-procure" x1="24" y1="24" x2="31" y2="35" stroke="url(#gradPurpleInline)" stroke-width="3.9" stroke-linecap="round"/>
+                              </svg>procure
+                            </h3>
+                            <p>Connect with vetted global suppliers, optimize your procurement costs, and track your
+                                shipments seamlessly.</p>
                             <ul class="step-features">
                                 <li>RFQ management</li>
                                 <li>Supplier comparison</li>
@@ -308,12 +442,15 @@
                         </div>
                         <div class="step-visual">
                             <div class="dashboard-mockup procurement" style="position: relative;">
-                                <img style="width: 100%; height: 100%; object-fit: cover;" src="https://media.istockphoto.com/id/2237056850/photo/distributor-online-shopping-management-frontend-and-backend-developer-customer-relationship.jpg?s=612x612&w=0&k=20&c=JXtYU-K3DeuEpZO_iSfYW-vHeVFMZ9yWXHCiPUm4CJY=" alt="Procurement Dashboard">
+                                <img style="width: 100%; height: 100%; object-fit: cover;"
+                                    src="https://media.istockphoto.com/id/2237056850/photo/distributor-online-shopping-management-frontend-and-backend-developer-customer-relationship.jpg?s=612x612&w=0&k=20&c=JXtYU-K3DeuEpZO_iSfYW-vHeVFMZ9yWXHCiPUm4CJY="
+                                    alt="Procurement Dashboard">
                                 <div class="floating-badge badge-qprocure">
                                     <span style="font-size: 24px; color: #fff;">🛒</span>
                                 </div>
                                 <div class="floating-mini-card pos-bottom-right">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR53OFQYkr9EK4X7FcQSLnRwWqANlnFXEwa--b58DtQlA&s=10" alt="Supplier">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR53OFQYkr9EK4X7FcQSLnRwWqANlnFXEwa--b58DtQlA&s=10"
+                                        alt="Supplier">
                                     <div>
                                         <strong>Supplier Vetted</strong>
                                         <span style="color: #65a7ff;">Confidence: 98/100</span>
@@ -348,11 +485,13 @@
 
                 <div class="consulting-nodes">
                     <div class="consulting-node">
-                        <div class="node-icon-wrap" style="color: #9e7dff; border-color: rgba(158,125,255,0.3);">👥</div>
+                        <div class="node-icon-wrap" style="color: #9e7dff; border-color: rgba(158,125,255,0.3);">👥
+                        </div>
                         <h4>R&D Collaboration</h4>
                     </div>
                     <div class="consulting-node">
-                        <div class="node-icon-wrap" style="color: #65a7ff; border-color: rgba(101,167,255,0.3);">📈</div>
+                        <div class="node-icon-wrap" style="color: #65a7ff; border-color: rgba(101,167,255,0.3);">📈
+                        </div>
                         <h4>Key BOM Forecasting</h4>
                     </div>
                     <div class="consulting-node">
@@ -364,43 +503,49 @@
                         <h4>Supplier Concentration Modeling</h4>
                     </div>
                     <div class="consulting-node">
-                        <div class="node-icon-wrap" style="color: #9e7dff; border-color: rgba(158,125,255,0.3);">📰</div>
+                        <div class="node-icon-wrap" style="color: #9e7dff; border-color: rgba(158,125,255,0.3);">📰
+                        </div>
                         <h4>News & Event Impact Modeling</h4>
                     </div>
                 </div>
 
                 <!-- Button update karein -->
-<div class="consulting-action">
-    <a href="#" id="consultingBtn" class="consulting-btn">Connect with our team</a>
-</div>
+                <div class="consulting-action">
+                    <a href="#" id="consultingBtn" class="consulting-btn">Connect with our team</a>
+                </div>
 
-<!-- Requirement Form Modal (Body ke andhar sabse niche add karein) -->
-<div class="consulting-modal-overlay" id="consultingModal">
-    <div class="consulting-modal">
-        <button class="modal-close" id="closeModal">&times;</button>
-        <h3>Intelligence Consulting</h3>
-        <p>Fill out your requirements below and our team will get back to you shortly.</p>
-        
-        <form class="consulting-form" id="requirementForm" onsubmit="event.preventDefault(); alert('Requirement submitted successfully!'); consultingModal.classList.remove('active');">
-            <div class="form-group">
-                <label>Your Name</label>
-                <input type="text" placeholder="Enter your full name" required>
-            </div>
-            <div class="form-group">
-                <label>Work Email</label>
-                <input type="email" placeholder="name@company.com" required>
-            </div>
-            <div class="form-group">
-                <label>Requirement Details</label>
-                <textarea rows="4" placeholder="Describe your requirement (e.g., BOM Forecasting, R&D Collaboration...)" required></textarea>
-            </div>
-            <button type="submit" class="btn-primary" style="width: 100%; border: none; cursor: pointer; padding: 14px; font-weight: 600;">Submit Requirement</button>
-        </form>
-    </div>
-</div>
+                <!-- Requirement Form Modal (Body ke andhar sabse niche add karein) -->
+                <div class="consulting-modal-overlay" id="consultingModal">
+                    <div class="consulting-modal">
+                        <button class="modal-close" id="closeModal">&times;</button>
+                        <h3>Intelligence Consulting</h3>
+                        <p>Fill out your requirements below and our team will get back to you shortly.</p>
+
+                        <form class="consulting-form" id="requirementForm"
+                            onsubmit="event.preventDefault(); alert('Requirement submitted successfully!'); consultingModal.classList.remove('active');">
+                            <div class="form-group">
+                                <label>Your Name</label>
+                                <input type="text" placeholder="Enter your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Work Email</label>
+                                <input type="email" placeholder="name@company.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Requirement Details</label>
+                                <textarea rows="4"
+                                    placeholder="Describe your requirement (e.g., BOM Forecasting, R&D Collaboration...)"
+                                    required></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary"
+                                style="width: 100%; border: none; cursor: pointer; padding: 14px; font-weight: 600;">Submit
+                                Requirement</button>
+                        </form>
+                    </div>
+                </div>
             </div>
 
-            
+
         </section>
 
         <!-- =========================
@@ -411,17 +556,23 @@
                 <div class="ticker-title">Live Recommendation Stream</div>
                 <div class="ticker-window">
                     <div class="ticker-track">
-                        <span class="tick"><span class="dot"></span>DDR5 demand rising — advance planned purchases</span>
+                        <span class="tick"><span class="dot"></span>DDR5 demand rising — advance planned
+                            purchases</span>
                         <span class="tick"><span class="dot"></span>MLCC supply stable — maintain normal coverage</span>
                         <span class="tick"><span class="dot"></span>NOR pricing easing — defer non-urgent order</span>
-                        <span class="tick"><span class="dot"></span>Automotive MCU lead time tightening — qualify second source</span>
-                        <span class="tick"><span class="dot"></span>Supplier risk detected — request traceability evidence</span>
+                        <span class="tick"><span class="dot"></span>Automotive MCU lead time tightening — qualify second
+                            source</span>
+                        <span class="tick"><span class="dot"></span>Supplier risk detected — request traceability
+                            evidence</span>
                         <!-- Duplicates for seamless loop -->
-                        <span class="tick"><span class="dot"></span>DDR5 demand rising — advance planned purchases</span>
+                        <span class="tick"><span class="dot"></span>DDR5 demand rising — advance planned
+                            purchases</span>
                         <span class="tick"><span class="dot"></span>MLCC supply stable — maintain normal coverage</span>
                         <span class="tick"><span class="dot"></span>NOR pricing easing — defer non-urgent order</span>
-                        <span class="tick"><span class="dot"></span>Automotive MCU lead time tightening — qualify second source</span>
-                        <span class="tick"><span class="dot"></span>Supplier risk detected — request traceability evidence</span>
+                        <span class="tick"><span class="dot"></span>Automotive MCU lead time tightening — qualify second
+                            source</span>
+                        <span class="tick"><span class="dot"></span>Supplier risk detected — request traceability
+                            evidence</span>
                     </div>
                 </div>
             </div>
@@ -448,7 +599,8 @@
         <div class="footer-main">
             <div class="footer-brand">
                 <img src="./images/logo.png" alt="BharYat Logo" class="footer-logo">
-                <p>The ultimate AI-powered electronic component intelligence engine. Making supply chain data actionable and seamless.</p>
+                <p>The ultimate AI-powered electronic component intelligence engine. Making supply chain data actionable
+                    and seamless.</p>
                 <div class="social-links">
                     <a href="#" aria-label="Twitter">𝕏</a>
                     <a href="#" aria-label="LinkedIn">in</a>
@@ -493,4 +645,5 @@
 
     <script src="./js/main.js"></script>
 </body>
+
 </html>

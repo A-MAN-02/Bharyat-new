@@ -1,329 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum AI - Angled Orbits & JS Scroll Animation</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BharYat - Quantum AI Demo</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --navbar-height: 84px;
+      --bg-primary: #111827;
+      --bg-secondary: #050816;
+      --primary: #00D084;
+      --primary-hover: #00F5A0;
+      --text: #ffffff;
+      --text-secondary: #64748B;
+      --border: rgba(255, 255, 255, .08);
+      --transition: 300ms cubic-bezier(.4, 0, .2, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body { font-family: "Inter", sans-serif; background: var(--bg-primary); color: var(--text); overflow-x: hidden; }
+
+    /* Navbar */
+    header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: var(--bg-primary); border-bottom: 1px solid var(--border); }
+    nav { max-width: 1300px; height: var(--navbar-height); margin: auto; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+    .brand-logo { display: inline-block; text-decoration: none; }
+    .logo-wrapper { display: flex; flex-direction: column; align-items: flex-start; }
+    .brand-main { display: flex; align-items: center; gap: 0px; }
+    .logo-source { font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif; font-size: 28px; font-weight: 800; color: #ffffff; letter-spacing: -0.5px; line-height: 1; }
+    .logo-tagline { font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif; font-size: 8.5px; font-weight: 600; color: #4fe0d7; letter-spacing: 0.8px; white-space: nowrap; margin-top: 1px; }
+    .logo-tagline span { color: #ffffff; font-weight: 700; }
+    .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
+    .nav-links a { color: var(--text); font-size: 16px; font-weight: 500; text-decoration: none; transition: var(--transition); }
+    .nav-links a:hover { color: var(--primary); }
+    .login-btn { padding: 10px 20px; background: var(--primary); color: #fff; border-radius: 8px; font-weight: 600; text-decoration: none; }
+
+    /* Quantum AI Section */
+    .quantum-section { background: var(--bg-primary); color: #f7f9fc; padding: 120px 0; overflow: hidden; }
+    .quantum-container { max-width: 1400px; margin: auto; padding: 0 20px; }
+    .q-top-header { text-align: center; width: 100%; margin-bottom: 30px; }
+    .q-top-header h2 { font-size: clamp(32px, 5vw, 54px); line-height: 1.05; letter-spacing: -.05em; color: #fff; margin: 0; }
+    .q-gradient-text { background: linear-gradient(90deg, #4fe0d7, #65a7ff, #9e7dff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .system-viewport { position: relative; width: 100%; height: 520px; display: flex; justify-content: center; align-items: center; }
+    .angle-wrapper { position: absolute; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+    .engine-wrap { position: absolute; z-index: 1000; display: flex; justify-content: center; align-items: center; pointer-events: none; }
     
-    <style>
-        /* ===================================
-           GLOBAL STYLES
-        =================================== */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Inter", sans-serif; }
+    /* Core spin animation */
+    .engine { position: relative; width: 250px; height: 250px; display: flex; justify-content: center; align-items: center; animation: spin 45s linear infinite; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .core-image { width: 100%; height: 100%; object-fit: contain; z-index: 2; filter: drop-shadow(0 0 40px rgba(143, 108, 255, 0.5)); }
 
-        body {
-            background-color: #050816;
-            color: #ffffff;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-image: radial-gradient(circle at 50% 50%, rgba(101, 167, 255, 0.08), transparent 70%);
-        }
+    /* Orbits spin animation (slow) */
+    .quantum-q-svg { overflow: visible; }
+    .orbitl-1 { transform-origin: 70px 70px; animation: rotateOrbitl 80s linear infinite; }
+    .orbitl-2 { transform-origin: 70px 70px; animation: rotateOrbitlRev 90s linear infinite; }
+    .orbitl-3 { transform-origin: 70px 70px; animation: rotateOrbitl 100s linear infinite; }
 
-        /* Hero Section for Scrolling Space */
-        .hero {
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
+    @keyframes rotateOrbitl { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes rotateOrbitlRev { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
 
-        /* ===================================
-           QUANTUM SECTION (Original Trigger)
-        =================================== */
-        .quantum-section {
-            width: 100%;
-            position: relative;
-            padding: 100px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    /* Consulting Section */
+    .consulting-section { padding: 80px 24px; text-align: center; background: var(--bg-primary); }
+    .consulting-header h2 { font-size: 38px; font-weight: 800; margin-bottom: 14px; }
+    .consulting-subtags { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; color: var(--text-secondary); margin-bottom: 40px; font-size: 14px; }
+    .consulting-nodes { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; }
+    .consulting-node { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border); border-radius: 16px; padding: 24px; width: 200px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .node-icon-wrap { width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 20px; border: 2px solid rgba(255, 255, 255, 0.1); }
+    .consulting-btn { padding: 14px 32px; background: var(--primary); color: #fff; font-weight: 700; border-radius: 12px; border: none; cursor: pointer; transition: var(--transition); }
+    .consulting-btn:hover { background: var(--primary-hover); }
 
-        .system-viewport {
-            position: relative;
-            width: 100%;
-            height: 600px; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    /* Modal */
+    .consulting-modal-overlay { position: fixed; inset: 0; background: rgba(5, 8, 22, 0.85); backdrop-filter: blur(8px); z-index: 2000; display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: var(--transition); }
+    .consulting-modal-overlay.active { opacity: 1; visibility: visible; }
+    .consulting-modal { background: #0f172a; border: 1px solid rgba(0, 208, 132, 0.3); border-radius: 20px; padding: 35px; width: 90%; max-width: 450px; position: relative; }
+    .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; text-align: left; }
+    .form-group label { font-size: 13px; font-weight: 600; }
+    .form-group input, .form-group textarea { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); border-radius: 8px; padding: 10px; color: #fff; outline: none; }
 
-        /* Angled Orbits Wrapper */
-        .angle-wrapper {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transform: rotate(-15deg); 
-        }
+    /* Counter animation matching slow speeds */
+    @keyframes counterRotate { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+    @keyframes counterRotateRev { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    
+    .counter-node { transform-origin: center; }
+    .counter-node.c1 { animation: counterRotate 80s linear infinite; }
+    .counter-node.c2 { animation: counterRotateRev 90s linear infinite; }
+    .counter-node.c3 { animation: counterRotate 100s linear infinite; }
 
-        .system-wrapper {
-            position: absolute;
-            width: 1050px;
-            height: 1050px;
-            transform: scaleY(0.35); 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    .orbit-node-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
 
-        /* ===================================
-           🔥 CENTER ENGINE & PIECES
-        =================================== */
-        .engine-wrap {
-            position: absolute;
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Container size badha diya gaya hai taaki pieces faili hui dikhein */
-        .quantum-image {
-            position: absolute;
-            width: 450px;
-            height: 450px;
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        /* CSS Purple Circle Hata Diya! Sirf Image ko bada kiya gaya hai */
-        .engine {
-            position: relative;
-            width: 250px;  /* Image ka size bada kar diya */
-            height: 250px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .core-image { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: contain; 
-            z-index: 2; 
-            /* Thoda glow effect add kiya image ke around */
-            filter: drop-shadow(0 0 40px rgba(143, 108, 255, 0.5));
-        }
-
-        /* Original Pieces Positioning (CSS Animations Removed for JS to Work) */
-        .piece { 
-            position: absolute; 
-            transition: transform 0.1s ease-out; 
-            filter: drop-shadow(0 0 20px rgba(0, 180, 255, .2)); 
-        }
-        
-        .piece1 { width: 90px; left: 0%; top: 20%; }        
-        .piece2 { width: 100px; right: -5%; top: 40%; }     
-        .piece3 { width: 95px; left: 40%; top: -15%; }      
-        .piece4 { width: 80px; right: 15%; bottom: -15%; }  
-        .piece5 { width: 70px; left: 10%; top: 30%; }       
-        .piece6 { width: 80px; right: 42%; bottom: 1%; }
-
-        /* ===================================
-           ORBITS & PLANETS
-        =================================== */
-        .orbit {
-            position: absolute;
-            border: 5px dashed rgba(255, 255, 255, 0.15);
-            border-radius: 50%;
-            pointer-events: none; 
-            transition: border-color 0.3s ease;
-        }
-
-        .orbit-1 { width: 350px; height: 350px; animation: spin 25s linear infinite -5s; }
-        .orbit-2 { width: 500px; height: 500px; animation: spin 35s linear infinite -18s; }
-        .orbit-3 { width: 650px; height: 650px; animation: spin 45s linear infinite -30s; }
-        .orbit-4 { width: 800px; height: 800px; animation: spin 55s linear infinite -10s; }
-        .orbit-5 { width: 950px; height: 950px; animation: spin 65s linear infinite -45s; }
-        .orbit-6 { width: 1100px; height: 1100px; animation: spin 75s linear infinite -20s; }
-
-        .planet-anchor { position: absolute; top: 0; left: 50%; width: 0; height: 0; }
-        .planet-counter { position: absolute; width: 0; height: 0; }
-        
-        .orbit-1 .planet-counter { animation: counter 25s linear infinite -5s; }
-        .orbit-2 .planet-counter { animation: counter 35s linear infinite -18s; }
-        .orbit-3 .planet-counter { animation: counter 45s linear infinite -30s; }
-        .orbit-4 .planet-counter { animation: counter 55s linear infinite -10s; }
-        .orbit-5 .planet-counter { animation: counter 65s linear infinite -45s; }
-        .orbit-6 .planet-counter { animation: counter 75s linear infinite -20s; }
-
-        .planet-unsquish { position: absolute; transform: scaleY(2.85); }
-
-        .planet {
-            position: absolute;
-            transform: translate(-50%, -50%); 
-            cursor: pointer;
-            pointer-events: auto; 
-        }
-
-        /* Text/Icon ko wapas 15deg seedha kiya gaya hai */
-        .planet-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px; 
-            transform: rotate(15deg); 
-        }
-
-        .planet-icon { font-size: 32px; filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4)); transition: transform 0.3s ease; }
-        
-        .planet-text {
-            white-space: nowrap; color: #dce4ef; font-size: 13px; font-weight: 600;
-            background: rgba(15, 23, 42, 0.85); padding: 6px 14px; border-radius: 6px;
-            border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(5px); transition: all 0.3s ease;
-        }
-
-        /* PERFECT INDIVIDUAL HOVER PAUSE */
-        .orbit:has(.planet:hover) { animation-play-state: paused !important; border-color: rgba(255, 255, 255, 0.6); z-index: 999; }
-        .orbit:has(.planet:hover) .planet-counter { animation-play-state: paused !important; }
-        .planet:hover .planet-icon { transform: scale(1.2); }
-        .planet:hover .planet-text { border-color: #65a7ff; background: rgba(30, 41, 59, 0.95); color: #fff;}
-        
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes counter { 0% { transform: rotate(0deg); } 100% { transform: rotate(-360deg); } }
-
-        /* Responsive */
-        @media (max-width: 1200px) { .angle-wrapper { transform: rotate(-15deg) scale(0.8); } }
-        @media (max-width: 768px) {
-            .system-viewport { height: 350px; }
-            .angle-wrapper { transform: rotate(-15deg) scale(0.45); }
-            .planet-text { font-size: 16px; } 
-            .engine-wrap { transform: scale(0.6); }
-        }
-    </style>
+    /* Small font size for labels and icons */
+    .orbit-node-box span.icon { font-size: 11px !important; }
+    .orbit-node-box span.label { font-size: 7.5px; font-weight: 400; color: #cbd5e1; font-family: 'Inter', sans-serif; white-space: nowrap; }
+  </style>
 </head>
+
 <body>
-
-    <!-- Scroll Top Space -->
-    <section class="hero" id="hero">
-        <h1>Scroll Down for Animation 👇</h1>
-    </section>
-
-    <!-- Original Trigger Section Add Kar Diya -->
-    <section class="quantum-section" id="quantum-ai">
-        <div class="system-viewport">
-            
-            <!-- CENTER ENGINE (Only Image, No Purple Circle) -->
-            <div class="engine-wrap">
-                <div class="quantum-image">
-                    <!-- Aapke pieces -->
-                    <img class="piece piece1" src="./assets/images/piece1.png" alt="p1" onerror="this.style.background='#8f6cff';">
-                    <img class="piece piece2" src="./assets/images/piece2.png" alt="p2" onerror="this.style.background='#8f6cff';">
-                    <img class="piece piece3" src="./assets/images/piece3.png" alt="p3" onerror="this.style.background='#8f6cff';">
-                    <img class="piece piece4" src="./assets/images/piece4.png" alt="p4" onerror="this.style.background='#8f6cff';">
-                    <img class="piece piece5" src="./assets/images/piece5.png" alt="p5" onerror="this.style.background='#8f6cff';">
-                    <img class="piece piece6" src="./assets/images/piece6.png" alt="p6" onerror="this.style.background='#8f6cff';">
-                </div>
-
-                <div class="engine">
-                    <!-- Nayi Core Image ko hi bada kar diya gaya hai -->
-                    <img class="core-image" src="./assets/images/quantum-core.png" alt="Quantum Core" onerror="this.style.background='#240b6e'; this.style.borderRadius='50%';">
-                </div>
+  <!-- Header -->
+  <header>
+    <nav>
+      <div class="logo">
+        <a href="index.html" class="brand-logo">
+          <div class="logo-wrapper">
+            <div class="brand-main">
+              <span class="logo-source">Source</span>
+              <div class="logo-q-wrapper">
+                <svg viewBox="0 0 140 140" width="30" height="30">
+                  <circle cx="70" cy="65" r="28" fill="none" stroke="#00D084" stroke-width="12" />
+                  <line x1="88" y1="83" x2="112" y2="108" stroke="#00D084" stroke-width="14" stroke-linecap="round" />
+                </svg>
+              </div>
             </div>
+            <span class="logo-tagline">NOT JUST AI. <span>QUANTUM AI.</span></span>
+          </div>
+        </a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#quantum-ai">Price Competitiveness</a></li>
+        <li><a href="#quantum-ai">Supply Availability</a></li>
+        <li><a href="#quantum-ai">Lead Time Outlook</a></li>
+        <li><a href="#consulting">Consulting</a></li>
+        <li><a href="#quantum-ai">Risk Assessment</a></li>
+      </ul>
+      <a href="#" class="login-btn">Login</a>
+    </nav>
+  </header>
 
-            <!-- ANGLED ORBIT WRAPPER -->
-            <div class="angle-wrapper">
-                <div class="system-wrapper">
-                    
-                    <div class="orbit orbit-1">
-                        <div class="planet-anchor"><div class="planet-counter"><div class="planet-unsquish">
-                            <div class="planet"><div class="planet-content">
-                                <div class="planet-icon">💲</div><div class="planet-text">Price Competitiveness</div>
-                            </div></div>
-                        </div></div></div>
-                    </div>
+  <!-- Quantum AI Section -->
+  <section class="quantum-section" id="quantum-ai">
+    <div class="quantum-container">
+      <div class="q-top-header">
+        <h2>It's not AI.<br><span class="q-gradient-text">It's Quantum AI.</span></h2>
+      </div>
+    </div>
 
-                    <div class="orbit orbit-2">
-                        <div class="planet-anchor"><div class="planet-counter"><div class="planet-unsquish">
-                            <div class="planet"><div class="planet-content">
-                                <div class="planet-icon">📦</div><div class="planet-text">Supply Availability</div>
-                            </div></div>
-                        </div></div></div>
-                    </div>
-
-                    <div class="orbit orbit-3">
-                        <div class="planet-anchor"><div class="planet-counter"><div class="planet-unsquish">
-                            <div class="planet"><div class="planet-content">
-                                <div class="planet-icon">⏳</div><div class="planet-text">Lead Time Outlook</div>
-                            </div></div>
-                        </div></div></div>
-                    </div>
-
-                    <div class="orbit orbit-4">
-                        <div class="planet-anchor"><div class="planet-counter"><div class="planet-unsquish">
-                            <div class="planet"><div class="planet-content">
-                                <div class="planet-icon">🤝</div><div class="planet-text">Supplier Confidence</div>
-                            </div></div>
-                        </div></div></div>
-                    </div>
-
-                    <div class="orbit orbit-5">
-                        <div class="planet-anchor"><div class="planet-counter"><div class="planet-unsquish">
-                            <div class="planet"><div class="planet-content">
-                                <div class="planet-icon">♻️</div><div class="planet-text">Lifecycle Health</div>
-                            </div></div>
-                        </div></div></div>
-                    </div>
-
-                    <div class="orbit orbit-6">
-                        <div class="planet-anchor"><div class="planet-counter"><div class="planet-unsquish">
-                            <div class="planet"><div class="planet-content">
-                                <div class="planet-icon">🛡️</div><div class="planet-text">Counterfeit Risk</div>
-                            </div></div>
-                        </div></div></div>
-                    </div>
-
-                </div>
-            </div>
+    <div class="system-viewport" id="solar-system-viewport">
+      <div class="engine-wrap">
+        <div class="engine">
+          <img class="core-image" src="./assets/images/quantum-core.png" alt="Quantum Core">
         </div>
-    </section>
+      </div>
 
-    <!-- Scroll Bottom Space -->
-    <section class="hero" id="hero">
-        <h1>Scroll Up 👆</h1>
-    </section>
+      <!-- Orbits with updated names & icons -->
+      <div class="angle-wrapper">
+        <svg class="quantum-q-svg" viewBox="0 0 140 140" width="360" height="360">
 
-    <!-- AAPKA ORIGINAL SCROLL ANIMATION (main.js wala) -->
-    <script>
-        // Exact script logic taken from your main.js file
-        window.addEventListener("scroll", () => {
-            
-            // --- 1. QUANTUM AI PIECES ANIMATION ---
-            const quantumSection = document.querySelector(".quantum-section");
-            const pieces = document.querySelectorAll(".piece");
+          <!-- Orbit 1 -->
+          <g class="orbit-group orbitl-1">
+            <ellipse cx="70" cy="70" rx="85" ry="12" fill="none" stroke="#65a7ff" stroke-width=".8"
+              transform="rotate(-30 70 70)" />
 
-            if (quantumSection && pieces.length > 0) {
-                const qRect = quantumSection.getBoundingClientRect();
-                const qScrollableDistance = window.innerHeight * 1.5; 
-                const qScrolledAmount = window.innerHeight - qRect.top;
-                
-                let qProgress = Math.min(Math.max(qScrolledAmount / qScrollableDistance, 0), 1);
-                const isMobile = window.innerWidth <= 768;
+            <!-- Top Node: Price Competitiveness -->
+            <foreignObject x="50" y="5" width="150" height="70" style="overflow: visible;">
+              <div class="counter-node c1" style="display: flex; justify-content: center;">
+                <div class="orbit-node-box">
+                  <span class="icon">💲</span>
+                  <span class="label">Price Competitiveness</span>
+                </div>
+              </div>
+            </foreignObject>
 
-                pieces.forEach((piece, index) => {
-                    const multiplier = isMobile ? 15 : 60; 
-                    const moveY = (index % 2 === 0 ? 1 : -1) * (index + 1) * multiplier * qProgress;
-                    const moveX = (index % 2 !== 0 ? 1 : -1) * (index * 10) * qProgress;
+            <!-- Bottom Node: Supply Availability -->
+            <foreignObject x="-50" y="80" width="150" height="70" style="overflow: visible;">
+              <div class="counter-node c1" style="display: flex; justify-content: center;">
+                <div class="orbit-node-box">
+                  <span class="icon">📦</span>
+                  <span class="label">Supply Availability</span>
+                </div>
+              </div>
+            </foreignObject>
+          </g>
 
-                    // Apply scroll-based transform
-                    piece.style.transform = `
-                        translate(${moveX}px, ${moveY}px)
-                        rotate(${qProgress * 45}deg)
-                        scale(${1 + qProgress * 0.2})
-                    `;
-                });
-            }
-        });
-    </script>
+          <!-- Orbit 2 -->
+          <g class="orbit-group orbitl-2">
+            <ellipse cx="70" cy="70" rx="85" ry="12" fill="none" stroke="#00D084" stroke-width=".8"
+              transform="rotate(30 70 70)" />
+
+            <!-- Top Node: Lead Time Outlook -->
+            <foreignObject x="75" y="85" width="150" height="70" style="overflow: visible;">
+              <div class="counter-node c2" style="display: flex; justify-content: center;">
+                <div class="orbit-node-box">
+                  <span class="icon">⏱️</span>
+                  <span class="label">Lead Time Outlook</span>
+                </div>
+              </div>
+            </foreignObject>
+
+            <!-- Bottom Node: Supplier Confidence -->
+            <foreignObject x="-75" y="-5" width="150" height="70" style="overflow: visible;">
+              <div class="counter-node c2" style="display: flex; justify-content: center;">
+                <div class="orbit-node-box">
+                  <span class="icon">🤝</span>
+                  <span class="label">Supplier Confidence</span>
+                </div>
+              </div>
+            </foreignObject>
+          </g>
+
+          <!-- Orbit 3 -->
+          <g class="orbit-group orbitl-3">
+            <ellipse cx="70" cy="70" rx="12" ry="85" fill="none" stroke="#4fe0d7" stroke-width=".8"
+              transform="rotate(15 70 70)" />
+
+            <!-- Top Node: Lifecycle Health -->
+            <foreignObject x="15" y="-25" width="150" height="70" style="overflow: visible;">
+              <div class="counter-node c3" style="display: flex; justify-content: center;">
+                <div class="orbit-node-box">
+                  <span class="icon">🔋</span>
+                  <span class="label">Lifecycle Health</span>
+                </div>
+              </div>
+            </foreignObject>
+
+            <!-- Bottom Node: Counterfeit Risk -->
+            <foreignObject x="-15" y="130" width="150" height="70" style="overflow: visible;">
+              <div class="counter-node c3" style="display: flex; justify-content: center;">
+                <div class="orbit-node-box">
+                  <span class="icon">🛡️</span>
+                  <span class="label">Counterfeit Risk</span>
+                </div>
+              </div>
+            </foreignObject>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Consulting Section -->
+  <section class="consulting-section" id="consulting">
+    <div class="consulting-header">
+      <h2>Customer Intelligence Consulting</h2>
+      <div class="consulting-subtags">
+        <span>R&D Collaboration</span> • <span>Key BOM Forecasting</span> • <span>Scenario & Inventory Planning</span>
+      </div>
+    </div>
+    <div class="consulting-nodes">
+      <div class="consulting-node">
+        <div class="node-icon-wrap" style="color: #9e7dff;">👥</div>
+        <h4>R&D Collaboration</h4>
+      </div>
+      <div class="consulting-node">
+        <div class="node-icon-wrap" style="color: #65a7ff;">📈</div>
+        <h4>Key BOM Forecasting</h4>
+      </div>
+      <div class="consulting-node">
+        <div class="node-icon-wrap" style="color: #4fe0d7;">🔀</div>
+        <h4>Inventory Planning</h4>
+      </div>
+    </div>
+    <button class="consulting-btn" id="consultingBtn">Connect with our team</button>
+  </section>
+
+  <!-- Modal Form -->
+  <div class="consulting-modal-overlay" id="consultingModal">
+    <div class="consulting-modal">
+      <button class="modal-close" id="closeModal">&times;</button>
+      <h3>Intelligence Consulting</h3>
+      <p style="color:var(--text-secondary); font-size:13px; margin-bottom:20px;">Fill out your requirements below.</p>
+      <form
+        onsubmit="event.preventDefault(); alert('Submitted successfully!'); consultingModal.classList.remove('active');">
+        <div class="form-group"><label>Your Name</label><input type="text" required></div>
+        <div class="form-group"><label>Work Email</label><input type="email" required></div>
+        <div class="form-group"><label>Details</label><textarea rows="3" required></textarea></div>
+        <button type="submit" class="consulting-btn" style="width:100%;">Submit Requirement</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="./js/main.js"></script>
+  <script>
+    const btn = document.getElementById("consultingBtn");
+    const modal = document.getElementById("consultingModal");
+    const close = document.getElementById("closeModal");
+    btn.addEventListener("click", () => modal.classList.add("active"));
+    close.addEventListener("click", () => modal.classList.remove("active"));
+    window.addEventListener("click", (e) => { if (e.target === modal) modal.classList.remove("active"); });
+  </script>
 </body>
+
 </html>
