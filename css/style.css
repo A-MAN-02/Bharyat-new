@@ -1291,7 +1291,7 @@ nav {
     display: inline-flex;
     gap: 50px;
     padding-left: 100%;
-    animation: ticker 80s linear infinite;
+    animation: ticker 520s linear infinite;
 }
 
 .ticker-window:hover .ticker-track {
@@ -1302,7 +1302,7 @@ nav {
 .tick {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
+    gap: 5px;
     color: #dce4ef;
     font-size: 15px;
     font-weight: 500;

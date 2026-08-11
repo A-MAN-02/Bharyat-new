@@ -2,26 +2,310 @@
   {
     "flag": "https://flagcdn.com/w40/cn.png",
     "category": "FPGA",
-    "recommendation": "FPGA (Mainland China) lead times compressing — reduce buffer inventory"
+    "recommendation": "lead times compressing — reduce buffer inventory"
   },
   {
     "flag": "https://flagcdn.com/w40/tw.png",
     "category": "Antenna",
-    "recommendation": "Antenna (Taiwan) new capacity coming online — revisit supplier shortlist next quarter"
+    "recommendation": "new capacity coming online — revisit supplier shortlist next quarter"
   },
   {
     "flag": "https://flagcdn.com/w40/cn.png",
     "category": "VR",
-    "recommendation": "VR (Mainland China) tariff exposure flagged — reassess landed cost and sourcing region"
+    "recommendation": "tariff exposure flagged — reassess landed cost and sourcing region"
   },
   {
     "flag": "https://flagcdn.com/w40/in.png",
     "category": "Optical TRX",
-    "recommendation": "Optical TRX (India) lead times compressing — reduce buffer inventory"
+    "recommendation": "lead times compressing — reduce buffer inventory"
   },
   {
     "flag": "https://flagcdn.com/w40/jp.png",
     "category": "BMS IC",
-    "recommendation": "BMS IC (Japan) fab capacity shift reported — monitor for downstream price movement"
-  }
-]
+    "recommendation": "fab capacity shift reported — monitor for downstream price movement"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/tw.png",
+    "category": "SiC",
+    "recommendation": "Power Devices demand softening — defer non-urgent orders"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/tw.png",
+    "category": "DDR4",
+    "recommendation": "EOL/obsolescence notice issued — evaluate last-time-buy or redesign"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/asean.png",
+    "category": "FPGA",
+    "recommendation": "pricing firming — lock pricing via LTA where possible"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/tw.png",
+    "category": "MOSFET",
+    "recommendation": "export-control change reported — review compliance and licensing status"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/eu.png",
+    "category": "SSD Ctrl.",
+    "recommendation": "quality escape reported by peer buyers — request incoming inspection data"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/jp.png",
+    "category": "BMS IC",
+    "recommendation": "demand softening — defer non-urgent orders"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/kr.png",
+    "category": "SoM",
+    "recommendation": "fab capacity shift reported — monitor for downstream price movement"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/jp.png",
+    "category": "LPDDR5X",
+    "recommendation": "supply stable — maintain normal coverage"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/tw.png",
+    "category": "NAND",
+    "recommendation": "counterfeit risk elevated — request traceability and lab verification"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/kr.png",
+    "category": "Tantalum Cap.",
+    "recommendation": "quality escape reported by peer buyers — request incoming inspection data"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/asean.png",
+    "category": "PHY",
+    "recommendation": "quality escape reported by peer buyers — request incoming inspection data"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/asean.png",
+    "category": "BTB Connectors",
+    "recommendation": "Connectors allocation risk detected — confirm allocation share with distributor"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/eu.png",
+    "category": "BMS IC",
+    "recommendation": "quality escape reported by peer buyers — request incoming inspection data"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/tw.png",
+    "category": "SiC",
+    "recommendation": "Power Devices geopolitical tension flagged in region — assess supplier concentration risk"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/jp.png",
+    "category": "TVS",
+    "recommendation": "pricing firming — lock pricing via LTA where possible"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/us.png",
+    "category": "GaN",
+    "recommendation": "supply tightening — qualify a second source"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/cn.png",
+    "category": "DDR4",
+    "recommendation": "lead times compressing — reduce buffer inventory"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/cn.png",
+    "category": "LPDDR5X",
+    "recommendation": "fab capacity shift reported — monitor for downstream price movement"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/asean.png",
+    "category": "IGBT",
+    "recommendation": "export-control change reported — review compliance and licensing status"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/kr.png",
+    "category": "VR",
+    "recommendation": "demand rising — advance planned purchases"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/cn.png",
+    "category": "BTB Connectors",
+    "recommendation": "Connectors EOL/obsolescence notice issued — evaluate last-time-buy or redesign"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/in.png",
+    "category": "MCU",
+    "recommendation": "new capacity coming online — revisit supplier shortlist next quarter"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/kr.png",
+    "category": "Tantalum Cap.",
+    "recommendation": "counterfeit risk elevated — request traceability and lab verification"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/eu.png",
+    "category": "DDR5",
+    "recommendation": "fab capacity shift reported — monitor for downstream price movement"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/in.png",
+    "category": "LED Driver",
+    "recommendation": "supply stable — maintain normal coverage"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/tw.png",
+    "category": "BTB Connectors",
+    "recommendation": "Connectors geopolitical tension flagged in region — assess supplier concentration risk"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/jp.png",
+    "category": "VR",
+    "recommendation": "currency volatility flagged — consider hedging on cross-border POs"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/kr.png",
+    "category": "VR",
+    "recommendation": "export-control change reported — review compliance and licensing status"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/us.png",
+    "category": "SSD Ctrl.",
+    "recommendation": "lead times extending — build additional safety stock"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/eu.png",
+    "category": "LPDDR5X",
+    "recommendation": "fab capacity shift reported — monitor for downstream price movement"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/us.png",
+    "category": "Antenna",
+    "recommendation": "tariff exposure flagged — reassess landed cost and sourcing region"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/tw.png",
+    "category": "RF FEM",
+    "recommendation": "demand softening — defer non-urgent orders"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/cn.png",
+    "category": "XO",
+    "recommendation": "single-source exposure flagged — identify and qualify alternates"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/jp.png",
+    "category": "BMS IC",
+    "recommendation": "quality escape reported by peer buyers — request incoming inspection data"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/in.png",
+    "category": "LPDDR5X",
+    "recommendation": "geopolitical tension flagged in region — assess supplier concentration risk"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/asean.png",
+    "category": "BTB Connectors",
+    "recommendation": "Connectors lead times extending — build additional safety stock"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/cn.png",
+    "category": "PHY",
+    "recommendation": "supply tightening — qualify a second source"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/us.png",
+    "category": "FPGA",
+    "recommendation": "pricing firming — lock pricing via LTA where possible"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/jp.png",
+    "category": "CIS",
+    "recommendation": "export-control change reported — review compliance and licensing status"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/asean.png",
+    "category": "IGBT",
+    "recommendation": "allocation risk detected — confirm allocation share with distributor"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/kr.png",
+    "category": "MOSFET",
+    "recommendation": "supply tightening — qualify a second source"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/eu.png",
+    "category": "CIS",
+    "recommendation": "EOL/obsolescence notice issued — evaluate last-time-buy or redesign"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/jp.png",
+    "category": "DDR4",
+    "recommendation": "geopolitical tension flagged in region — assess supplier concentration risk"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/us.png",
+    "category": "ADC",
+    "recommendation": "counterfeit risk elevated — request traceability and lab verification"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/in.png",
+    "category": "DDR4",
+    "recommendation": "pricing easing — renegotiate open POs"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/us.png",
+    "category": "NVMe SSD",
+    "recommendation": "tariff exposure flagged — reassess landed cost and sourcing region"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/in.png",
+    "category": "NVMe SSD",
+    "recommendation": "export-control change reported — review compliance and licensing status"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/cn.png",
+    "category": "RF FEM",
+    "recommendation": "fab capacity shift reported — monitor for downstream price movement"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/tw.png",
+    "category": "eMMC/UFS",
+    "recommendation": "demand softening — defer non-urgent orders"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/asean.png",
+    "category": "eMMC/UFS",
+    "recommendation": "logistics disruption reported — review freight routing and lead-time buffer"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/us.png",
+    "category": "DDR5",
+    "recommendation": "supply stable — maintain normal coverage"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/tw.png",
+    "category": "Antenna",
+    "recommendation": "single-source exposure flagged — identify and qualify alternates"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/cn.png",
+    "category": "Tantalum Cap.",
+    "recommendation": "fab capacity shift reported — monitor for downstream price movement"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/eu.png",
+    "category": "ADC",
+    "recommendation": "logistics disruption reported — review freight routing and lead-time buffer"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/cn.png",
+    "category": "MOSFET",
+    "recommendation": "currency volatility flagged — consider hedging on cross-border POs"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/asean.png",
+    "category": "ADC",
+    "recommendation": "quality escape reported by peer buyers — request incoming inspection data"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/tw.png",
+    "category": "Tantalum Cap.",
+    "recommendation": "supply tightening — qualify a second source"
+  }]
