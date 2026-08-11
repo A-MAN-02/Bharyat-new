@@ -184,4 +184,31 @@ if (consultingBtn && consultingModal && closeModal) {
     });
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    const track = document.getElementById('dynamicTickerTrack');
+    if (!track) return;
 
+    fetch('recommendations.json')
+        .then(response => response.json())
+        .then(data => {
+            let htmlContent = '';
+            
+            // Seamless infinite scrolling loop ke liye 2 baar render karte hain
+            for (let i = 0; i < 2; i++) {
+                data.forEach(item => {
+                    htmlContent += `
+                        <span class="tick">
+                            <img src="${item.flag}" alt="Flag" class="ticker-flag-icon">
+                            <span class="category-badge">${item.category}</span>
+                            <span class="recommendation-text">${item.recommendation}</span>
+                        </span>
+                    `;
+                });
+            }
+            track.innerHTML = htmlContent;
+        })
+        .catch(error => {
+            console.error('Error loading recommendations JSON:', error);
+            track.innerHTML = '<span class="tick">⚠️ Failed to load recommendation stream.</span>';
+        });
+});

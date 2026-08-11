@@ -1,0 +1,27 @@
+[
+  {
+    "flag": "https://flagcdn.com/w40/cn.png",
+    "category": "FPGA",
+    "recommendation": "FPGA (Mainland China) lead times compressing — reduce buffer inventory"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/tw.png",
+    "category": "Antenna",
+    "recommendation": "Antenna (Taiwan) new capacity coming online — revisit supplier shortlist next quarter"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/cn.png",
+    "category": "VR",
+    "recommendation": "VR (Mainland China) tariff exposure flagged — reassess landed cost and sourcing region"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/in.png",
+    "category": "Optical TRX",
+    "recommendation": "Optical TRX (India) lead times compressing — reduce buffer inventory"
+  },
+  {
+    "flag": "https://flagcdn.com/w40/jp.png",
+    "category": "BMS IC",
+    "recommendation": "BMS IC (Japan) fab capacity shift reported — monitor for downstream price movement"
+  }
+]

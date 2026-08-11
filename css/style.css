@@ -694,7 +694,21 @@ nav {
     object-fit: contain;
     z-index: 2;
     filter: drop-shadow(0 0 40px rgba(143, 108, 255, 0.5));
+    
+  animation: spin 50s linear infinite;
 }
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 2. Apply it to your image */
+
 
 /* 🌟 FLOATING PIECES */
 .piece {
@@ -751,51 +765,51 @@ nav {
 .orbit-1 {
     width: 350px;
     height: 350px;
-    animation: spin 25s linear infinite -5s;
+    animation: spin 45s linear infinite -5s;
 }
 
 .orbit-2 {
     width: 500px;
     height: 500px;
-    animation: spin 35s linear infinite -18s;
+    animation: spin 55s linear infinite -18s;
 }
 
 .orbit-3 {
     width: 650px;
     height: 650px;
-    animation: spin 45s linear infinite -30s;
+    animation: spin 65s linear infinite -30s;
 }
 
 /* 🌟 NAYE 3 ORBITS (4, 5, 6) */
 .orbit-4 {
     width: 800px;
     height: 800px;
-    animation: spin 55s linear infinite -40s;
+    animation: spin 75s linear infinite -40s;
 }
 
 .orbit-5 {
     width: 950px;
     height: 950px;
-    animation: spin 65s linear infinite -50s;
+    animation: spin 85s linear infinite -50s;
 }
 
 .orbit-6 {
     width: 1100px;
     height: 1100px;
-    animation: spin 75s linear infinite -60s;
+    animation: spin 95s linear infinite -60s;
 }
 
 /* Naye Orbits ke Counter Animations */
 .orbit-4 .planet-counter {
-    animation: counter 55s linear infinite -40s;
+    animation: counter 75s linear infinite -40s;
 }
 
 .orbit-5 .planet-counter {
-    animation: counter 65s linear infinite -50s;
+    animation: counter 85s linear infinite -50s;
 }
 
 .orbit-6 .planet-counter {
-    animation: counter 75s linear infinite -60s;
+    animation: counter 95s linear infinite -60s;
 }
 
 
@@ -814,15 +828,15 @@ nav {
 }
 
 .orbit-1 .planet-counter {
-    animation: counter 25s linear infinite -5s;
+    animation: counter 45s linear infinite -5s;
 }
 
 .orbit-2 .planet-counter {
-    animation: counter 35s linear infinite -18s;
+    animation: counter 55s linear infinite -18s;
 }
 
 .orbit-3 .planet-counter {
-    animation: counter 45s linear infinite -30s;
+    animation: counter 65s linear infinite -30s;
 }
 
 /* 🌟 PLANETS & HOVER */
@@ -849,7 +863,7 @@ nav {
 .planet-icon {
     font-size: 32px;
     filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
-    transition: transform 0.3s ease;
+    transition: transform 1.5s ease;
 }
 
 .planet-text {
@@ -1272,17 +1286,19 @@ nav {
     box-shadow: var(--shadow-sm);
 }
 
+/* Ticker Motion Speed (Slow & Smooth) */
 .ticker-track {
     display: inline-flex;
     gap: 50px;
     padding-left: 100%;
-    animation: ticker 30s linear infinite;
+    animation: ticker 80s linear infinite;
 }
 
 .ticker-window:hover .ticker-track {
     animation-play-state: paused;
 }
 
+/* Ticker Item Styling */
 .tick {
     display: inline-flex;
     align-items: center;
@@ -1290,8 +1306,39 @@ nav {
     color: #dce4ef;
     font-size: 15px;
     font-weight: 500;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 8px 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    white-space: nowrap;
 }
 
+/* Flag Image Icon Styling */
+.ticker-flag-icon {
+    width: 24px;
+    height: 16px;
+    object-fit: cover;
+    border-radius: 3px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: inline-flex;
+}
+
+/* Short Category Badge */
+.category-badge {
+    background: rgba(0, 208, 132, 0.12);
+    color: #00D084;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid rgba(0, 208, 132, 0.25);
+    white-space: nowrap;
+}
+
+/* Recommendation Text */
+.recommendation-text {
+    color: #f1f5f9;
+}
 .dot {
     width: 8px;
     height: 8px;
@@ -2092,7 +2139,7 @@ nav {
 
     .ticker-track {
         gap: 30px;
-        animation-duration: 20s;
+        animation-duration: 80s;
     }
 
     .tick {
