@@ -1,9 +1,14 @@
+/* =====================================
+   MOBILE MENU TOGGLE
+===================================== */
 const menuToggle = document.querySelector(".menu-toggle");
 const navMenu = document.querySelector(".nav-menu");
-menuToggle.addEventListener("click", () => {
-    menuToggle.classList.toggle("active");
-    navMenu.classList.toggle("active");
-});
+if (menuToggle && navMenu) {
+    menuToggle.addEventListener("click", () => {
+        menuToggle.classList.toggle("active");
+        navMenu.classList.toggle("active");
+    });
+}
 
 /* =====================================
    HERO SLIDER
@@ -13,25 +18,29 @@ const dots = document.querySelectorAll(".hero-pagination span");
 let currentSlide = 0;
 
 function showSlide(index) {
+    if (slides.length === 0) return;
     slides.forEach(slide => { slide.classList.remove("active"); });
     dots.forEach(dot => { dot.classList.remove("active"); });
     slides[index].classList.add("active");
-    dots[index].classList.add("active");
+    if (dots[index]) dots[index].classList.add("active");
 }
 
 function nextSlide() {
+    if (slides.length === 0) return;
     currentSlide++;
     if (currentSlide >= slides.length) { currentSlide = 0; }
     showSlide(currentSlide);
 }
 
-setInterval(nextSlide, 5000);
-dots.forEach((dot, index) => {
-    dot.addEventListener("click", () => {
-        currentSlide = index;
-        showSlide(currentSlide);
+if (slides.length > 0) {
+    setInterval(nextSlide, 5000);
+    dots.forEach((dot, index) => {
+        dot.addEventListener("click", () => {
+            currentSlide = index;
+            showSlide(currentSlide);
+        });
     });
-});
+}
 
 /* =====================================
    ALL SCROLL ANIMATIONS (COMBINED)
@@ -56,29 +65,20 @@ if (!tickingViewport) {
             const qScrollableDistance = window.innerHeight * 1.5; 
             const qScrolledAmount = window.innerHeight - qRect.top;
             
-            // Progress 0 se 1 tak calculate hogi
             let qProgress = Math.min(Math.max(qScrolledAmount / qScrollableDistance, 0), 1);
             const isMobile = window.innerWidth <= 768;
 
             pieces.forEach((piece, index) => {
-                // 1. Translation multiplier bada diya taaki pieces zyada dur se travel karke aayein
                 const multiplier = isMobile ? 60 : 200; 
-                
-                // Start mein pieces thodi dur (offset position) par rahengi aur scroll ke sath 0 (center/final pos) par aayengi
                 const moveY = (index % 2 === 0 ? 1 : -1) * (index + 1) * multiplier * (1 - qProgress);
                 const moveX = (index % 2 !== 0 ? 1 : -1) * (index * 25) * (1 - qProgress);
+                const currentScale = 0.2 + (qProgress * 0.8);
 
-                // 2. Scale ko 0.2 (bahut chota/dur) se shuru karke 1 (normal size) tak laana
-                const currentScale = 0.2 + (qProgress * 0.8); // 0.2 se start hokar 1.0 tak jayega
-
-                // Apply cinematic zoom-in transform
                 piece.style.transform = `
                     translate(${moveX}px, ${moveY}px)
                     rotate(${qProgress * 620}deg)
                     scale(${currentScale})
                 `;
-                
-                // Optional: Jab tak dur hain tab tak opacity kam rahe, paas aate hi clear ho jaye
                 piece.style.opacity = qProgress;
             });
         }
@@ -116,36 +116,26 @@ if (!tickingViewport) {
 // Trigger scroll once on load
 window.dispatchEvent(new Event('scroll'));
 
+/* =====================================
+   FLOATING SEARCH INPUT & BLUR HANDLER
+===================================== */
 document.addEventListener("DOMContentLoaded", () => {
     const mockupCard = document.getElementById('mockupCard');
-    const searchIconBtn = document.getElementById('searchIconBtn');
-    const searchBar = document.getElementById('searchBar');
-    const closeSearchBtn = document.getElementById('closeSearchBtn');
     const inlineSearchInput = document.getElementById('inlineSearchInput');
 
-    if (searchIconBtn && mockupCard) {
-        // Open search bar on clicking green icon
-        searchIconBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
+    if (inlineSearchInput && mockupCard) {
+        // Jab user search box par click ya focus kare toh background blur ho jaye
+        inlineSearchInput.addEventListener('focus', () => {
             mockupCard.classList.add('search-active');
-            inlineSearchInput.focus();
         });
 
-        // Close on clicking 'X' button
-        closeSearchBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            mockupCard.classList.remove('search-active');
-            inlineSearchInput.value = '';
-        });
-
-        // Close when clicking anywhere else on the screen
-        document.addEventListener('click', (e) => {
-            if (mockupCard.classList.contains('search-active')) {
-                if (!searchBar.contains(e.target) && !searchIconBtn.contains(e.target)) {
+        // Jab user focus hataaye toh blur hat jaye
+        inlineSearchInput.addEventListener('blur', () => {
+            setTimeout(() => {
+                if (document.activeElement !== inlineSearchInput) {
                     mockupCard.classList.remove('search-active');
-                    inlineSearchInput.value = '';
                 }
-            }
+            }, 200);
         });
     }
 });
@@ -153,12 +143,14 @@ document.addEventListener("DOMContentLoaded", () => {
 // Handle search and redirect to second page
 function handleInlineSearch(event) {
     event.preventDefault();
-    const query = document.getElementById('inlineSearchInput').value.trim();
-    if (query) {
-        window.location.href = `search-results.html?q=${encodeURIComponent(query)}`;
+    const inputField = document.getElementById('inlineSearchInput');
+    if (inputField) {
+        const query = inputField.value.trim();
+        if (query) {
+            window.location.href = `search-results.html?q=${encodeURIComponent(query)}`;
+        }
     }
 }   
-
 
 /* =====================================
    CONSULTING MODAL FORM HANDLER
@@ -184,6 +176,9 @@ if (consultingBtn && consultingModal && closeModal) {
     });
 }
 
+/* =====================================
+   LIVE RECOMMENDATION TICKER
+===================================== */
 document.addEventListener("DOMContentLoaded", () => {
     const track = document.getElementById('dynamicTickerTrack');
     if (!track) return;
@@ -193,7 +188,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             let htmlContent = '';
             
-            // Seamless infinite scrolling loop ke liye 2 baar render karte hain
             for (let i = 0; i < 2; i++) {
                 data.forEach(item => {
                     htmlContent += `

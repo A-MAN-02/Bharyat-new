@@ -238,6 +238,57 @@ nav {
     align-items: center;
     gap: 20px;
 }
+.q-radar-nav-link,
+.q-lens-nav-link,
+.q-procure-nav-link {
+    display: inline-flex !important;
+    align-items: center !important; /* Yeh icon aur text ko vertically center kar dega */
+    gap: 1px; /* Icon aur text ke beech ka spacing thoda sa badhaya hai */
+    font-weight: 700;
+    font-size: clamp(14px, 1.2vw, 17px);
+    color: var(--text);
+    position: relative;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.q-radar-nav-link svg,
+.q-lens-nav-link svg,
+.q-procure-nav-link svg {
+    margin-bottom: 0px !important; /* Purana negative margin hata diya hai */
+    transform: translateY(1px); /* Optical center alignment ke liye ek pixel ka subtle shift */
+}
+
+.q-radar-nav-link:hover,
+.q-lens-nav-link:hover,
+.q-procure-nav-link:hover {
+    color: var(--primary) !important;
+}
+
+.q-radar-nav-link::after,
+.q-lens-nav-link::after,
+.q-procure-nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 100%;
+    height: 2px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: var(--transition);
+}
+
+.q-radar-nav-link:hover::after, .q-radar-nav-link.active::after,
+.q-lens-nav-link:hover::after, .q-lens-nav-link.active::after,
+.q-procure-nav-link:hover::after, .q-procure-nav-link.active::after {
+    transform: scaleX(1);
+}
+/* QProcure ke text ko vertically center karne ke liye */
+.q-procure-nav-link span {
+    transform: translateY(-3px);
+}
 
 .login-btn {
     padding: 10px 20px;
@@ -293,10 +344,10 @@ nav {
 =================================== */
 .hero {
     position: relative;
-    min-height: 100vh;
+    height: 100vh; /* min-height: 100vh ki jagah height: 100vh karein */
     padding-top: var(--navbar-height);
     overflow: hidden;
-    padding-bottom: 70px;
+    padding-bottom: 0px; /* Agar niche extra space ban rahi hai toh padding-bottom kam ya 0 kar dein */
     background: #050816;
     display: flex;
     align-items: center;
@@ -767,55 +818,62 @@ nav {
     pointer-events: none;
     transition: border-color 0.3s ease;
 }
+/* ====================================================
+   FIXED ORBITS: Slow & Non-Overlapping Rotation
+==================================================== */
 
 .orbit-1 {
     width: 350px;
     height: 350px;
-    animation: spin 45s linear infinite -5s;
+    animation: spin 150s linear infinite 0s;
+}
+.orbit-1 .planet-counter {
+    animation: counter 150s linear infinite 0s;
 }
 
 .orbit-2 {
     width: 500px;
     height: 500px;
-    animation: spin 55s linear infinite -18s;
+    animation: spin 150s linear infinite -25s;
+}
+.orbit-2 .planet-counter {
+    animation: counter 150s linear infinite -25s;
 }
 
 .orbit-3 {
     width: 650px;
     height: 650px;
-    animation: spin 65s linear infinite -30s;
+    animation: spin 150s linear infinite -50s;
+}
+.orbit-3 .planet-counter {
+    animation: counter 150s linear infinite -50s;
 }
 
-/* 🌟 NAYE 3 ORBITS (4, 5, 6) */
 .orbit-4 {
     width: 800px;
     height: 800px;
-    animation: spin 75s linear infinite -40s;
+    animation: spin 150s linear infinite -75s;
+}
+.orbit-4 .planet-counter {
+    animation: counter 150s linear infinite -75s;
 }
 
 .orbit-5 {
     width: 950px;
     height: 950px;
-    animation: spin 85s linear infinite -50s;
+    animation: spin 150s linear infinite -100s;
+}
+.orbit-5 .planet-counter {
+    animation: counter 150s linear infinite -100s;
 }
 
 .orbit-6 {
     width: 1100px;
     height: 1100px;
-    animation: spin 95s linear infinite -60s;
+    animation: spin 150s linear infinite -125s;
 }
-
-/* Naye Orbits ke Counter Animations */
-.orbit-4 .planet-counter {
-    animation: counter 75s linear infinite -40s;
-}
-
-.orbit-5 .planet-counter {
-    animation: counter 85s linear infinite -50s;
-}
-
 .orbit-6 .planet-counter {
-    animation: counter 95s linear infinite -60s;
+    animation: counter 150s linear infinite -125s;
 }
 
 
@@ -833,7 +891,7 @@ nav {
     height: 0;
 }
 
-.orbit-1 .planet-counter {
+/* .orbit-1 .planet-counter {
     animation: counter 45s linear infinite -5s;
 }
 
@@ -843,7 +901,7 @@ nav {
 
 .orbit-3 .planet-counter {
     animation: counter 65s linear infinite -30s;
-}
+} */
 
 /* 🌟 PLANETS & HOVER */
 .planet-unsquish {
@@ -951,27 +1009,6 @@ nav {
     -webkit-text-fill-color: transparent;
 }
 
-.consulting-subtags {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-bottom: 60px;
-    color: var(--text-secondary);
-    font-size: 15px;
-    font-weight: 500;
-}
-
-.consulting-subtags span {
-    display: inline-flex;
-    align-items: center;
-}
-
-.consulting-subtags span:not(:last-child):after {
-    content: "•";
-    margin-left: 16px;
-    color: var(--primary);
-}
 
 /* Nodes Grid / Flow */
 .consulting-nodes {
@@ -1065,14 +1102,7 @@ nav {
         min-width: 100%;
     }
 
-    .consulting-subtags span:not(:last-child):after {
-        display: none;
-    }
-
-    .consulting-subtags {
-        flex-direction: column;
-        gap: 8px;
-    }
+   
 }
 
 
@@ -1723,7 +1753,16 @@ nav {
     transition: transform 0.3s ease, border-color 0.3s ease;
     margin-bottom: 40px;
 }
-
+.step-title-heading {
+    display: flex; /* Yeh heading ko apne block mein shift kar dega taaki yeh niche aaye */
+    align-items: center;
+    gap: 4px;
+    font-family: cursive;
+    font-weight: 700;
+    font-size: 38px;
+    color: #EAEEF4;
+    margin: 15px 0 20px 0; /* Upar thoda space dene ke liye margin-top add kiya hai */
+}
 .sourceq-stack-wrapper .step-row:nth-child(1) {
     top: 120px;
     z-index: 10;
@@ -1820,6 +1859,54 @@ nav {
     justify-content: center;
     max-width: 100%;
 }
+/* Floating, Glowing & Movable Search Input Box */
+.floating-search-box {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 290px;
+    height: 56px;
+    background: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(12px);
+    border: 2px solid #00D084;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    z-index: 15;
+    box-shadow: 0 0 25px rgba(0, 208, 132, 0.45), 0 20px 40px rgba(0,0,0,0.5);
+    animation: searchBoxFloat 4s ease-in-out infinite alternate;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Jab search input par click/focus ho toh background image aur baki elements blur ho jayein */
+.dashboard-mockup.search-active img.card-bg {
+    filter: blur(8px) brightness(0.4);
+    transform: scale(1.05);
+    transition: filter 400ms cubic-bezier(.4, 0, .2, 1), transform 400ms cubic-bezier(.4, 0, .2, 1);
+}
+
+.dashboard-mockup.search-active .blur-target-group {
+    filter: blur(8px);
+    pointer-events: none;
+    transition: filter 400ms cubic-bezier(.4, 0, .2, 1);
+}
+
+/* Jab input par click/focus ho toh glow aur tez ho jaye */
+.floating-search-box:focus-within {
+    border-color: #00F5A0;
+    box-shadow: 0 0 35px rgba(0, 245, 160, 0.7), 0 20px 40px rgba(0,0,0,0.6);
+}
+
+/* Movable Floating Animation (jaise pehle icon ho raha tha) */
+@keyframes searchBoxFloat {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(22px);
+    }
+}
 
 .dashboard-mockup {
     width: 100%;
@@ -1855,6 +1942,10 @@ nav {
 /* ====================================================
    FIXED SEARCH BAR EXPAND & ICON BLUR STYLING
 ==================================================== */
+img.card-bg {
+    filter: blur(0.1px) brightness(0.4);
+
+}
 .dashboard-mockup.search-active img.card-bg {
     filter: blur(8px) brightness(0.4);
     transform: scale(1.05);

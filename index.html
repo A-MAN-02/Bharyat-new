@@ -23,7 +23,7 @@
                     <div class="logo-wrapper">
                         <!-- Top Row: Source aur Q ek sath ek hi line me -->
                         <div class="brand-main">
-                            <span class="logo-source">Source</span>
+                            <span class="logo-source">SOURCE</span>
                             <div class="logo-q-wrapper">
                                 <!-- 3D Rotating 3-Orbit Quantum-Q SVG -->
                                 <svg class="quantum-q-svg" viewBox="0 0 140 140" width="50" height="50">
@@ -70,9 +70,120 @@
             </div>
             <div class="nav-menu">
                 <ul class="nav-links">
-                    <li><a href="#parts-finder">QRadar</a></li>
-                    <li><a href="#costiq">QLens</a></li>
-                    <li><a href="#exchange">QProcure</a></li>
+                    <!-- QRadar Navbar Link -->
+                    <li>
+                        <a href="#parts-finder" class="q-radar-nav-link">
+                            <svg width="19" height="22" viewBox="0 0 34 40" style="overflow: visible;"
+                                filter="url(#glowTealNav)">
+                                <defs>
+                                    <linearGradient id="gradTealNav" x1="0" y1="0" x2="34" y2="40"
+                                        gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#5CF0C4" />
+                                        <stop offset="100%" stop-color="#1FA383" />
+                                    </linearGradient>
+                                    <filter id="glowTealNav" x="-60%" y="-60%" width="220%" height="220%">
+                                        <feGaussianBlur stdDeviation="1.4" result="b" />
+                                        <feMerge>
+                                            <feMergeNode in="b" />
+                                            <feMergeNode in="SourceGraphic" />
+                                        </feMerge>
+                                    </filter>
+                                    <clipPath id="clipRadarNav">
+                                        <circle cx="16" cy="16" r="13.4" />
+                                    </clipPath>
+                                </defs>
+                                <circle class="ring-inline" cx="16" cy="16" r="8.4" stroke="url(#gradTealNav)"
+                                    stroke-width="2.1" fill="none" />
+                                <circle class="ring-inline r2" cx="16" cy="16" r="8.4" stroke="url(#gradTealNav)"
+                                    stroke-width="2.1" fill="none" />
+                                <circle cx="16" cy="16" r="13.4" stroke="url(#gradTealNav)" stroke-width="3.3"
+                                    fill="none" />
+                                <g class="sweep-inline" clip-path="url(#clipRadarNav)">
+                                    <path d="M16 16 L16 1.5 A14.5 14.5 0 0 1 29 9.25 Z" fill="url(#gradTealNav)"
+                                        opacity="0.35" />
+                                    <line x1="16" y1="16" x2="16" y2="2" stroke="url(#gradTealNav)" stroke-width="2.7"
+                                        stroke-linecap="round" />
+                                </g>
+                                <line class="tail-inline" x1="24" y1="24" x2="31" y2="35" stroke="url(#gradTealNav)"
+                                    stroke-width="3.9" stroke-linecap="round" />
+                                <circle cx="16" cy="16" r="2.6" fill="#5CF0C4" />
+                            </svg>
+                            <span style="font-family: cursive;">radar</span>
+                        </a>
+                    </li>
+
+                    <!-- QLens Navbar Link -->
+                    <li>
+                        <a href="#costiq" class="q-lens-nav-link">
+                            <svg width="19" height="22" viewBox="0 0 34 40" style="overflow: visible;"
+                                filter="url(#glowCyanInline)">
+                                <defs>
+                                    <linearGradient id="gradCyanInline" x1="0" y1="0" x2="34" y2="40"
+                                        gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#8FE0F7" />
+                                        <stop offset="100%" stop-color="#2E9DC2" />
+                                    </linearGradient>
+                                    <filter id="glowCyanInline" x="-60%" y="-60%" width="220%" height="220%">
+                                        <feGaussianBlur stdDeviation="1.4" result="b" />
+                                        <feMerge>
+                                            <feMergeNode in="b" />
+                                            <feMergeNode in="SourceGraphic" />
+                                        </feMerge>
+                                    </filter>
+                                    <clipPath id="clipLensInline">
+                                        <circle cx="15" cy="15" r="12.1" />
+                                    </clipPath>
+                                </defs>
+                                <circle cx="15" cy="15" r="12.1" stroke="url(#gradCyanInline)" stroke-width="3.3"
+                                    fill="none" />
+                                <circle class="ring-pulse-lens-inline" cx="15" cy="15" r="7.3"
+                                    stroke="url(#gradCyanInline)" stroke-width="1.95" fill="none" opacity="0.6" />
+                                <circle cx="15" cy="15" r="3.4" stroke="url(#gradCyanInline)" stroke-width="1.8"
+                                    fill="none" opacity="0.9" />
+                                <g clip-path="url(#clipLensInline)">
+                                    <rect class="glint-lens-inline" x="-4" y="-4" width="8" height="46" fill="#FFFFFF"
+                                        opacity="0.5" transform="rotate(20 15 15)" />
+                                </g>
+                                <line class="tail-line-lens-inline" x1="23.5" y1="23.5" x2="31.5" y2="35"
+                                    stroke="url(#gradCyanInline)" stroke-width="4.2" stroke-linecap="round" />
+                            </svg>
+                            <span style="font-family: cursive;">lens</span>
+                        </a>
+                    </li>
+
+                    <!-- QProcure Navbar Link -->
+                    <li>
+                        <a href="#exchange" class="q-procure-nav-link">
+                            <svg width="19" height="22" viewBox="0 0 34 40" style="overflow: visible;"
+                                filter="url(#glowPurpleNav)">
+                                <defs>
+                                    <linearGradient id="gradPurpleNav" x1="0" y1="0" x2="34" y2="40"
+                                        gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#C3B4FF" />
+                                        <stop offset="100%" stop-color="#7C61E0" />
+                                    </linearGradient>
+                                    <filter id="glowPurpleNav" x="-60%" y="-60%" width="220%" height="220%">
+                                        <feGaussianBlur stdDeviation="1.4" result="b" />
+                                        <feMerge>
+                                            <feMergeNode in="b" />
+                                            <feMergeNode in="SourceGraphic" />
+                                        </feMerge>
+                                    </filter>
+                                </defs>
+                                <circle cx="16" cy="16" r="13.4" stroke="url(#gradPurpleNav)" stroke-width="3.3"
+                                    fill="none" opacity="0.9" />
+                                <circle class="ring-pulse-procure" cx="16" cy="16" r="13.4" stroke="url(#gradPurpleNav)"
+                                    stroke-width="2.4" fill="none" />
+                                <path class="check-draw-procure" d="M9.5 16 L14.5 21.5 L23 10.5"
+                                    stroke="url(#gradPurpleNav)" stroke-width="3.9" stroke-linecap="round"
+                                    stroke-linejoin="round" fill="none" />
+                                <line class="tail-line-procure" x1="24" y1="24" x2="31" y2="35"
+                                    stroke="url(#gradPurpleNav)" stroke-width="3.9" stroke-linecap="round" />
+                            </svg>
+                            <span style="font-family: cursive;">procure</span>
+                        </a>
+                    </li>
+
                     <li><a href="#insight">Consulting</a></li>
                     <li><a href="#lab">Insights</a></li>
                 </ul>
@@ -154,119 +265,112 @@
             <div class="system-viewport" id="solar-system-viewport">
 
                 <div class="engine-wrap">
-                    <div class="quantum-image">
-                        <img class="piece piece1" src="./assets/images/piece1.png" alt="p1">
-                        <img class="piece piece2" src="./assets/images/piece2.png" alt="p2">
-                        <img class="piece piece3" src="./assets/images/piece3.png" alt="p3">
-                        <img class="piece piece4" src="./assets/images/piece4.png" alt="p4">
-                        <img class="piece piece5" src="./assets/images/piece5.png" alt="p5">
-                        <img class="piece piece6" src="./assets/images/piece6.png" alt="p6">
-                    </div>
+
                     <div class="engine">
                         <img class="core-image" src="./assets/images/quantum-core.png" alt="Quantum Core">
                     </div>
                 </div>
 
                 <div class="angle-wrapper">
-                   <div class="system-wrapper">
+                    <div class="system-wrapper">
 
-    <!-- 1. Price Competitiveness -->
-    <div class="orbit orbit-1">
-        <div class="planet-anchor">
-            <div class="planet-counter">
-                <div class="planet-unsquish">
-                    <div class="planet">
-                        <div class="planet-content">
-                            <div class="planet-icon">💲</div>
-                            <div class="planet-text">Price Competitiveness</div>
+                        <!-- 1. Price Competitiveness -->
+                        <div class="orbit orbit-1">
+                            <div class="planet-anchor">
+                                <div class="planet-counter">
+                                    <div class="planet-unsquish">
+                                        <div class="planet">
+                                            <div class="planet-content">
+                                                <div class="planet-icon">💲</div>
+                                                <div class="planet-text">Price Competitiveness</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- 2. Supply Availability -->
-    <div class="orbit orbit-2">
-        <div class="planet-anchor">
-            <div class="planet-counter">
-                <div class="planet-unsquish">
-                    <div class="planet">
-                        <div class="planet-content">
-                            <div class="planet-icon">📦</div>
-                            <div class="planet-text">Supply Availability</div>
+                        <!-- 2. Supply Availability -->
+                        <div class="orbit orbit-2">
+                            <div class="planet-anchor">
+                                <div class="planet-counter">
+                                    <div class="planet-unsquish">
+                                        <div class="planet">
+                                            <div class="planet-content">
+                                                <div class="planet-icon">📦</div>
+                                                <div class="planet-text">Supply Availability</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- 3. Lead Time Outlook -->
-    <div class="orbit orbit-3">
-        <div class="planet-anchor">
-            <div class="planet-counter">
-                <div class="planet-unsquish">
-                    <div class="planet">
-                        <div class="planet-content">
-                            <div class="planet-icon">⏱️</div>
-                            <div class="planet-text">Lead Time Outlook</div>
+                        <!-- 3. Lead Time Outlook -->
+                        <div class="orbit orbit-3">
+                            <div class="planet-anchor">
+                                <div class="planet-counter">
+                                    <div class="planet-unsquish">
+                                        <div class="planet">
+                                            <div class="planet-content">
+                                                <div class="planet-icon">⏱️</div>
+                                                <div class="planet-text">Lead Time Outlook</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- 4. Supplier Confidence -->
-    <div class="orbit orbit-4">
-        <div class="planet-anchor">
-            <div class="planet-counter">
-                <div class="planet-unsquish">
-                    <div class="planet">
-                        <div class="planet-content">
-                            <div class="planet-icon">🛡️</div>
-                            <div class="planet-text">Supplier Confidence</div>
+                        <!-- 4. Supplier Confidence -->
+                        <div class="orbit orbit-4">
+                            <div class="planet-anchor">
+                                <div class="planet-counter">
+                                    <div class="planet-unsquish">
+                                        <div class="planet">
+                                            <div class="planet-content">
+                                                <div class="planet-icon">🛡️</div>
+                                                <div class="planet-text">Supplier Confidence</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- 5. Lifecycle Health -->
-    <div class="orbit orbit-5">
-        <div class="planet-anchor">
-            <div class="planet-counter">
-                <div class="planet-unsquish">
-                    <div class="planet">
-                        <div class="planet-content">
-                            <div class="planet-icon">📈</div>
-                            <div class="planet-text">Lifecycle Health</div>
+                        <!-- 5. Lifecycle Health -->
+                        <div class="orbit orbit-5">
+                            <div class="planet-anchor">
+                                <div class="planet-counter">
+                                    <div class="planet-unsquish">
+                                        <div class="planet">
+                                            <div class="planet-content">
+                                                <div class="planet-icon">📈</div>
+                                                <div class="planet-text">Lifecycle Health</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- 6. Counterfeit Risk -->
-    <div class="orbit orbit-6">
-        <div class="planet-anchor">
-            <div class="planet-counter">
-                <div class="planet-unsquish">
-                    <div class="planet">
-                        <div class="planet-content">
-                            <div class="planet-icon">⚠️</div>
-                            <div class="planet-text">Counterfeit Risk</div>
+                        <!-- 6. Counterfeit Risk -->
+                        <div class="orbit orbit-6">
+                            <div class="planet-anchor">
+                                <div class="planet-counter">
+                                    <div class="planet-unsquish">
+                                        <div class="planet">
+                                            <div class="planet-content">
+                                                <div class="planet-icon">⚠️</div>
+                                                <div class="planet-text">Counterfeit Risk</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-</div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -291,12 +395,9 @@
                     <div class="step-row">
                         <div class="step-text">
                             <span class="step-number">01</span><span>Search Faster.</span>
-                            <h3
-                                style="display: flex; align-items: flex-end; font-family: sans-serif; font-weight: 700; font-size: 24px; color: #EAEEF4; margin: 0;">
-                                <svg width="32" height="38" viewBox="0 0 34 40"
-                                    style="margin-right: -0.06em; margin-bottom: -2px; overflow: visible;"
+                            <h3 class="step-title-heading">
+                                <svg width="36" height="36" viewBox="0 0 34 40" style="overflow: visible;"
                                     filter="url(#glowTeal)">
-                                    <!-- Inline Gradients & Filters -->
                                     <defs>
                                         <linearGradient id="gradTealInline" x1="0" y1="0" x2="34" y2="40"
                                             gradientUnits="userSpaceOnUse">
@@ -314,39 +415,24 @@
                                             <circle cx="16" cy="16" r="13.4" />
                                         </clipPath>
                                     </defs>
-
-
-
-                                    <!-- Pulsing Rings -->
                                     <circle class="ring-inline" cx="16" cy="16" r="8.4" stroke="url(#gradTealInline)"
                                         stroke-width="2.1" fill="none" />
                                     <circle class="ring-inline r2" cx="16" cy="16" r="8.4" stroke="url(#gradTealInline)"
                                         stroke-width="2.1" fill="none" />
-
-                                    <!-- Outer Circle -->
                                     <circle cx="16" cy="16" r="13.4" stroke="url(#gradTealInline)" stroke-width="3.3"
                                         fill="none" />
-
-                                    <!-- Rotating Sweep -->
                                     <g class="sweep-inline" clip-path="url(#clipRadarInline)">
                                         <path d="M16 16 L16 1.5 A14.5 14.5 0 0 1 29 9.25 Z" fill="url(#gradTealInline)"
                                             opacity="0.35" />
                                         <line x1="16" y1="16" x2="16" y2="2" stroke="url(#gradTealInline)"
                                             stroke-width="2.7" stroke-linecap="round" />
                                     </g>
-
-                                    <!-- Tail Line -->
                                     <line class="tail-inline" x1="24" y1="24" x2="31" y2="35"
                                         stroke="url(#gradTealInline)" stroke-width="3.9" stroke-linecap="round" />
-
-                                    <!-- Center Dot -->
                                     <circle cx="16" cy="16" r="2.6" fill="#5CF0C4" />
                                 </svg>
-                                <span style="font-size: 38px;font-family: cursive;"> radar</span>
+                                <span>radar</span>
                             </h3>
-
-
-
                             <p>Search millions of components instantly with our AI-powered engine. Upload your BOM and
                                 let the system do the heavy lifting.</p>
                             <ul class="step-features">
@@ -356,22 +442,17 @@
                             </ul>
                         </div>
                         <div class="step-visual">
-                            <!-- Dashboard Mockup Card with Search Expand & Icon Blur Support -->
+                            <!-- Dashboard Mockup Card -->
                             <div class="dashboard-mockup" id="mockupCard" style="position: relative; overflow: hidden;">
                                 <!-- Background Image -->
                                 <img class="card-bg"
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrwW61DFlYi2pDaXzEnmtFLI_JWGjNCO8o7aMrxUFM6A&s=10"
+                                    src="./assets/images/qradar.jpeg"
                                     alt="Search Dashboard"
                                     style="width: 100%; height: 100%; object-fit: cover; transition: filter 400ms cubic-bezier(.4, 0, .2, 1), transform 400ms cubic-bezier(.4, 0, .2, 1);">
 
-                                <!-- Blur Target Group (Image ke sath Icon aur Mini-Card dono blur honge) -->
+                                <!-- Blur Target Group (Background image aur baki elements blur honge) -->
                                 <div class="blur-target-group"
                                     style="position: absolute; inset: 0; transition: filter 400ms cubic-bezier(.4, 0, .2, 1);">
-                                    <!-- Green Search Icon Badge -->
-                                    <div class="floating-badge badge-qradar" id="searchIconBtn" title="Click to search"
-                                        style="cursor: pointer;">
-                                        <span style="font-size: 24px; color: #fff;">🔍</span>
-                                    </div>
 
                                     <!-- Floating Mini Card (Component Match) -->
                                     <div class="floating-mini-card pos-bottom-right">
@@ -384,17 +465,15 @@
                                     </div>
                                 </div>
 
-                                <!-- Stretchable Search Bar -->
-                                <div class="expandable-search-bar" id="searchBar"
-                                    style="position: absolute; top: 20px; left: 20px; width: 65px; height: 65px; background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(0, 208, 132, 0.5); border-radius: 18px; display: flex; align-items: center; padding: 0 15px; z-index: 15; opacity: 0; pointer-events: none; transition: all 400ms cubic-bezier(.4, 0, .2, 1); box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+                                <!-- Floating, Glowing & Movable Search Input Box -->
+                                <div class="floating-search-box" id="searchBar">
                                     <form id="inlineSearchForm" onsubmit="handleInlineSearch(event)"
-                                        style="width: 100%; display: flex; align-items: center; gap: 10px;">
-                                        <span style="font-size: 20px;">🔍</span>
+                                        style="width: 100%; display: flex; align-items: center; gap: 12px;">
+                                        <span
+                                            style="font-size: 20px; color: #00D084; filter: drop-shadow(0 0 8px rgba(0,208,132,0.8));">🔍</span>
                                         <input type="text" id="inlineSearchInput" placeholder="Search components..."
                                             autocomplete="off"
-                                            style="width: 100%; background: transparent; border: none; color: #fff; font-size: 16px; outline: none;">
-                                        <button type="button" class="search-close-btn" id="closeSearchBtn"
-                                            style="background: none; border: none; color: #64748B; font-size: 20px; cursor: pointer;">&times;</button>
+                                            style="width: 100%; background: transparent; border: none; color: #fff; font-size: 15px; outline: none;">
                                     </form>
                                 </div>
                             </div>
@@ -405,12 +484,9 @@
                     <div class="step-row reverse">
                         <div class="step-text">
                             <span class="step-number">02</span><span>Analyze Deeper.</span>
-                            <!-- Animated QLens Header -->
-                            <br>
-                            <h3
-                                style="display: inline-flex; align-items: flex-end; font-family: cursive; font-weight: 700; font-size: 38px; color: #EAEEF4; margin: 0 0 20px 0;">
-                                <svg width="38" height="45" viewBox="0 0 34 40"
-                                    style="margin-bottom:-2px; overflow:visible;" filter="url(#glowCyanInline)">
+                            <h3 class="step-title-heading">
+                                <svg width="36" height="36" viewBox="0 0 34 40" style="overflow: visible;"
+                                    filter="url(#glowCyanInline)">
                                     <defs>
                                         <linearGradient id="gradCyanInline" x1="0" y1="0" x2="34" y2="40"
                                             gradientUnits="userSpaceOnUse">
@@ -428,9 +504,6 @@
                                             <circle cx="15" cy="15" r="12.1" />
                                         </clipPath>
                                     </defs>
-
-
-
                                     <circle cx="15" cy="15" r="12.1" stroke="url(#gradCyanInline)" stroke-width="3.3"
                                         fill="none" />
                                     <circle class="ring-pulse-lens-inline" cx="15" cy="15" r="7.3"
@@ -443,7 +516,8 @@
                                     </g>
                                     <line class="tail-line-lens-inline" x1="23.5" y1="23.5" x2="31.5" y2="35"
                                         stroke="url(#gradCyanInline)" stroke-width="4.2" stroke-linecap="round" />
-                                </svg>lens
+                                </svg>
+                                <span>lens</span>
                             </h3>
                             <p>Make data-driven decisions with predictive pricing analytics, lifecycle risk assessments,
                                 and historical trend data.</p>
@@ -456,7 +530,7 @@
                         <div class="step-visual">
                             <div class="dashboard-mockup analytics" style="position: relative;">
                                 <img style="width: 100%; height: 100%; object-fit: cover;"
-                                    src="https://media.istockphoto.com/id/2198117854/photo/complexity-of-thought-processes-and-the-human-mind-thoughts-creativity-emotions.jpg?s=612x612&w=0&k=20&c=nsNg3663dlvX6xx0S95S9xyD4ybOBgXB_eUWCqYIkb8="
+                                    src="./assets/images/qlens.jpeg"
                                     alt="Analytics Dashboard">
                                 <div class="floating-badge badge-qlens">
                                     <span style="font-size: 24px; color: #fff;">📊</span>
@@ -477,11 +551,9 @@
                     <div class="step-row">
                         <div class="step-text">
                             <span class="step-number">03</span><span>Procure Smarter.</span>
-                            <!-- Animated QProcure Header -->
-                            <h3
-                                style="display: flex; align-items: flex-end; font-family: cursive; font-weight: 700; font-size: 38px; color: #EAEEF4; margin: 0 0 20px 0;">
-                                <svg width="38" height="45" viewBox="0 0 34 40"
-                                    style="margin-bottom:-2px; overflow:visible;" filter="url(#glowPurpleInline)">
+                            <h3 class="step-title-heading">
+                                <svg width="36" height="36" viewBox="0 0 34 40" style="overflow: visible;"
+                                    filter="url(#glowPurpleInline)">
                                     <defs>
                                         <linearGradient id="gradPurpleInline" x1="0" y1="0" x2="34" y2="40"
                                             gradientUnits="userSpaceOnUse">
@@ -496,9 +568,6 @@
                                             </feMerge>
                                         </filter>
                                     </defs>
-
-
-
                                     <circle cx="16" cy="16" r="13.4" stroke="url(#gradPurpleInline)" stroke-width="3.3"
                                         fill="none" opacity="0.9" />
                                     <circle class="ring-pulse-procure" cx="16" cy="16" r="13.4"
@@ -508,7 +577,8 @@
                                         stroke-linejoin="round" fill="none" />
                                     <line class="tail-line-procure" x1="24" y1="24" x2="31" y2="35"
                                         stroke="url(#gradPurpleInline)" stroke-width="3.9" stroke-linecap="round" />
-                                </svg>procure
+                                </svg>
+                                <span>procure</span>
                             </h3>
                             <p>Connect with vetted global suppliers, optimize your procurement costs, and track your
                                 shipments seamlessly.</p>
@@ -521,7 +591,7 @@
                         <div class="step-visual">
                             <div class="dashboard-mockup procurement" style="position: relative;">
                                 <img style="width: 100%; height: 100%; object-fit: cover;"
-                                    src="https://media.istockphoto.com/id/2237056850/photo/distributor-online-shopping-management-frontend-and-backend-developer-customer-relationship.jpg?s=612x612&w=0&k=20&c=JXtYU-K3DeuEpZO_iSfYW-vHeVFMZ9yWXHCiPUm4CJY="
+                                    src="./assets/images/qprocure.jpeg"
                                     alt="Procurement Dashboard">
                                 <div class="floating-badge badge-qprocure">
                                     <span style="font-size: 24px; color: #fff;">🛒</span>
@@ -552,13 +622,7 @@
             <div class="consulting-container">
                 <div class="consulting-header">
                     <h2>Customer Intelligence Consulting</h2>
-                    <div class="consulting-subtags">
-                        <span>R&D Collaboration</span>
-                        <span>Key BOM Forecasting</span>
-                        <span>Scenario & Inventory Planning</span>
-                        <span>Supplier Concentration Modeling</span>
-                        <span>News & Event Impact Modeling</span>
-                    </div>
+
                 </div>
 
                 <div class="consulting-nodes">
@@ -626,19 +690,19 @@
 
         </section>
 
-<!-- =========================
+        <!-- =========================
      LIVE RECOMMENDATION TICKER
 ========================== -->
-<section class="ticker-section">
-    <div class="ticker-container">
-        <div class="ticker-title">Live Global Recommendation Stream</div>
-        <div class="ticker-window">
-            <div class="ticker-track" id="dynamicTickerTrack">
-                <!-- JavaScript automatically populates flag images, categories & recommendations -->
+        <section class="ticker-section">
+            <div class="ticker-container">
+                <div class="ticker-title">Live Global Recommendation Stream</div>
+                <div class="ticker-window">
+                    <div class="ticker-track" id="dynamicTickerTrack">
+                        <!-- JavaScript automatically populates flag images, categories & recommendations -->
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</section>
+        </section>
 
     </main>
 
