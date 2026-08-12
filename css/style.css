@@ -1957,16 +1957,57 @@ nav {
    FIXED SEARCH BAR EXPAND & ICON BLUR STYLING
 ==================================================== */
 /* ====================================================
-   FIXED CARD BACKGROUND & SEARCH ACTIVE BLUR
+   DYNAMIC WATER-FLOATING BACKGROUND IMAGE ANIMATION
 ==================================================== */
 img.card-bg {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(0.4); /* Direct blur hata kar sirf brightness rakhi hai */
+    filter: brightness(0.4);
+    object-position: 0% 0%;
+    animation: waterFloatMotion 14s ease-in-out infinite;
     transition: filter 400ms cubic-bezier(.4, 0, .2, 1), transform 400ms cubic-bezier(.4, 0, .2, 1);
 }
 
+@keyframes waterFloatMotion {
+    0% {
+        object-position: 0% 0%;
+    }
+    50% {
+        object-position: 4% 6%;
+    }
+    100% {
+        object-position: 0% 0%;
+    }
+}
+/* All Dashboard Background Images - Subtle Floating Animation */
+.dashboard-mockup > img:first-child {
+    animation: dashboardImageFloat 8s ease-in-out infinite;
+    transform-origin: center center;
+    will-change: transform;
+}
+
+@keyframes dashboardImageFloat {
+    0% {
+        transform: scale(1.04) translate3d(0, 0, 0) rotate(0deg);
+    }
+
+    25% {
+        transform: scale(1.055) translate3d(-3px, -2px, 0) rotate(0.15deg);
+    }
+
+    50% {
+        transform: scale(1.045) translate3d(3px, 2px, 0) rotate(-0.15deg);
+    }
+
+    75% {
+        transform: scale(1.055) translate3d(-2px, 2px, 0) rotate(0.1deg);
+    }
+
+    100% {
+        transform: scale(1.04) translate3d(0, 0, 0) rotate(0deg);
+    }
+}
 .dashboard-mockup.search-active img.card-bg {
     filter: blur(8px) brightness(0.4);
     transform: scale(1.05);
