@@ -1286,7 +1286,7 @@ nav {
 }
 
 /* ====================================================
-   LIVE RECOMMENDATION TICKER SECTION
+   LIVE RECOMMENDATION TICKER STYLING (2-LINES OPPOSITE)
 ==================================================== */
 .ticker-section {
     background: var(--bg-primary);
@@ -1312,22 +1312,38 @@ nav {
     background: rgba(255, 255, 255, .02);
 }
 
-.ticker-window {
-    overflow: hidden;
-    white-space: nowrap;
-    padding: 18px 0;
+.ticker-window-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     border: 1px solid var(--border);
     border-radius: 0 0 18px 18px;
     background: rgba(255, 255, 255, .035);
+    padding: 18px 0;
     box-shadow: var(--shadow-sm);
 }
 
-/* Ticker Motion Speed (Slow & Smooth) */
+.ticker-window {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+}
+
+/* Ticker Tracks */
 .ticker-track {
     display: inline-flex;
-    gap: 50px;
-    padding-left: 100%;
-    animation: ticker 520s linear infinite;
+    gap: 30px;
+    width: max-content;
+}
+
+/* Line 1: Moves Left */
+.ticker-left {
+    animation: tickerLeft 520s linear infinite;
+}
+
+/* Line 2: Moves Right */
+.ticker-right {
+    animation: tickerRight 520s linear infinite;
 }
 
 .ticker-window:hover .ticker-track {
@@ -1338,18 +1354,17 @@ nav {
 .tick {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
     color: #dce4ef;
     font-size: 15px;
     font-weight: 500;
     background: rgba(255, 255, 255, 0.03);
-    padding: 8px 26px 8px 12px;
+    padding: 8px 20px 8px 12px;
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.06);
     white-space: nowrap;
 }
 
-/* Flag Image Icon Styling */
 .ticker-flag-icon {
     width: 24px;
     height: 16px;
@@ -1359,7 +1374,6 @@ nav {
     display: inline-flex;
 }
 
-/* Short Category Badge */
 .category-badge {
     background: rgba(0, 208, 132, 0.12);
     color: #00D084;
@@ -1368,28 +1382,28 @@ nav {
     font-size: 13px;
     font-weight: 600;
     border: 1px solid rgba(0, 208, 132, 0.25);
-    white-space: nowrap;
 }
 
-/* Recommendation Text */
 .recommendation-text {
     color: #f1f5f9;
 }
-.dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #5ee494;
-    box-shadow: 0 0 12px #5ee494;
-}
 
-@keyframes ticker {
-    from {
+/* Keyframes for Seamless -50% Loop */
+@keyframes tickerLeft {
+    0% {
         transform: translateX(0);
     }
+    100% {
+        transform: translateX(-50%);
+    }
+}
 
-    to {
-        transform: translateX(-100%);
+@keyframes tickerRight {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0);
     }
 }
 
@@ -1942,10 +1956,17 @@ nav {
 /* ====================================================
    FIXED SEARCH BAR EXPAND & ICON BLUR STYLING
 ==================================================== */
+/* ====================================================
+   FIXED CARD BACKGROUND & SEARCH ACTIVE BLUR
+==================================================== */
 img.card-bg {
-    filter: blur(0.1px) brightness(0.4);
-
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.4); /* Direct blur hata kar sirf brightness rakhi hai */
+    transition: filter 400ms cubic-bezier(.4, 0, .2, 1), transform 400ms cubic-bezier(.4, 0, .2, 1);
 }
+
 .dashboard-mockup.search-active img.card-bg {
     filter: blur(8px) brightness(0.4);
     transform: scale(1.05);

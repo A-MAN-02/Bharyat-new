@@ -177,20 +177,37 @@ if (consultingBtn && consultingModal && closeModal) {
 }
 
 /* =====================================
-   LIVE RECOMMENDATION TICKER
+   LIVE RECOMMENDATION TICKER (2 LINES)
 ===================================== */
 document.addEventListener("DOMContentLoaded", () => {
-    const track = document.getElementById('dynamicTickerTrack');
-    if (!track) return;
+    const track1 = document.getElementById('tickerTrack1');
+    const track2 = document.getElementById('tickerTrack2');
+    if (!track1 || !track2) return;
 
     fetch('recommendations.json')
         .then(response => response.json())
         .then(data => {
-            let htmlContent = '';
+            let htmlContent1 = '';
+            let htmlContent2 = '';
             
-            for (let i = 0; i < 2; i++) {
-                data.forEach(item => {
-                    htmlContent += `
+            const mid = Math.ceil(data.length / 2);
+            const list1 = data.slice(0, mid);
+            const list2 = data.slice(mid);
+
+            // Content ko 4 baar repeat karte hain taaki track lamba bane aur -50% loop seamless ho
+            for (let i = 0; i < 4; i++) {
+                list1.forEach(item => {
+                    htmlContent1 += `
+                        <span class="tick">
+                            <img src="${item.flag}" alt="Flag" class="ticker-flag-icon">
+                            <span class="category-badge">${item.category}</span>
+                            <span class="recommendation-text">${item.recommendation}</span>
+                        </span>
+                    `;
+                });
+                
+                list2.forEach(item => {
+                    htmlContent2 += `
                         <span class="tick">
                             <img src="${item.flag}" alt="Flag" class="ticker-flag-icon">
                             <span class="category-badge">${item.category}</span>
@@ -199,10 +216,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     `;
                 });
             }
-            track.innerHTML = htmlContent;
+
+            track1.innerHTML = htmlContent1;
+            track2.innerHTML = htmlContent2;
         })
         .catch(error => {
             console.error('Error loading recommendations JSON:', error);
-            track.innerHTML = '<span class="tick">⚠️ Failed to load recommendation stream.</span>';
+            track1.innerHTML = '<span class="tick">⚠️ Failed to load stream.</span>';
+            track2.innerHTML = '<span class="tick">⚠️ Failed to load stream.</span>';
         });
 });

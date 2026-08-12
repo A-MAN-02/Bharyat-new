@@ -445,9 +445,7 @@
                             <!-- Dashboard Mockup Card -->
                             <div class="dashboard-mockup" id="mockupCard" style="position: relative; overflow: hidden;">
                                 <!-- Background Image -->
-                                <img class="card-bg"
-                                    src="./assets/images/qradar.jpeg"
-                                    alt="Search Dashboard"
+                                <img class="card-bg" src="./assets/images/qradar.jpeg" alt="Search Dashboard"
                                     style="width: 100%; height: 100%; object-fit: cover; transition: filter 400ms cubic-bezier(.4, 0, .2, 1), transform 400ms cubic-bezier(.4, 0, .2, 1);">
 
                                 <!-- Blur Target Group (Background image aur baki elements blur honge) -->
@@ -530,8 +528,7 @@
                         <div class="step-visual">
                             <div class="dashboard-mockup analytics" style="position: relative;">
                                 <img style="width: 100%; height: 100%; object-fit: cover;"
-                                    src="./assets/images/qlens.jpeg"
-                                    alt="Analytics Dashboard">
+                                    src="./assets/images/qlens.jpeg" alt="Analytics Dashboard">
                                 <div class="floating-badge badge-qlens">
                                     <span style="font-size: 24px; color: #fff;">📊</span>
                                 </div>
@@ -591,8 +588,7 @@
                         <div class="step-visual">
                             <div class="dashboard-mockup procurement" style="position: relative;">
                                 <img style="width: 100%; height: 100%; object-fit: cover;"
-                                    src="./assets/images/qprocure.jpeg"
-                                    alt="Procurement Dashboard">
+                                    src="./assets/images/qprocure.jpeg" alt="Procurement Dashboard">
                                 <div class="floating-badge badge-qprocure">
                                     <span style="font-size: 24px; color: #fff;">🛒</span>
                                 </div>
@@ -689,16 +685,24 @@
 
 
         </section>
-
         <!-- =========================
      LIVE RECOMMENDATION TICKER
 ========================== -->
         <section class="ticker-section">
             <div class="ticker-container">
                 <div class="ticker-title">Live Global Recommendation Stream</div>
-                <div class="ticker-window">
-                    <div class="ticker-track" id="dynamicTickerTrack">
-                        <!-- JavaScript automatically populates flag images, categories & recommendations -->
+                <div class="ticker-window-wrapper">
+                    <!-- Line 1: Left Moving Ticker -->
+                    <div class="ticker-window">
+                        <div class="ticker-track ticker-left" id="tickerTrack1">
+                            <!-- JS automatically populates -->
+                        </div>
+                    </div>
+                    <!-- Line 2: Right Moving Ticker -->
+                    <div class="ticker-window">
+                        <div class="ticker-track ticker-right" id="tickerTrack2">
+                            <!-- JS automatically populates -->
+                        </div>
                     </div>
                 </div>
             </div>
