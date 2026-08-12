@@ -1,6 +1,9 @@
 /* ===================================
    VARIABLES
 =================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
+
 :root {
     --navbar-height: 84px;
     --bg-primary: #111827;
@@ -35,6 +38,7 @@ body {
     font-family: "Inter", sans-serif;
     background: #F5F8FF;
     color: #111827;
+    overflow-x: hidden;
 }
 
 img {
@@ -74,7 +78,6 @@ nav {
     align-items: center;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
 
 .brand-logo {
     display: inline-block;
@@ -97,7 +100,7 @@ nav {
 
 .logo-source {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 28px;
+    font-size: clamp(22px, 2.2vw, 28px);
     font-weight: 800;
     color: #ffffff;
     letter-spacing: -0.5px;
@@ -192,14 +195,14 @@ nav {
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 36px;
+    gap: clamp(20px, 2.5vw, 36px);
     list-style: none;
 }
 
 .nav-links a {
     position: relative;
     color: var(--text);
-    font-size: 17px;
+    font-size: clamp(14px, 1.2vw, 17px);
     font-weight: 500;
     transition: var(--transition);
 }
@@ -237,11 +240,11 @@ nav {
 }
 
 .login-btn {
-    padding: 12px 24px;
+    padding: 10px 20px;
     background: var(--primary);
     color: #fff;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: clamp(14px, 1.1vw, 16px);
     font-weight: 600;
     transition: var(--transition);
 }
@@ -290,12 +293,13 @@ nav {
 =================================== */
 .hero {
     position: relative;
-    height: 100vh;
     min-height: 100vh;
-    padding-top: 84px;
+    padding-top: var(--navbar-height);
     overflow: hidden;
     padding-bottom: 70px;
     background: #050816;
+    display: flex;
+    align-items: center;
 }
 
 .hero::before {
@@ -348,8 +352,9 @@ nav {
 .hero-container {
     max-width: 1400px;
     margin: auto;
-    height: calc(100vh - var(--navbar-height));
-    padding: 0px 60px 0px;
+    width: 100%;
+    min-height: calc(100vh - var(--navbar-height));
+    padding: 20px 40px;
     gap: 40px;
     display: grid;
     grid-template-columns: 1.05fr .95fr;
@@ -363,7 +368,6 @@ nav {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-top: 35px;
     width: 100%;
     animation: fadeUp .9s ease;
 }
@@ -382,17 +386,18 @@ nav {
     background: rgba(0, 208, 132, .08);
     border: 1px solid rgba(0, 208, 132, .25);
     color: #B9FFD8;
-    padding: 10px 22px;
-    font-size: 25px;
+    padding: 8px 18px;
+    font-size: clamp(16px, 1.8vw, 25px);
     font-weight: 600;
     backdrop-filter: blur(15px);
+    width: fit-content;
 }
 
 .hero-title {
     animation-delay: .4s;
     margin: 18px 0 12px;
-    line-height: .95;
-    font-size: clamp(2.8rem, 5vw, 4.8rem);
+    line-height: 1.05;
+    font-size: clamp(2.2rem, 4vw, 4.8rem);
     font-weight: 800;
     letter-spacing: -3px;
     color: #ffffff;
@@ -406,7 +411,7 @@ nav {
     animation-delay: .6s;
     max-width: 560px;
     margin-bottom: 20px;
-    font-size: 25px;
+    font-size: clamp(16px, 1.4vw, 25px);
     line-height: 1.5;
     color: rgba(255, 255, 255, .72);
 }
@@ -421,7 +426,7 @@ nav {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 14px 28px;
+    padding: 12px 24px;
     border-radius: 14px;
     text-decoration: none;
     font-size: 16px;
@@ -517,15 +522,15 @@ nav {
 .scroll-indicator {
     position: absolute;
     left: 50%;
-    bottom: 85px;
+    bottom: 40px;
     transform: translateX(-50%);
     z-index: 20;
 }
 
 .scroll-indicator span {
     display: block;
-    width: 28px;
-    height: 48px;
+    width: 24px;
+    height: 40px;
     border: 2px solid rgba(255, 255, 255, .5);
     border-radius: 30px;
     position: relative;
@@ -535,10 +540,10 @@ nav {
     content: "";
     position: absolute;
     left: 50%;
-    top: 8px;
+    top: 6px;
     transform: translateX(-50%);
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: #00D084;
     animation: scrollDown 1.8s infinite;
@@ -559,7 +564,7 @@ nav {
 
     100% {
         opacity: 0;
-        transform: translate(-50%, 18px);
+        transform: translate(-50%, 14px);
     }
 }
 
@@ -611,7 +616,7 @@ nav {
 }
 
 .q-top-header h2 {
-    font-size: clamp(32px, 5vw, 54px);
+    font-size: clamp(28px, 4.5vw, 54px);
     line-height: 1.05;
     letter-spacing: -.05em;
     color: #fff;
@@ -937,7 +942,7 @@ nav {
 }
 
 .consulting-header h2 {
-    font-size: clamp(32px, 4vw, 46px);
+    font-size: clamp(28px, 3.8vw, 46px);
     font-weight: 800;
     margin-bottom: 16px;
     background: linear-gradient(90deg, #ffffff, #aeb8c5);
@@ -971,7 +976,7 @@ nav {
 .consulting-nodes {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
     gap: 20px;
     position: relative;
     margin-bottom: 60px;
@@ -1307,7 +1312,7 @@ nav {
     font-size: 15px;
     font-weight: 500;
     background: rgba(255, 255, 255, 0.03);
-    padding: 8px 16px;
+    padding: 8px 26px 8px 12px;
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.06);
     white-space: nowrap;
@@ -1533,7 +1538,7 @@ nav {
 }
 
 .cta-content h2 {
-    font-size: 32px;
+    font-size: clamp(26px, 3vw, 32px);
     color: #fff;
     margin-bottom: 12px;
     letter-spacing: -0.5px;
@@ -1541,7 +1546,7 @@ nav {
 
 .cta-content p {
     color: var(--text-secondary);
-    font-size: 16px;
+    font-size: clamp(14px, 1.2vw, 16px);
 }
 
 .cta-actions {
@@ -1676,7 +1681,7 @@ nav {
 }
 
 .sourceq-header h2 {
-    font-size: 42px;
+    font-size: clamp(30px, 4vw, 42px);
     margin-bottom: 8px;
     background: linear-gradient(90deg, #ffffff, #aeb8c5);
     -webkit-background-clip: text;
@@ -1684,7 +1689,7 @@ nav {
 }
 
 .sourceq-header p {
-    font-size: 18px;
+    font-size: clamp(15px, 1.3vw, 18px);
     color: #64748B;
 }
 
@@ -1766,14 +1771,14 @@ nav {
 }
 
 .step-text h3 {
-    font-size: 38px;
+    font-size: clamp(26px, 3vw, 38px);
     margin-bottom: 20px;
     line-height: 1.2;
     color: #ffffff;
 }
 
 .step-text p {
-    font-size: 17px;
+    font-size: clamp(15px, 1.2vw, 17px);
     color: #aeb8c5;
     line-height: 1.6;
     margin-bottom: 30px;
@@ -1785,7 +1790,7 @@ nav {
 }
 
 .step-features li {
-    font-size: 16px;
+    font-size: clamp(14px, 1.1vw, 16px);
     margin-bottom: 15px;
     display: flex;
     align-items: center;
@@ -1805,17 +1810,20 @@ nav {
     border-radius: 50%;
     font-size: 14px;
     font-weight: bold;
+    flex-shrink: 0;
 }
 
 .step-visual {
     flex: 1;
     display: flex;
     justify-content: center;
+    max-width: 100%;
 }
 
 .dashboard-mockup {
     width: 100%;
     height: 350px;
+    max-width: 100%;
     background: linear-gradient(135deg, #1e293b, #0f172a);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
@@ -1870,34 +1878,32 @@ nav {
     color: #fff !important;
 }
 
-/* .dashboard-mockup img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-} */
-
-
-
-
-
-
-
 /* ===================================
-   RESPONSIVE
+   RESPONSIVE MEDIA QUERIES FOR DESKTOPS AND SMALLER SCREENS
 =================================== */
-@media (max-width:1200px) {
+@media (max-width: 1366px) and (max-height: 768px) {
+    .hero-container {
+        height: auto;
+        min-height: calc(100vh - var(--navbar-height));
+        padding: 40px;
+    }
+    .system-viewport {
+        height: 420px;
+    }
     .angle-wrapper {
-        transform: rotate(-15deg) scale(0.8);
+        transform: rotate(-15deg) scale(0.65);
     }
 }
 
-@media (max-width:768px) {
+@media (max-width:1200px) {
+    .angle-wrapper {
+        transform: rotate(-15deg) scale(0.7);
+    }
+}
+
+@media (max-width:992px) {
     nav {
         padding: 0 24px;
-    }
-
-    .logo img {
-        height: 32px;
     }
 
     .login-btn {
@@ -1919,6 +1925,7 @@ nav {
         visibility: hidden;
         transform: translateY(-15px);
         transition: var(--transition);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.4);
     }
 
     .nav-menu.active {
@@ -1931,35 +1938,38 @@ nav {
         flex-direction: column;
         gap: 28px;
         padding: 36px 24px;
+        align-items: flex-start;
     }
 
     .hero-container {
         grid-template-columns: 1fr;
-        gap: 60px;
-        padding: 60px 24px;
+        gap: 40px;
+        padding: 40px 24px;
         text-align: center;
+        height: auto;
     }
 
     .hero-content {
         align-items: center;
+        max-width: 100%;
+    }
+
+    .hero-tag {
+        margin: 0 auto;
     }
 
     .hero-title {
-        font-size: clamp(2.6rem, 10vw, 4rem);
+        font-size: clamp(2.4rem, 7vw, 4rem);
     }
 
     .hero-description {
         max-width: 100%;
-        font-size: 18px;
     }
-
-
-
-  
 
     .btn-primary,
     .btn-secondary {
         width: 100%;
+        max-width: 300px;
     }
 
     .hero {
@@ -1967,67 +1977,20 @@ nav {
         min-height: 100vh;
     }
 
-    .hero-container {
-        height: auto;
-        min-height: calc(100vh - var(--navbar-height));
-        padding-bottom: 120px;
-        padding-top: 0px;
-    }
-
-    /* Orbit Mobile Fix */
+    /* Orbit Mobile/Small Desktop Fix */
     .system-viewport {
-        height: 350px;
+        height: 380px;
     }
 
     .angle-wrapper {
-        transform: rotate(-15deg) scale(0.45);
-    }
-
-    .planet-text {
-        font-size: 16px;
+        transform: rotate(-15deg) scale(0.5);
     }
 
     .engine-wrap {
-        transform: scale(0.6);
+        transform: scale(0.7);
     }
 
-    .piece1 {
-        width: 90px;
-        left: 22%;
-        top: 35%;
-    }
-
-    .piece2 {
-        width: 100px;
-        right: 22%;
-        top: 45%;
-    }
-
-    .piece3 {
-        width: 95px;
-        left: 44%;
-        top: 8%;
-    }
-
-    .piece4 {
-        width: 80px;
-        right: 32%;
-        bottom: 12%;
-    }
-
-    .piece5 {
-        width: 70px;
-        left: 40%;
-        bottom: 55%;
-    }
-
-    .piece6 {
-        width: 80px;
-        right: 52%;
-        top: 75%;
-    }
-
-    /* SourceQ Mobile */
+    /* SourceQ Stack Layout Adjustments */
     .sourceq-header {
         position: relative;
         top: unset;
@@ -2035,87 +1998,18 @@ nav {
 
     .step-row,
     .step-row.reverse {
-        flex-direction: column;
-        gap: 40px;
+        flex-direction: column !important;
+        gap: 30px;
         margin-bottom: 40px;
         text-align: center;
         position: relative;
         top: unset !important;
-    }
-
-    .step-text {
-        order: 1;
-    }
-
-    .step-features {
-        text-align: left;
-        display: inline-block;
-    }
-
-    .step-visual {
-        order: 2;
-        width: 100%;
-    }
-
-    .sourceq-header h2 {
-        font-size: 28px;
-    }
-
-    .floating-badge {
-        width: 50px;
-        height: 50px;
-        border-radius: 14px;
-    }
-
-    .floating-badge span {
-        font-size: 20px !important;
-    }
-
-    .badge-qradar {
-        top: -10px;
-        left: -10px;
-    }
-
-    .floating-mini-card {
-        padding: 8px 10px;
-        gap: 8px;
-    }
-
-    .floating-mini-card img {
-        width: 35px;
-        height: 35px;
-    }
-
-    .floating-mini-card strong {
-        font-size: 11px;
-    }
-
-    .floating-mini-card span {
-        font-size: 10px;
-    }
-
-    .pos-bottom-right {
-        bottom: -15px;
-        right: -10px;
-    }
-
-    .connection-shape {
-        display: none;
-    }
-
-    .step-row,
-    .step-row.reverse {
-        flex-direction: column;
-        gap: 40px;
-        margin-bottom: 40px;
-        text-align: center;
         padding: 30px 20px;
-        position: relative;
-        top: unset !important;
     }
 
     .step-text {
         order: 1;
+        max-width: 100%;
     }
 
     .step-features {
@@ -2129,7 +2023,7 @@ nav {
     }
 
     .dashboard-mockup {
-        height: 260px;
+        height: 280px;
     }
 
     /* Ticker Mobile */
@@ -2146,7 +2040,7 @@ nav {
         font-size: 14px;
     }
 
-    /* Footer Mobile Adjustments */
+    /* Footer Adjustments */
     .site-footer {
         padding: 40px 24px 20px;
     }
@@ -2155,12 +2049,8 @@ nav {
         flex-direction: column;
         text-align: center;
         padding: 30px 20px;
-        gap: 30px;
+        gap: 25px;
         margin-bottom: 50px;
-    }
-
-    .cta-content h2 {
-        font-size: 24px;
     }
 
     .cta-actions,
