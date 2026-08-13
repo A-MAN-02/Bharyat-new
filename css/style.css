@@ -66,6 +66,11 @@ header {
     z-index: 1000;
     background: var(--bg-primary);
     box-shadow: 0 2px 20px rgba(0, 0, 0, .15);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+}
+header.nav-hidden {
+    transform: translateY(-100%);
 }
 
 nav {
@@ -78,7 +83,6 @@ nav {
     align-items: center;
 }
 
-
 .brand-logo {
     display: inline-block;
     text-decoration: none;
@@ -90,12 +94,10 @@ nav {
     align-items: flex-start;
 }
 
-/* Source aur Q ke liye single row container */
 .brand-main {
     display: flex;
     align-items: center;
     gap: 0px;
-    /* Source aur Q ke beech ka gap minimum rakha hai */
 }
 
 .logo-source {
@@ -114,15 +116,14 @@ nav {
     justify-content: center;
 }
 
-/* Tagline Source aur Q ke bilkul niche */
 .logo-tagline {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 8.5px;
+    font-size: 9.5px;
     font-weight: 600;
     color: #4fe0d7;
     letter-spacing: 0.8px;
     white-space: nowrap;
-    margin-top: 1px;
+    margin-top: -4px;
 }
 
 .logo-tagline span {
@@ -130,7 +131,6 @@ nav {
     font-weight: 700;
 }
 
-/* 3D Rotating Orbits Animation */
 .quantum-q-svg {
     overflow: visible;
     transform: rotateX(15deg) rotateY(-15deg);
@@ -156,7 +156,6 @@ nav {
     from {
         transform: rotate(0deg) rotateX(20deg);
     }
-
     to {
         transform: rotate(360deg) rotateX(20deg);
     }
@@ -166,7 +165,6 @@ nav {
     from {
         transform: rotate(0deg) rotateY(-20deg);
     }
-
     to {
         transform: rotate(360deg) rotateY(-20deg);
     }
@@ -176,7 +174,6 @@ nav {
     from {
         transform: rotate(0deg) rotateZ(45deg);
     }
-
     to {
         transform: rotate(360deg) rotateZ(45deg);
     }
@@ -238,12 +235,13 @@ nav {
     align-items: center;
     gap: 20px;
 }
+
 .q-radar-nav-link,
 .q-lens-nav-link,
 .q-procure-nav-link {
     display: inline-flex !important;
-    align-items: center !important; /* Yeh icon aur text ko vertically center kar dega */
-    gap: 1px; /* Icon aur text ke beech ka spacing thoda sa badhaya hai */
+    align-items: center !important;
+    gap: 1px;
     font-weight: 700;
     font-size: clamp(14px, 1.2vw, 17px);
     color: var(--text);
@@ -255,8 +253,8 @@ nav {
 .q-radar-nav-link svg,
 .q-lens-nav-link svg,
 .q-procure-nav-link svg {
-    margin-bottom: 0px !important; /* Purana negative margin hata diya hai */
-    transform: translateY(1px); /* Optical center alignment ke liye ek pixel ka subtle shift */
+    margin-bottom: 0px !important;
+    transform: translateY(1px);
 }
 
 .q-radar-nav-link:hover,
@@ -285,7 +283,7 @@ nav {
 .q-procure-nav-link:hover::after, .q-procure-nav-link.active::after {
     transform: scaleX(1);
 }
-/* QProcure ke text ko vertically center karne ke liye */
+
 .q-procure-nav-link span {
     transform: translateY(-3px);
 }
@@ -344,10 +342,10 @@ nav {
 =================================== */
 .hero {
     position: relative;
-    height: 100vh; /* min-height: 100vh ki jagah height: 100vh karein */
+    height: 100vh;
     padding-top: var(--navbar-height);
     overflow: hidden;
-    padding-bottom: 0px; /* Agar niche extra space ban rahi hai toh padding-bottom kam ya 0 kar dein */
+    padding-bottom: 0px;
     background: #050816;
     display: flex;
     align-items: center;
@@ -467,11 +465,6 @@ nav {
     line-height: 1.5;
     color: rgba(255, 255, 255, .72);
 }
-
-
-
-
-
 
 .btn-primary,
 .btn-secondary {
@@ -613,7 +606,6 @@ nav {
         opacity: 1;
         transform: translate(-50%, 0);
     }
-
     100% {
         opacity: 0;
         transform: translate(-50%, 14px);
@@ -621,12 +613,10 @@ nav {
 }
 
 @keyframes float {
-
     0%,
     100% {
         transform: translateY(0);
     }
-
     50% {
         transform: translateY(-25px);
     }
@@ -637,13 +627,11 @@ nav {
         opacity: 0;
         transform: translateY(60px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
-
 
 /* ====================================================
    QUANTUM AI SECTION (BASE)
@@ -716,7 +704,6 @@ nav {
     align-items: center;
 }
 
-/* 🌟 CENTER ENGINE */
 .engine-wrap {
     position: absolute;
     z-index: 1000;
@@ -751,23 +738,9 @@ nav {
     object-fit: contain;
     z-index: 2;
     filter: drop-shadow(0 0 40px rgba(143, 108, 255, 0.5));
-    
-  animation: spin 50s linear infinite;
+    animation: spin 50s linear infinite;
 }
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* 2. Apply it to your image */
-
-
-/* 🌟 FLOATING PIECES */
 .piece {
     position: absolute;
     transition: transform 0.1s ease-out;
@@ -810,7 +783,6 @@ nav {
     top: 150%;
 }
 
-/* 🌟 ORBITS */
 .orbit {
     position: absolute;
     border: 2px dashed rgba(255, 255, 255, 0.15);
@@ -818,9 +790,6 @@ nav {
     pointer-events: none;
     transition: border-color 0.3s ease;
 }
-/* ====================================================
-   FIXED ORBITS: Slow & Non-Overlapping Rotation
-==================================================== */
 
 .orbit-1 {
     width: 350px;
@@ -876,7 +845,6 @@ nav {
     animation: counter 150s linear infinite -125s;
 }
 
-
 .planet-anchor {
     position: absolute;
     top: 0;
@@ -891,19 +859,6 @@ nav {
     height: 0;
 }
 
-/* .orbit-1 .planet-counter {
-    animation: counter 45s linear infinite -5s;
-}
-
-.orbit-2 .planet-counter {
-    animation: counter 55s linear infinite -18s;
-}
-
-.orbit-3 .planet-counter {
-    animation: counter 65s linear infinite -30s;
-} */
-
-/* 🌟 PLANETS & HOVER */
 .planet-unsquish {
     position: absolute;
     transform: scaleY(2.85);
@@ -967,7 +922,6 @@ nav {
     0% {
         transform: rotate(0deg);
     }
-
     100% {
         transform: rotate(360deg);
     }
@@ -977,7 +931,6 @@ nav {
     0% {
         transform: rotate(0deg);
     }
-
     100% {
         transform: rotate(-360deg);
     }
@@ -1009,8 +962,6 @@ nav {
     -webkit-text-fill-color: transparent;
 }
 
-
-/* Nodes Grid / Flow */
 .consulting-nodes {
     display: flex;
     justify-content: space-between;
@@ -1024,22 +975,22 @@ nav {
 .consulting-node {
     flex: 1;
     min-width: 180px;
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(5, 8, 22, 0.95));
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
+    /* background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(5, 8, 22, 0.95)); */
+    /* border: 1px solid rgba(255, 255, 255, 0.08); */
+    /* border-radius: 20px; */
     padding: 30px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    /* box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); */
     transition: var(--transition);
 }
 
 .consulting-node:hover {
     transform: translateY(-8px);
-    border-color: rgba(0, 208, 132, 0.4);
-    box-shadow: 0 25px 50px rgba(0, 208, 132, 0.15);
+    /* border-color: rgba(0, 208, 132, 0.4); */
+    /* box-shadow: 0 25px 50px rgba(0, 208, 132, 0.15); */
 }
 
 .node-icon-wrap {
@@ -1086,12 +1037,10 @@ nav {
     box-shadow: 0 15px 35px rgba(0, 208, 132, 0.4);
 }
 
-/* Responsive for Nodes */
 @media (max-width: 992px) {
     .consulting-nodes {
         justify-content: center;
     }
-
     .consulting-node {
         min-width: 45%;
     }
@@ -1101,10 +1050,7 @@ nav {
     .consulting-node {
         min-width: 100%;
     }
-
-   
 }
-
 
 @keyframes spinInline {
     to {
@@ -1117,11 +1063,9 @@ nav {
         opacity: 0.9;
         transform: scale(0.75);
     }
-
     70% {
         opacity: 0;
     }
-
     100% {
         opacity: 0;
         transform: scale(1.35);
@@ -1129,12 +1073,10 @@ nav {
 }
 
 @keyframes tailglowInline {
-
     0%,
     100% {
         opacity: 0.55;
     }
-
     50% {
         opacity: 1;
     }
@@ -1158,26 +1100,69 @@ nav {
     animation: tailglowInline 2s ease-in-out infinite;
 }
 
+@keyframes ringpulseLensInline {
+    0% { opacity: 0.9; transform: scale(0.75); }
+    70% { opacity: 0; }
+    100% { opacity: 0; transform: scale(1.35); }
+}
 
- 
-@keyframes ringpulseLensInline { 0% { opacity: 0.9; transform: scale(0.75); } 70% { opacity: 0; } 100% { opacity: 0; transform: scale(1.35); } }
-@keyframes glintmoveLensInline { 0% { transform: translate(-30%,-30%) rotate(20deg); opacity: 0; } 15% { opacity: 0.9; } 55% { opacity: 0; } 100% { transform: translate(130%,130%) rotate(20deg); opacity: 0; } }
-@keyframes tailglowLensInline { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
-                                  
-.ring-pulse-lens-inline { transform-origin: 15px 15px; animation: ringpulseLensInline 2.6s ease-out infinite; }
-.glint-lens-inline { animation: glintmoveLensInline 3.2s ease-in-out infinite; }
-.tail-line-lens-inline { animation: tailglowLensInline 2s ease-in-out infinite; }
+@keyframes glintmoveLensInline {
+    0% { transform: translate(-30%,-30%) rotate(20deg); opacity: 0; }
+    15% { opacity: 0.9; }
+    55% { opacity: 0; }
+    100% { transform: translate(130%,130%) rotate(20deg); opacity: 0; }
+}
 
+@keyframes tailglowLensInline {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 1; }
+}
 
-@keyframes ringpulseProcureInline { 0%{ opacity:0.9; transform:scale(0.75); } 70%{ opacity:0; } 100%{ opacity:0; transform:scale(1.35); } }
-@keyframes dashdrawProcureInline { 0%{ stroke-dashoffset:24; } 45%{ stroke-dashoffset:0; } 75%{ stroke-dashoffset:0; opacity:1; } 90%{ stroke-dashoffset:0; opacity:0; } 100%{ stroke-dashoffset:24; opacity:0; } }
-@keyframes tailglowProcureInline { 0%,100%{ opacity:0.55; } 50%{ opacity:1; } }
+.ring-pulse-lens-inline {
+    transform-origin: 15px 15px;
+    animation: ringpulseLensInline 2.6s ease-out infinite;
+}
 
-.ring-pulse-procure { transform-origin: 16px 16px; animation: ringpulseProcureInline 2.6s ease-out infinite; }
-.check-draw-procure { stroke-dasharray: 24; animation: dashdrawProcureInline 3s ease-in-out infinite; }
-.tail-line-procure { animation: tailglowProcureInline 2s ease-in-out infinite; }
+.glint-lens-inline {
+    animation: glintmoveLensInline 3.2s ease-in-out infinite;
+}
 
-                                
+.tail-line-lens-inline {
+    animation: tailglowLensInline 2s ease-in-out infinite;
+}
+
+@keyframes ringpulseProcureInline {
+    0%{ opacity:0.9; transform:scale(0.75); }
+    70%{ opacity:0; }
+    100%{ opacity:0; transform:scale(1.35); }
+}
+
+@keyframes dashdrawProcureInline {
+    0%{ stroke-dashoffset:24; }
+    45%{ stroke-dashoffset:0; }
+    75%{ stroke-dashoffset:0; opacity:1; }
+    90%{ stroke-dashoffset:0; opacity:0; }
+    100%{ stroke-dashoffset:24; opacity:0; }
+}
+
+@keyframes tailglowProcureInline {
+    0%,100%{ opacity:0.55; }
+    50%{ opacity:1; }
+}
+
+.ring-pulse-procure {
+    transform-origin: 16px 16px;
+    animation: ringpulseProcureInline 2.6s ease-out infinite;
+}
+
+.check-draw-procure {
+    stroke-dasharray: 24;
+    animation: dashdrawProcureInline 3s ease-in-out infinite;
+}
+
+.tail-line-procure {
+    animation: tailglowProcureInline 2s ease-in-out infinite;
+}
 
 /* ====================================================
    CONSULTING MODAL FORM STYLING
@@ -1329,19 +1314,16 @@ nav {
     width: 100%;
 }
 
-/* Ticker Tracks */
 .ticker-track {
     display: inline-flex;
     gap: 30px;
     width: max-content;
 }
 
-/* Line 1: Moves Left */
 .ticker-left {
     animation: tickerLeft 520s linear infinite;
 }
 
-/* Line 2: Moves Right */
 .ticker-right {
     animation: tickerRight 520s linear infinite;
 }
@@ -1350,7 +1332,6 @@ nav {
     animation-play-state: paused;
 }
 
-/* Ticker Item Styling */
 .tick {
     display: inline-flex;
     align-items: center;
@@ -1388,7 +1369,6 @@ nav {
     color: #f1f5f9;
 }
 
-/* Keyframes for Seamless -50% Loop */
 @keyframes tickerLeft {
     0% {
         transform: translateX(0);
@@ -1502,7 +1482,6 @@ nav {
     0% {
         transform: translateY(0) rotate(5deg);
     }
-
     100% {
         transform: translateY(52px) rotate(5deg);
     }
@@ -1512,7 +1491,6 @@ nav {
     0% {
         transform: translateY(0);
     }
-
     100% {
         transform: translateY(-35px);
     }
@@ -1615,9 +1593,39 @@ nav {
     max-width: 320px;
 }
 
-.footer-logo {
-    height: 35px;
+.footer-logo-container {
+    display: flex;
+    align-items: center;
+    gap: 14px;
     margin-bottom: 20px;
+}
+
+.footer-logo {
+    height: 40px; /* Apne logo ke size ke mutabiq adjust kar sakte hain */
+    width: auto;
+    margin-bottom: 0 !important;
+}
+
+.footer-company-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-company-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+}
+
+.footer-company-sub {
+    font-size: 9.5px;
+    font-weight: 500;
+    color: #4fe0d7; /* Tagline color jaisa match karne ke liye */
+    letter-spacing: 0.3px;
+    margin-top: 2px;
 }
 
 .footer-brand p {
@@ -1713,7 +1721,6 @@ nav {
     position: relative;
 }
 
-/* 🔥 HEADER REMOVED FROM STICKY / PLACED NORMALLY OUTSIDE CARDS */
 .sourceq-header {
     position: relative;
     top: unset;
@@ -1741,7 +1748,6 @@ nav {
 /* ====================================================
    SOURCEQ STACKING CARDS (INTERNAL STYLE FIX)
 ==================================================== */
-
 .sourceq-stack-wrapper {
     position: relative;
     display: flex;
@@ -1749,7 +1755,6 @@ nav {
     gap: 40px;
 }
 
-/* Stacking card with transparent glassmorphism look */
 .step-row {
     position: sticky;
     top: 120px;
@@ -1767,16 +1772,21 @@ nav {
     transition: transform 0.3s ease, border-color 0.3s ease;
     margin-bottom: 40px;
 }
+
 .step-title-heading {
-    display: flex; /* Yeh heading ko apne block mein shift kar dega taaki yeh niche aaye */
+    display: flex;
     align-items: center;
     gap: 4px;
     font-family: cursive;
     font-weight: 700;
     font-size: 38px;
     color: #EAEEF4;
-    margin: 15px 0 20px 0; /* Upar thoda space dene ke liye margin-top add kiya hai */
+    margin: 15px 0 20px 0;
 }
+
+
+
+
 .sourceq-stack-wrapper .step-row:nth-child(1) {
     top: 120px;
     z-index: 10;
@@ -1791,6 +1801,7 @@ nav {
     top: 180px;
     z-index: 30;
 }
+
 
 .step-row:hover {
     border-color: rgba(0, 208, 132, 0.4);
@@ -1873,7 +1884,7 @@ nav {
     justify-content: center;
     max-width: 100%;
 }
-/* Floating, Glowing & Movable Search Input Box */
+
 .floating-search-box {
     position: absolute;
     top: 20px;
@@ -1893,26 +1904,11 @@ nav {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Jab search input par click/focus ho toh background image aur baki elements blur ho jayein */
-.dashboard-mockup.search-active img.card-bg {
-    filter: blur(8px) brightness(0.4);
-    transform: scale(1.05);
-    transition: filter 400ms cubic-bezier(.4, 0, .2, 1), transform 400ms cubic-bezier(.4, 0, .2, 1);
-}
-
-.dashboard-mockup.search-active .blur-target-group {
-    filter: blur(8px);
-    pointer-events: none;
-    transition: filter 400ms cubic-bezier(.4, 0, .2, 1);
-}
-
-/* Jab input par click/focus ho toh glow aur tez ho jaye */
 .floating-search-box:focus-within {
     border-color: #00F5A0;
     box-shadow: 0 0 35px rgba(0, 245, 160, 0.7), 0 20px 40px rgba(0,0,0,0.6);
 }
 
-/* Movable Floating Animation (jaise pehle icon ho raha tha) */
 @keyframes searchBoxFloat {
     0% {
         transform: translateY(0);
@@ -1953,12 +1949,6 @@ nav {
     background: linear-gradient(135deg, #064e3b, #022c22);
 }
 
-/* ====================================================
-   FIXED SEARCH BAR EXPAND & ICON BLUR STYLING
-==================================================== */
-/* ====================================================
-   DYNAMIC WATER-FLOATING BACKGROUND IMAGE ANIMATION
-==================================================== */
 img.card-bg {
     width: 100%;
     height: 100%;
@@ -1980,7 +1970,7 @@ img.card-bg {
         object-position: 0% 0%;
     }
 }
-/* All Dashboard Background Images - Subtle Floating Animation */
+
 .dashboard-mockup > img:first-child {
     animation: dashboardImageFloat 8s ease-in-out infinite;
     transform-origin: center center;
@@ -1991,23 +1981,20 @@ img.card-bg {
     0% {
         transform: scale(1.04) translate3d(0, 0, 0) rotate(0deg);
     }
-
     25% {
         transform: scale(1.055) translate3d(-3px, -2px, 0) rotate(0.15deg);
     }
-
     50% {
         transform: scale(1.045) translate3d(3px, 2px, 0) rotate(-0.15deg);
     }
-
     75% {
         transform: scale(1.055) translate3d(-2px, 2px, 0) rotate(0.1deg);
     }
-
     100% {
         transform: scale(1.04) translate3d(0, 0, 0) rotate(0deg);
     }
 }
+
 .dashboard-mockup.search-active img.card-bg {
     filter: blur(8px) brightness(0.4);
     transform: scale(1.05);
@@ -2033,7 +2020,7 @@ img.card-bg {
 }
 
 /* ===================================
-   RESPONSIVE MEDIA QUERIES FOR DESKTOPS AND SMALLER SCREENS
+   RESPONSIVE MEDIA QUERIES
 =================================== */
 @media (max-width: 1366px) and (max-height: 768px) {
     .hero-container {
@@ -2059,16 +2046,13 @@ img.card-bg {
     nav {
         padding: 0 24px;
     }
-
     .login-btn {
         padding: 10px 18px;
         font-size: 14px;
     }
-
     .menu-toggle {
         display: flex;
     }
-
     .nav-menu {
         position: absolute;
         top: var(--navbar-height);
@@ -2081,20 +2065,17 @@ img.card-bg {
         transition: var(--transition);
         box-shadow: 0 15px 30px rgba(0,0,0,0.4);
     }
-
     .nav-menu.active {
         opacity: 1;
         visibility: visible;
         transform: translateY(0);
     }
-
     .nav-links {
         flex-direction: column;
         gap: 28px;
         padding: 36px 24px;
         align-items: flex-start;
     }
-
     .hero-container {
         grid-template-columns: 1fr;
         gap: 40px;
@@ -2102,54 +2083,41 @@ img.card-bg {
         text-align: center;
         height: auto;
     }
-
     .hero-content {
         align-items: center;
         max-width: 100%;
     }
-
     .hero-tag {
         margin: 0 auto;
     }
-
     .hero-title {
         font-size: clamp(2.4rem, 7vw, 4rem);
     }
-
     .hero-description {
         max-width: 100%;
     }
-
     .btn-primary,
     .btn-secondary {
         width: 100%;
         max-width: 300px;
     }
-
     .hero {
         height: auto;
         min-height: 100vh;
     }
-
-    /* Orbit Mobile/Small Desktop Fix */
     .system-viewport {
         height: 380px;
     }
-
     .angle-wrapper {
         transform: rotate(-15deg) scale(0.5);
     }
-
     .engine-wrap {
         transform: scale(0.7);
     }
-
-    /* SourceQ Stack Layout Adjustments */
     .sourceq-header {
         position: relative;
         top: unset;
     }
-
     .step-row,
     .step-row.reverse {
         flex-direction: column !important;
@@ -2160,45 +2128,34 @@ img.card-bg {
         top: unset !important;
         padding: 30px 20px;
     }
-
     .step-text {
         order: 1;
         max-width: 100%;
     }
-
     .step-features {
         text-align: left;
         display: inline-block;
     }
-
     .step-visual {
         order: 2;
         width: 100%;
     }
-
     .dashboard-mockup {
         height: 280px;
     }
-
-    /* Ticker Mobile */
     .ticker-container {
         padding: 0 24px;
     }
-
     .ticker-track {
         gap: 30px;
         animation-duration: 80s;
     }
-
     .tick {
         font-size: 14px;
     }
-
-    /* Footer Adjustments */
     .site-footer {
         padding: 40px 24px 20px;
     }
-
     .footer-cta {
         flex-direction: column;
         text-align: center;
@@ -2206,19 +2163,16 @@ img.card-bg {
         gap: 25px;
         margin-bottom: 50px;
     }
-
     .cta-actions,
     .cta-actions a {
         width: 100%;
         text-align: center;
         flex-direction: column;
     }
-
     .footer-main {
         flex-direction: column;
         gap: 40px;
     }
-
     .footer-links {
         flex-direction: column;
         gap: 30px;

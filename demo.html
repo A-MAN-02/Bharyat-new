@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Q-Shape Mask Scroll Zoom Effect</title>
+    <title>SourceQ Zoom Intro Section</title>
     <style>
         * {
             margin: 0;
@@ -13,35 +13,20 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #01172F;
-            color: #ffffff;
+            background-color: #ffffff;
+            color: #050816;
             overflow-x: hidden;
         }
 
-        /* Hero / First section */
-        .hero-banner {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #01172F;
-            text-align: center;
-        }
-
-        .hero-banner h1 {
-            font-size: 2.5rem;
-            color: #ffffff;
-        }
-
-        /* Scroll container jo animation ke liye scrolling height dega */
-        .zoom-scroll-section {
+        /* 1. Scrollable Section taaki scroll karne par animation chale */
+        .sourceq-intro-section {
             position: relative;
-            height: 350vh;
+            height: 300vh;
             background-color: #ffffff;
         }
 
-        /* Sticky container jo scroll ke dauran screen par fix rahega */
-        .zoom-sticky-wrapper {
+        /* 2. Sticky Wrapper jo scroll ke dauran screen par locked rahega */
+        .sourceq-sticky-wrapper {
             position: sticky;
             top: 0;
             height: 100vh;
@@ -53,8 +38,8 @@
             background-color: #ffffff;
         }
 
-        /* Piche ka main page content jo Q khulne ke baad dikhega */
-        .revealed-content {
+        /* 3. Piche ka Main Website Content (Dark Theme) */
+        .main-website-content {
             position: absolute;
             inset: 0;
             display: flex;
@@ -62,72 +47,49 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            background-color: #ffffff;
-            color: #01172F;
+            background-color: #050816;
+            color: #ffffff;
             z-index: 1;
             padding: 20px;
         }
 
-        .revealed-content h2 {
+        .main-website-content h2 {
             font-size: 3rem;
-            color: #004B8D;
+            color: #00D084;
             margin-bottom: 20px;
         }
 
-        .revealed-content p {
+        .main-website-content p {
             font-size: 1.2rem;
             max-width: 700px;
-            line-height: 1.6;
-            color: #64748B;
-        }
-
-        /* Q-Shape Mask Layer jo shuru mein screen par rahegi aur zoom hokar gayab hogi */
-        .q-mask-layer {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            background: #01172F; /* Q shape ke andar ka background color */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #ffffff;
-            z-index: 2;
-            
-            /* Aapke diye gaye SVG path se Q shape mask apply kiya gaya hai */
-            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1908 760'%3E%3Cpath d='M924.953 405.872C923.141 405.984 921.312 406.042 919.472 406.042C871.463 406.042 832.543 367.122 832.543 319.112C832.543 271.104 871.463 232.184 919.472 232.184C967.481 232.184 1006.4 271.104 1006.4 319.112C1006.4 326.75 1005.42 334.158 1003.57 341.215C1001.98 349.127 998.706 357.868 993.806 366.489C991.801 370.018 989.639 373.322 987.373 376.366C986.949 376.786 986.556 377.237 986.196 377.715L986.069 377.887L985.965 378.032C985.861 378.179 985.762 378.328 985.665 378.479C985.568 378.631 985.475 378.784 985.385 378.939L985.231 379.13L985.075 379.323L985.126 379.41C984.249 381.092 983.754 382.999 983.754 385.022C983.754 391.782 989.287 397.264 996.113 397.264C996.338 397.264 996.562 397.258 996.783 397.246C996.979 397.235 997.173 397.221 997.366 397.201C1017.47 400.425 1032.82 417.846 1032.82 438.853C1032.82 462.151 1013.93 481.039 990.635 481.039C967.336 481.039 948.448 462.151 948.448 438.853C948.448 435.201 948.912 431.658 949.784 428.279L949.771 428.26C950.837 425.877 951.867 422.456 953.02 417.545C953.02 409.958 946.736 406.253 940.039 406.253L939.598 406.248L939.483 406.245C939.02 406.237 938.443 406.23 938.214 406.253C935.039 406.302 931.969 406.158 928.63 405.872C928.017 405.935 927.339 405.909 926.664 405.884H926.644C926.063 405.861 925.486 405.839 924.953 405.872ZM846.702 405.22V493.479C846.702 513.247 862.729 529.273 882.497 529.273H991.584C1038.65 529.273 1076.81 491.117 1076.81 444.049V439.787C1076.81 402.174 1052.44 370.251 1018.63 358.944C1017.43 358.543 1016.14 359.184 1015.67 360.359C1013.07 366.92 1009.82 373.157 1006.01 378.995C1005.09 380.404 1005.81 382.327 1007.42 382.823C1032.3 390.49 1050.39 413.666 1050.39 441.065C1050.39 474.72 1023.11 502.001 989.453 502.001C955.8 502.001 928.518 474.72 928.518 441.065C928.518 437.155 928.887 433.33 929.591 429.624C929.904 427.975 928.548 426.44 926.876 426.588C923.767 426.863 920.619 427.004 917.438 427.004C892.169 427.004 868.972 418.135 850.788 403.339C849.18 402.031 846.702 403.146 846.702 405.22Z'/%3E%3C/svg%3E");
-            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1908 760'%3E%3Cpath d='M924.953 405.872C923.141 405.984 921.312 406.042 919.472 406.042C871.463 406.042 832.543 367.122 832.543 319.112C832.543 271.104 871.463 232.184 919.472 232.184C967.481 232.184 1006.4 271.104 1006.4 319.112C1006.4 326.75 1005.42 334.158 1003.57 341.215C1001.98 349.127 998.706 357.868 993.806 366.489C991.801 370.018 989.639 373.322 987.373 376.366C986.949 376.786 986.556 377.237 986.196 377.715L986.069 377.887L985.965 378.032C985.861 378.179 985.762 378.328 985.665 378.479C985.568 378.631 985.475 378.784 985.385 378.939L985.231 379.13L985.075 379.323L985.126 379.41C984.249 381.092 983.754 382.999 983.754 385.022C983.754 391.782 989.287 397.264 996.113 397.264C996.338 397.264 996.562 397.258 996.783 397.246C996.979 397.235 997.173 397.221 997.366 397.201C1017.47 400.425 1032.82 417.846 1032.82 438.853C1032.82 462.151 1013.93 481.039 990.635 481.039C967.336 481.039 948.448 462.151 948.448 438.853C948.448 435.201 948.912 431.658 949.784 428.279L949.771 428.26C950.837 425.877 951.867 422.456 953.02 417.545C953.02 409.958 946.736 406.253 940.039 406.253L939.598 406.248L939.483 406.245C939.02 406.237 938.443 406.23 938.214 406.253C935.039 406.302 931.969 406.158 928.63 405.872C928.017 405.935 927.339 405.909 926.664 405.884H926.644C926.063 405.861 925.486 405.839 924.953 405.872ZM846.702 405.22V493.479C846.702 513.247 862.729 529.273 882.497 529.273H991.584C1038.65 529.273 1076.81 491.117 1076.81 444.049V439.787C1076.81 402.174 1052.44 370.251 1018.63 358.944C1017.43 358.543 1016.14 359.184 1015.67 360.359C1013.07 366.92 1009.82 373.157 1006.01 378.995C1005.09 380.404 1005.81 382.327 1007.42 382.823C1032.3 390.49 1050.39 413.666 1050.39 441.065C1050.39 474.72 1023.11 502.001 989.453 502.001C955.8 502.001 928.518 474.72 928.518 441.065C928.518 437.155 928.887 433.33 929.591 429.624C929.904 427.975 928.548 426.44 926.876 426.588C923.767 426.863 920.619 427.004 917.438 427.004C892.169 427.004 868.972 418.135 850.788 403.339C849.18 402.031 846.702 403.146 846.702 405.22Z'/%3E%3C/svg%3E");
-            
-            mask-repeat: no-repeat;
-            -webkit-mask-repeat: no-repeat;
-            mask-position: center;
-            -webkit-mask-position: center;
-            
-            mask-size: 400px; /* Shuruati size */
-            -webkit-mask-size: 400px;
-            will-change: mask-size, -webkit-mask-size, opacity;
-        }
-
-        .q-mask-layer h2 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-        }
-
-        .q-mask-layer p {
-            font-size: 1.1rem;
-            max-width: 600px;
-            padding: 0 20px;
             line-height: 1.6;
             color: #aeb8c5;
         }
 
-        /* Next Section */
+        /* 4. Q-Hole Zoom Element (Foreground Layer) */
+        .q-zoom-container {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+            will-change: transform;
+            transform-origin: center center;
+        }
+
+        .q-zoom-container svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 5. Next Section */
         .next-section {
             height: 100vh;
-            background-color: #f5f7fa;
-            color: #01172F;
+            background-color: #0f172a;
+            color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -138,37 +100,51 @@
 </head>
 <body>
 
-    <div class="hero-banner">
-        <h1>Neeche Scroll Karein (Scroll Down) 👇</h1>
-    </div>
-
-    <!-- Scroll Zoom Section -->
-    <section class="zoom-scroll-section" id="zoomSection">
-        <div class="zoom-sticky-wrapper">
+    <!-- Intro Zoom Section -->
+    <section class="sourceq-intro-section" id="introSection">
+        <div class="sourceq-sticky-wrapper">
             
-            <!-- Piche ka main content jo Q khulne par reveal hoga -->
-            <div class="revealed-content">
-                <h2>Our Vision & Mission</h2>
-                <p>To be a global leader in advanced systems, electronic design, and product engineering, driving innovation and transforming industries with cutting-edge IP.</p>
+            <!-- Piche ka main content jo Q ke andar se reveal hoga -->
+            <div class="main-website-content">
+                <h2>SourceQ Intelligence Engine</h2>
+                <p>Search faster, analyze deeper, and procure smarter with quantum AI.</p>
             </div>
 
-            <!-- Q Shape Masked Layer -->
-            <div class="q-mask-layer" id="qMaskLayer">
-                <h2>Welcome to BAS Tech</h2>
-                <p>Engineering excellence across advanced electronic systems and product engineering.</p>
+            <!-- Q Shape jiska outer area colored aur inner part transparent hai -->
+            <div class="q-zoom-container" id="qZoomContainer">
+                <svg viewBox="0 0 1000 1000">
+                    <path fill-rule="evenodd" fill="#ffffff" d="
+                        M 500, 150 
+                        C 330, 150 190, 290 190, 460 
+                        C 190, 630 330, 770 500, 770 
+                        C 580, 770 655, 740 710, 690 
+                        L 830, 810 
+                        L 890, 750 
+                        L 770, 630 
+                        C 810, 575 830, 520 830, 460 
+                        C 830, 290 670, 150 500, 150 
+                        Z
+                        M 500, 290
+                        C 595, 290 670, 365 670, 460
+                        C 670, 555 595, 630 500, 630
+                        C 405, 630 330, 555 330, 460
+                        C 330, 365 405, 290 500, 290
+                        Z" />
+                </svg>
             </div>
 
         </div>
     </section>
 
+    <!-- Normal Website Flow -->
     <div class="next-section">
-        <p>Main Website Content Below</p>
+        <p>Main Website Section Below</p>
     </div>
 
     <script>
         window.addEventListener('scroll', function() {
-            const section = document.getElementById('zoomSection');
-            const maskLayer = document.getElementById('qMaskLayer');
+            const section = document.getElementById('introSection');
+            const qContainer = document.getElementById('qZoomContainer');
             
             const rect = section.getBoundingClientRect();
             const sectionHeight = section.offsetHeight - window.innerHeight;
@@ -176,18 +152,15 @@
             let progress = -rect.top / sectionHeight;
             progress = Math.max(0, Math.min(1, progress));
 
-            // Scroll ke sath mask ka size 400px se expand hokar 4500px tak jayega
-            let currentSize = 400 + Math.pow(progress, 1.8) * 4500;
-            
-            maskLayer.style.maskSize = `${currentSize}px`;
-            maskLayer.style.webkitMaskSize = `${currentSize}px`;
+            // Smooth scaling: 1 se start hokar 40 tak expand hoga taaki poori screen cover ho jaye
+            let scaleValue = 1 + (progress * 40);
+            qContainer.style.transform = `scale(${scaleValue})`;
 
-            // Jab animation khatam hone lage toh mask layer fade out ho jaye
-            if (progress > 0.85) {
-                let opacityVal = (1 - progress) / 0.15;
-                maskLayer.style.opacity = opacityVal;
+            // Jab animation poori ho jaye toh mouse events enable karne ke liye
+            if (progress >= 0.95) {
+                qContainer.style.pointerEvents = 'none';
             } else {
-                maskLayer.style.opacity = 1;
+                qContainer.style.pointerEvents = 'auto';
             }
         });
     </script>
