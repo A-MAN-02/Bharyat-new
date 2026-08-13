@@ -9,9 +9,40 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,900&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <!-- Portal Reveal Hero & Overlay -->
+    <div class="hero-fixed">
+        <div class="hero-fixed__inner">
+            <div
+                style="font-size:0.75rem; letter-spacing:0.35em; text-transform:uppercase; color:var(--primary); margin-bottom:1.2rem;">
+                Scroll to reveal</div>
+            <div class="hero-fixed__title">BharYat</div>
+            <div class="hero-fixed__sub">Q ke center hole se content dikh raha hai</div>
+        </div>
+    </div>
+
+    <div class="portal-overlay">
+        <svg class="portal-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+            <defs>
+                <mask id="portalMask">
+                    <rect x="0" y="0" width="1000" height="1000" fill="white" />
+                    <ellipse id="maskHole" cx="500" cy="465" rx="79" ry="162" fill="black"
+                        transform="rotate(-10 500 500)" />
+                </mask>
+            </defs>
+            <g id="portalGroup" style="transform-origin: 500px 500px;">
+                <rect x="-1000" y="-1000" width="3000" height="3000" fill="#050816" mask="url(#portalMask)" />
+                <text id="qGlyph" x="500" y="460" text-anchor="middle" dominant-baseline="central"
+                    font-family="Fraunces, serif" font-weight="900" font-size="450" fill="#00D084">Q</text>
+            </g>
+        </svg>
+    </div>
+
+    <!-- Scroll Spacer (Animation height ke liye) -->
+    <!-- <div class="scroll-spacer"></div> -->
 
     <!-- =========================
          HEADER
@@ -619,47 +650,38 @@
 
 
         <!-- =========================
-             CUSTOMER INTELLIGENCE CONSULTING
-        ========================== -->
+     CUSTOMER INTELLIGENCE CONSULTING
+========================== -->
         <section class="consulting-section" id="consulting">
             <div class="consulting-container">
-                <div class="consulting-header">
+
+                <!-- Top Advisory Header (First Image Layout) -->
+                <div class="consulting-advisory-header">
+                    <span class="advisory-tag">SOURCEQ ADVISORY</span>
                     <h2>Achieve supply chain resilience</h2>
-
+                    <p>Get proprietary frameworks for BOM forecasting and multi-factor analytics sourcing.</p>
                 </div>
 
+                <!-- Three Hoverable Sections -->
                 <div class="consulting-nodes">
-                    <div class="consulting-node">
-                        <div class="node-icon-wrap" style="color: #9e7dff; border-color: rgba(158,125,255,0.3);">👥
-                        </div>
-                        <h4>R&D Collaboration</h4>
+                    <div class="consulting-node" onclick="consultingModal.classList.add('active')">
+                        <span class="node-num">01</span>
+                        <h4>Proto sourcing partnership</h4>
+                        <div class="node-line"></div>
                     </div>
-                    <div class="consulting-node">
-                        <div class="node-icon-wrap" style="color: #65a7ff; border-color: rgba(101,167,255,0.3);">📈
-                        </div>
-                        <h4>Key BOM Forecasting</h4>
+                    <div class="consulting-node" onclick="consultingModal.classList.add('active')">
+                        <span class="node-num">02</span>
+                        <h4>Custom predictive BOM report</h4>
+                        <div class="node-line"></div>
                     </div>
-                    <div class="consulting-node">
-                        <div class="node-icon-wrap" style="color: #4fe0d7; border-color: rgba(79,224,215,0.3);">🔀</div>
-                        <h4>Scenario & Inventory Planning</h4>
-                    </div>
-                    <div class="consulting-node">
-                        <div class="node-icon-wrap" style="color: #00D084; border-color: rgba(0,208,132,0.3);">🌐</div>
-                        <h4>Supplier Concentration Modeling</h4>
-                    </div>
-                    <div class="consulting-node">
-                        <div class="node-icon-wrap" style="color: #9e7dff; border-color: rgba(158,125,255,0.3);">📰
-                        </div>
-                        <h4>News & Event Impact Modeling</h4>
+                    <div class="consulting-node" onclick="consultingModal.classList.add('active')">
+                        <span class="node-num">03</span>
+                        <h4>Inventory planning & scenario analysis</h4>
+                        <div class="node-line"></div>
                     </div>
                 </div>
 
-                <!-- Button update karein -->
-                <div class="consulting-action">
-                    <a href="#" id="consultingBtn" class="consulting-btn">Connect with our team</a>
-                </div>
-
-                <!-- Requirement Form Modal (Body ke andhar sabse niche add karein) -->
+                <!-- Requirement Form Modal -->
                 <div class="consulting-modal-overlay" id="consultingModal">
                     <div class="consulting-modal">
                         <button class="modal-close" id="closeModal">&times;</button>
@@ -678,9 +700,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Requirement Details</label>
-                                <textarea rows="4"
-                                    placeholder="Describe your requirement (e.g., BOM Forecasting, R&D Collaboration...)"
-                                    required></textarea>
+                                <textarea rows="4" placeholder="Describe your requirement..." required></textarea>
                             </div>
                             <button type="submit" class="btn-primary"
                                 style="width: 100%; border: none; cursor: pointer; padding: 14px; font-weight: 600;">Submit
@@ -688,9 +708,8 @@
                         </form>
                     </div>
                 </div>
+
             </div>
-
-
         </section>
         <!-- =========================
         LIVE RECOMMENDATION TICKER

@@ -240,3 +240,43 @@ document.addEventListener("DOMContentLoaded", () => {
             track2.innerHTML = '<span class="tick">⚠️ Failed to load stream.</span>';
         });
 });
+
+
+
+
+const portalGroup = document.getElementById('portalGroup');
+const heroFixed = document.querySelector('.hero-fixed');
+const portalOverlay = document.querySelector('.portal-overlay');
+
+const ZOOM_MULTIPLIER = 3.7;
+const MAX_SCALE = 14;
+
+function ease(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
+function updatePortal() {
+    if (!portalGroup || !heroFixed || !portalOverlay) return;
+    
+    const dist = window.innerHeight * ZOOM_MULTIPLIER;
+    const y = window.scrollY;
+    const t = Math.min(Math.max(y / dist, 0), 1);
+    const s = 1 + ease(t) * (MAX_SCALE - 1);
+
+    portalGroup.style.transform = `scale(${s})`;
+
+    if (t >= 1) {
+        portalOverlay.style.visibility = 'hidden';
+        heroFixed.style.visibility = 'hidden';
+    } else {
+        portalOverlay.style.visibility = 'visible';
+        heroFixed.style.visibility = 'visible';
+    }
+}
+
+window.addEventListener('scroll', () => {
+    requestAnimationFrame(updatePortal);
+}, { passive: true });
+
+// Run on load
+updatePortal();

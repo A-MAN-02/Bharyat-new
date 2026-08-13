@@ -1,215 +1,258 @@
 <!DOCTYPE html>
 <html lang="hi">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bharyat — Golden Q Portal Reveal</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#111827;
-    --paper:#f3efe7;
-    --gold:#d9a441;
-  }
-  *{ margin:0; padding:0; box-sizing:border-box; }
-  html,body{
-    background:var(--ink);
-    color:var(--paper);
-    font-family:'Inter', sans-serif;
-    overflow-x:hidden;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bharyat — Golden Q Portal Reveal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,900&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ink: #111827;
+            --paper: #f3efe7;
+            --gold: #d9a441;
+        }
 
-  /* 1) Hero Fixed (Backend content jo Q ke hole se dikhega) */
-  .hero-fixed{
-    position:fixed;
-    inset:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    z-index:1;
-    background:
-      #111827;
-  }
-  .hero-fixed__inner{ text-align:center; }
-  .hero-fixed__title{
-    font-family:'Fraunces', serif;
-    font-weight:900;
-    font-size:clamp(2.5rem, 8vw, 6rem);
-    line-height:1.02;
-    color: var(--paper);
-  }
-  .hero-fixed__sub{
-    margin-top:1rem;
-    font-size:1rem;
-    color:rgba(243,239,231,0.6);
-  }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  /* 2) Portal Overlay (Golden Q + Black Surrounding) */
-  .portal-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+        html,
+        body {
+            background: var(--ink);
+            color: var(--paper);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
 
-  .portal-svg {
-    width: 100vw;
-    height: 100vh;
-    overflow: visible;
-  }
+        /* 1) Hero Fixed (Backend content jo Q ke hole se dikhega) */
+        .hero-fixed {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            background:
+                #111827;
+        }
 
-  /* Scroll Spacer (Animation height) */
-  .scroll-spacer{
-    height: 320vh;
-    position: relative;
-    z-index: 0;
-  }
+        .hero-fixed__inner {
+            text-align: center;
+        }
 
-  /* Main Page Content */
-  .page-content{
-    position: relative;
-    z-index: 3;
-    background: var(--ink);
-  }
-  .section{
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 6vw;
-    border-top: 1px solid rgba(243,239,231,0.14);
-  }
-  .section h2{
-    font-family: 'Fraunces', serif;
-    font-size: clamp(1.8rem, 4.5vw, 3rem);
-    margin-bottom: 1.2rem;
-  }
-  .section p{
-    max-width: 48ch;
-    color: rgba(243,239,231,0.65);
-    line-height: 1.7;
-  }
+        .hero-fixed__title {
+            font-family: 'Fraunces', serif;
+            font-weight: 900;
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            line-height: 1.02;
+            color: var(--paper);
+        }
 
-  .scroll-hint{
-    position: fixed;
-    bottom: -1.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 4;
-    font-size: 0.72rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: #111827;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.6rem;
-  }
-  .scroll-hint__line{
-    width: 1px; height: 32px;
-    background: linear-gradient(var(--gold), transparent);
-    animation: scrollhint 1.6s ease-in-out infinite;
-  }
-  @keyframes scrollhint{
-    0%{ transform:scaleY(0.2); opacity:0.2; transform-origin:top; }
-    50%{ transform:scaleY(1); opacity:1; transform-origin:top; }
-    100%{ transform:scaleY(0.2); opacity:0.2; transform-origin:top; }
-  }
-</style>
+        .hero-fixed__sub {
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: rgba(243, 239, 231, 0.6);
+        }
+
+        /* 2) Portal Overlay (Golden Q + Black Surrounding) */
+        .portal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .portal-svg {
+            width: 100vw;
+            height: 100vh;
+            overflow: visible;
+        }
+
+        /* Scroll Spacer (Animation height) */
+        .scroll-spacer {
+            height: 320vh;
+            position: relative;
+            z-index: 0;
+        }
+
+        /* Main Page Content */
+        .page-content {
+            position: relative;
+            z-index: 3;
+            background: var(--ink);
+        }
+
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6vw;
+            border-top: 1px solid rgba(243, 239, 231, 0.14);
+        }
+
+        .section h2 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1.8rem, 4.5vw, 3rem);
+            margin-bottom: 1.2rem;
+        }
+
+        .section p {
+            max-width: 48ch;
+            color: rgba(243, 239, 231, 0.65);
+            line-height: 1.7;
+        }
+
+        .scroll-hint {
+            position: fixed;
+            bottom: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 4;
+            font-size: 0.72rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #111827;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .scroll-hint__line {
+            width: 1px;
+            height: 32px;
+            background: linear-gradient(var(--gold), transparent);
+            animation: scrollhint 1.6s ease-in-out infinite;
+        }
+
+        @keyframes scrollhint {
+            0% {
+                transform: scaleY(0.2);
+                opacity: 0.2;
+                transform-origin: top;
+            }
+
+            50% {
+                transform: scaleY(1);
+                opacity: 1;
+                transform-origin: top;
+            }
+
+            100% {
+                transform: scaleY(0.2);
+                opacity: 0.2;
+                transform-origin: top;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-  <!-- Backend Hero Content -->
-  <div class="hero-fixed">
-    <div class="hero-fixed__inner">
-      <div style="font-size:0.75rem; letter-spacing:0.35em; text-transform:uppercase; color:var(--gold); margin-bottom:1.2rem;">Scroll to reveal</div>
-      <div class="hero-fixed__title">Bharyat</div>
-      <div class="hero-fixed__sub">Q ke center hole se content dikh raha hai</div>
-    </div>
-  </div>
-
-  <!-- SVG Overlay -->
-  <!-- SVG Overlay -->
-<div class="portal-overlay">
-  <svg class="portal-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-    <defs>
-      <mask id="portalMask">
-        <rect x="0" y="0" width="1000" height="1000" fill="white" />
-        <ellipse id="maskHole" cx="500" cy="465" rx="79" ry="162" fill="black" transform="rotate(-10 500 500)" />
-      </mask>
-    </defs>
-
-    <g id="portalGroup" style="transform-origin: 500px 500px;">
-      <!-- Black Background with Mask -->
-      <rect x="-1000" y="-1000" width="3000" height="3000" fill="#98E8DE" mask="url(#portalMask)" />
-        
-      <!-- Golden Q Body -->
-      <text id="qGlyph" x="500" y="460" text-anchor="middle" dominant-baseline="central" font-family="Fraunces, serif" font-weight="900" font-size="450" fill="#8B2626">Q</text>
-      
-      <!-- New Paragraphs on the Left -->
-      <foreignObject x="50" y="300" width="300" height="400">
-        <div xmlns="http://www.w3.org/1999/xhtml" style="color: #5e5a53; font-family: 'Inter', sans-serif;">
-          <h3 style="margin-bottom: 1rem; color: #FFD700;">Innovation</h3>
-          <p style="font-size: 20px; line-height: 1.4;">Yeh paragraph Q ke saath zoom hoga. Aap yahan apna content customize kar sakte hain.</p>
+    <!-- Backend Hero Content -->
+    <div class="hero-fixed">
+        <div class="hero-fixed__inner">
+            <div
+                style="font-size:0.75rem; letter-spacing:0.35em; text-transform:uppercase; color:var(--gold); margin-bottom:1.2rem;">
+                Scroll to reveal</div>
+            <div class="hero-fixed__title">Bharyat</div>
+            <div class="hero-fixed__sub">Q ke center hole se content dikh raha hai</div>
         </div>
-      </foreignObject>
-    </g>
-  </svg>
-</div>
+    </div>
 
-  <div class="scroll-spacer"></div>
+    <!-- SVG Overlay -->
+    <!-- SVG Overlay -->
+    <div class="portal-overlay">
+        <svg class="portal-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+            <defs>
+                <mask id="portalMask">
+                    <rect x="0" y="0" width="1000" height="1000" fill="white" />
+                    <ellipse id="maskHole" cx="500" cy="465" rx="79" ry="162" fill="black"
+                        transform="rotate(-10 500 500)" />
+                </mask>
+            </defs>
 
-  <main class="page-content">
-    <section class="section">
-      <h2>Bharyat Intelligence</h2>
-      <p>Aapne successfully golden Q portal effect implement kar liya hai. Yeh scroll ke sath zoom hokar poori screen reveal karega.</p>
-    </section>
-    <section class="section">
-      <h2>About Us</h2>
-      <p>Yahan aap apni website ka agla section add kar sakte hain.</p>
-    </section>
-  </main>
+            <g id="portalGroup" style="transform-origin: 500px 500px;">
+                <!-- Black Background with Mask -->
+                <rect x="-1000" y="-1000" width="3000" height="3000" fill="#98E8DE" mask="url(#portalMask)" />
 
-  <script>
-    const portalGroup = document.getElementById('portalGroup');
-    const heroFixed   = document.querySelector('.hero-fixed');
-    const portalOverlay = document.querySelector('.portal-overlay');
+                <!-- Golden Q Body -->
+                <text id="qGlyph" x="500" y="460" text-anchor="middle" dominant-baseline="central"
+                    font-family="Fraunces, serif" font-weight="900" font-size="450" fill="#8B2626">Q</text>
 
-    const ZOOM_MULTIPLIER = 3.2;
-    const MAX_SCALE       = 14;
+                <!-- New Paragraphs on the Left -->
+                <foreignObject x="50" y="300" width="300" height="400">
+                    <div xmlns="http://www.w3.org/1999/xhtml" style="color: #5e5a53; font-family: 'Inter', sans-serif;">
+                        <h3 style="margin-bottom: 1rem; color: #FFD700;">Innovation</h3>
+                        <p style="font-size: 20px; line-height: 1.4;">Yeh paragraph Q ke saath zoom hoga. Aap yahan apna
+                            content customize kar sakte hain.</p>
+                    </div>
+                </foreignObject>
+            </g>
+        </svg>
+    </div>
 
-    function ease(t){
-      return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;
-    }
+    <div class="scroll-spacer"></div>
 
-    function update(){
-      const dist = window.innerHeight * ZOOM_MULTIPLIER;
-      const y = window.scrollY;
-      const t = Math.min(Math.max(y / dist, 0), 1);
-      const s = 1 + ease(t) * (MAX_SCALE - 1);
+    <main class="page-content">
+        <section class="section">
+            <h2>Bharyat Intelligence</h2>
+            <p>Aapne successfully golden Q portal effect implement kar liya hai. Yeh scroll ke sath zoom hokar poori
+                screen reveal karega.</p>
+        </section>
+        <section class="section">
+            <h2>About Us</h2>
+            <p>Yahan aap apni website ka agla section add kar sakte hain.</p>
+        </section>
+    </main>
 
-      portalGroup.style.transform = `scale(${s})`;
+    <script>
+        const portalGroup = document.getElementById('portalGroup');
+        const heroFixed = document.querySelector('.hero-fixed');
+        const portalOverlay = document.querySelector('.portal-overlay');
 
-      if(t >= 1){
-        portalOverlay.style.visibility = 'hidden';
-        heroFixed.style.visibility = 'hidden';
-      } else {
-        portalOverlay.style.visibility = 'visible';
-        heroFixed.style.visibility = 'visible';
-      }
-    }
+        const ZOOM_MULTIPLIER = 3.2;
+        const MAX_SCALE = 14;
 
-    window.addEventListener('scroll', () => {
-      requestAnimationFrame(update);
-    }, { passive: true });
+        function ease(t) {
+            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        }
 
-    update();
-  </script>
+        function update() {
+            const dist = window.innerHeight * ZOOM_MULTIPLIER;
+            const y = window.scrollY;
+            const t = Math.min(Math.max(y / dist, 0), 1);
+            const s = 1 + ease(t) * (MAX_SCALE - 1);
+
+            portalGroup.style.transform = `scale(${s})`;
+
+            if (t >= 1) {
+                portalOverlay.style.visibility = 'hidden';
+                heroFixed.style.visibility = 'hidden';
+            } else {
+                portalOverlay.style.visibility = 'visible';
+                heroFixed.style.visibility = 'visible';
+            }
+        }
+
+        window.addEventListener('scroll', () => {
+            requestAnimationFrame(update);
+        }, { passive: true });
+
+        update();
+    </script>
 </body>
+
 </html>
