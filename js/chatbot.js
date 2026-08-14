@@ -99,9 +99,8 @@
   // ---------- 1. SourceQ definition ----------
   function showDefinition(){
     addMessage(
-      "<b>SourceQ</b> is an AI-powered electronic component intelligence and sourcing platform \u2014 built to help hardware, supply-chain, and procurement teams search faster, understand risk, and make better sourcing decisions." +
-      "<br><br>It brings together multi-source supplier intelligence, stock and pricing visibility, historical trends, lifecycle and lead-time indicators, counterfeit risk, alternatives, and market/news signals across millions of electronic components." +
-      "<br><br>SourceQ turns this information into practical intelligence across key factors such as price competitiveness, supply availability, lead time, supplier confidence, lifecycle health, counterfeit exposure, and market events.",
+      "<b>SourceQ</b> is an AI-powered electronic component intelligence and sourcing platform that helps hardware and procurement teams search faster, assess risk, and make better sourcing decisions." +
+      "<br><br>It combines supplier, pricing, stock, lifecycle, lead-time, counterfeit, alternative, and market intelligence across millions of components to deliver practical sourcing insights.",
       'bot'
     );
     addMessage("Want us to review a part or BOM?", 'bot');
@@ -378,7 +377,7 @@
 
       showTyping(function(){
         addMessage(
-          "Hi, I'm <b>Spockbot</b> \u2014 the SourceQ assistant. I can help you learn about SourceQ, explore our modules and pricing, or send us a BOM, sourcing requirement, or advisory request. Choose an option below and I'll route your request to the right team.",
+          "Hi, I'm <b>Spockbot</b> \u2014 the SourceQ assistant. I can help you learn more.",
           'bot'
         );
         showMainMenu();

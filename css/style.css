@@ -77,7 +77,8 @@ body {
 .portal-overlay {
     position: fixed;
     inset: 0;
-    z-index: 2001; /* Hero se bhi upar */
+    z-index: 2001;
+    /* Hero se bhi upar */
     pointer-events: none;
     display: flex;
     align-items: center;
@@ -138,6 +139,7 @@ header {
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
 }
+
 header.nav-hidden {
     transform: translateY(-100%);
 }
@@ -225,6 +227,7 @@ nav {
     from {
         transform: rotate(0deg) rotateX(20deg);
     }
+
     to {
         transform: rotate(360deg) rotateX(20deg);
     }
@@ -234,6 +237,7 @@ nav {
     from {
         transform: rotate(0deg) rotateY(-20deg);
     }
+
     to {
         transform: rotate(360deg) rotateY(-20deg);
     }
@@ -243,6 +247,7 @@ nav {
     from {
         transform: rotate(0deg) rotateZ(45deg);
     }
+
     to {
         transform: rotate(360deg) rotateZ(45deg);
     }
@@ -347,9 +352,12 @@ nav {
     transition: var(--transition);
 }
 
-.q-radar-nav-link:hover::after, .q-radar-nav-link.active::after,
-.q-lense-nav-link:hover::after, .q-lense-nav-link.active::after,
-.q-procure-nav-link:hover::after, .q-procure-nav-link.active::after {
+.q-radar-nav-link:hover::after,
+.q-radar-nav-link.active::after,
+.q-lense-nav-link:hover::after,
+.q-lense-nav-link.active::after,
+.q-procure-nav-link:hover::after,
+.q-procure-nav-link.active::after {
     transform: scaleX(1);
 }
 
@@ -675,6 +683,7 @@ nav {
         opacity: 1;
         transform: translate(-50%, 0);
     }
+
     100% {
         opacity: 0;
         transform: translate(-50%, 14px);
@@ -682,10 +691,12 @@ nav {
 }
 
 @keyframes float {
+
     0%,
     100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-25px);
     }
@@ -696,6 +707,7 @@ nav {
         opacity: 0;
         transform: translateY(60px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -865,6 +877,7 @@ nav {
     height: 350px;
     animation: spin 150s linear infinite 0s;
 }
+
 .orbit-1 .planet-counter {
     animation: counter 150s linear infinite 0s;
 }
@@ -874,6 +887,7 @@ nav {
     height: 500px;
     animation: spin 150s linear infinite -25s;
 }
+
 .orbit-2 .planet-counter {
     animation: counter 150s linear infinite -25s;
 }
@@ -883,6 +897,7 @@ nav {
     height: 650px;
     animation: spin 150s linear infinite -50s;
 }
+
 .orbit-3 .planet-counter {
     animation: counter 150s linear infinite -50s;
 }
@@ -892,6 +907,7 @@ nav {
     height: 800px;
     animation: spin 150s linear infinite -75s;
 }
+
 .orbit-4 .planet-counter {
     animation: counter 150s linear infinite -75s;
 }
@@ -901,6 +917,7 @@ nav {
     height: 950px;
     animation: spin 150s linear infinite -100s;
 }
+
 .orbit-5 .planet-counter {
     animation: counter 150s linear infinite -100s;
 }
@@ -910,6 +927,7 @@ nav {
     height: 1100px;
     animation: spin 150s linear infinite -125s;
 }
+
 .orbit-6 .planet-counter {
     animation: counter 150s linear infinite -125s;
 }
@@ -991,6 +1009,7 @@ nav {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
@@ -1000,6 +1019,7 @@ nav {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(-360deg);
     }
@@ -1152,6 +1172,7 @@ nav {
         grid-template-columns: 1fr;
         gap: 30px;
     }
+
     .consulting-node:not(:last-child)::after {
         display: none;
     }
@@ -1168,9 +1189,11 @@ nav {
         opacity: 0.9;
         transform: scale(0.75);
     }
+
     70% {
         opacity: 0;
     }
+
     100% {
         opacity: 0;
         transform: scale(1.35);
@@ -1178,10 +1201,12 @@ nav {
 }
 
 @keyframes tailglowInline {
+
     0%,
     100% {
         opacity: 0.55;
     }
+
     50% {
         opacity: 1;
     }
@@ -1206,21 +1231,51 @@ nav {
 }
 
 @keyframes ringpulselenseInline {
-    0% { opacity: 0.9; transform: scale(0.75); }
-    70% { opacity: 0; }
-    100% { opacity: 0; transform: scale(1.35); }
+    0% {
+        opacity: 0.9;
+        transform: scale(0.75);
+    }
+
+    70% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.35);
+    }
 }
 
 @keyframes glintmovelenseInline {
-    0% { transform: translate(-30%,-30%) rotate(20deg); opacity: 0; }
-    15% { opacity: 0.9; }
-    55% { opacity: 0; }
-    100% { transform: translate(130%,130%) rotate(20deg); opacity: 0; }
+    0% {
+        transform: translate(-30%, -30%) rotate(20deg);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.9;
+    }
+
+    55% {
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(130%, 130%) rotate(20deg);
+        opacity: 0;
+    }
 }
 
 @keyframes tailglowlenseInline {
-    0%, 100% { opacity: 0.55; }
-    50% { opacity: 1; }
+
+    0%,
+    100% {
+        opacity: 0.55;
+    }
+
+    50% {
+        opacity: 1;
+    }
 }
 
 .ring-pulse-lense-inline {
@@ -1237,22 +1292,56 @@ nav {
 }
 
 @keyframes ringpulseProcureInline {
-    0%{ opacity:0.9; transform:scale(0.75); }
-    70%{ opacity:0; }
-    100%{ opacity:0; transform:scale(1.35); }
+    0% {
+        opacity: 0.9;
+        transform: scale(0.75);
+    }
+
+    70% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(1.35);
+    }
 }
 
 @keyframes dashdrawProcureInline {
-    0%{ stroke-dashoffset:24; }
-    45%{ stroke-dashoffset:0; }
-    75%{ stroke-dashoffset:0; opacity:1; }
-    90%{ stroke-dashoffset:0; opacity:0; }
-    100%{ stroke-dashoffset:24; opacity:0; }
+    0% {
+        stroke-dashoffset: 24;
+    }
+
+    45% {
+        stroke-dashoffset: 0;
+    }
+
+    75% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+    }
+
+    90% {
+        stroke-dashoffset: 0;
+        opacity: 0;
+    }
+
+    100% {
+        stroke-dashoffset: 24;
+        opacity: 0;
+    }
 }
 
 @keyframes tailglowProcureInline {
-    0%,100%{ opacity:0.55; }
-    50%{ opacity:1; }
+
+    0%,
+    100% {
+        opacity: 0.55;
+    }
+
+    50% {
+        opacity: 1;
+    }
 }
 
 .ring-pulse-procure {
@@ -1478,6 +1567,7 @@ nav {
     0% {
         transform: translateX(0);
     }
+
     100% {
         transform: translateX(-50%);
     }
@@ -1487,6 +1577,7 @@ nav {
     0% {
         transform: translateX(-50%);
     }
+
     100% {
         transform: translateX(0);
     }
@@ -1587,6 +1678,7 @@ nav {
     0% {
         transform: translateY(0) rotate(5deg);
     }
+
     100% {
         transform: translateY(52px) rotate(5deg);
     }
@@ -1596,6 +1688,7 @@ nav {
     0% {
         transform: translateY(0);
     }
+
     100% {
         transform: translateY(-35px);
     }
@@ -1706,31 +1799,46 @@ nav {
 }
 
 .footer-logo {
-    height: 40px; /* Apne logo ke size ke mutabiq adjust kar sakte hain */
+    height: 40px;
+    /* Apne logo ke size ke mutabiq adjust kar sakte hain */
     width: auto;
     margin-bottom: 0 !important;
 }
 
 .footer-company-info {
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
+    margin-top: 16px;
+    margin-left: -10px;
+}
+
+.footer-company-info span {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+
+    /* color: #ffffff; */
+    /* letter-spacing: -0.5px; */
+    /* line-height: 1.1; */
 }
 
 .footer-company-name {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 30px;
     font-weight: 800;
-    color: #ffffff;
+
+    color: #4fe0d7;
     letter-spacing: -0.5px;
     line-height: 1.1;
 }
 
 .footer-company-sub {
-    font-size: 9.5px;
-    font-weight: 500;
-    color: #4fe0d7; /* Tagline color jaisa match karne ke liye */
+    /* font-size: 9.5px;
+    font-weight: 500; */
+    color: #ffffff;
+    /* Tagline color jaisa match karne ke liye
     letter-spacing: 0.3px;
-    margin-top: 2px;
+    margin-top: 2px; */
 }
 
 .footer-brand p {
@@ -1883,8 +1991,8 @@ nav {
     align-items: center;
     gap: 4px;
     font-family: "Bruno Ace", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+    font-weight: 400;
+    font-style: normal;
     font-size: 38px;
     color: #EAEEF4;
     margin: 15px 0 20px 0;
@@ -2005,20 +2113,21 @@ nav {
     align-items: center;
     padding: 0 16px;
     z-index: 15;
-    box-shadow: 0 0 25px rgba(0, 208, 132, 0.45), 0 20px 40px rgba(0,0,0,0.5);
+    box-shadow: 0 0 25px rgba(0, 208, 132, 0.45), 0 20px 40px rgba(0, 0, 0, 0.5);
     animation: searchBoxFloat 4s ease-in-out infinite alternate;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .floating-search-box:focus-within {
     border-color: #00F5A0;
-    box-shadow: 0 0 35px rgba(0, 245, 160, 0.7), 0 20px 40px rgba(0,0,0,0.6);
+    box-shadow: 0 0 35px rgba(0, 245, 160, 0.7), 0 20px 40px rgba(0, 0, 0, 0.6);
 }
 
 @keyframes searchBoxFloat {
     0% {
         transform: translateY(0);
     }
+
     100% {
         transform: translateY(22px);
     }
@@ -2069,15 +2178,17 @@ img.card-bg {
     0% {
         object-position: 0% 0%;
     }
+
     50% {
         object-position: 4% 6%;
     }
+
     100% {
         object-position: 0% 0%;
     }
 }
 
-.dashboard-mockup > img:first-child {
+.dashboard-mockup>img:first-child {
     animation: dashboardImageFloat 8s ease-in-out infinite;
     transform-origin: center center;
     will-change: transform;
@@ -2087,15 +2198,19 @@ img.card-bg {
     0% {
         transform: scale(1.04) translate3d(0, 0, 0) rotate(0deg);
     }
+
     25% {
         transform: scale(1.055) translate3d(-3px, -2px, 0) rotate(0.15deg);
     }
+
     50% {
         transform: scale(1.045) translate3d(3px, 2px, 0) rotate(-0.15deg);
     }
+
     75% {
         transform: scale(1.055) translate3d(-2px, 2px, 0) rotate(0.1deg);
     }
+
     100% {
         transform: scale(1.04) translate3d(0, 0, 0) rotate(0deg);
     }
@@ -2134,9 +2249,11 @@ img.card-bg {
         min-height: calc(100vh - var(--navbar-height));
         padding: 40px;
     }
+
     .system-viewport {
         height: 420px;
     }
+
     .angle-wrapper {
         transform: rotate(-15deg) scale(0.65);
     }
@@ -2152,13 +2269,16 @@ img.card-bg {
     nav {
         padding: 0 24px;
     }
+
     .login-btn {
         padding: 10px 18px;
         font-size: 14px;
     }
+
     .menu-toggle {
         display: flex;
     }
+
     .nav-menu {
         position: absolute;
         top: var(--navbar-height);
@@ -2169,19 +2289,22 @@ img.card-bg {
         visibility: hidden;
         transform: translateY(-15px);
         transition: var(--transition);
-        box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
     }
+
     .nav-menu.active {
         opacity: 1;
         visibility: visible;
         transform: translateY(0);
     }
+
     .nav-links {
         flex-direction: column;
         gap: 28px;
         padding: 36px 24px;
         align-items: flex-start;
     }
+
     .hero-container {
         grid-template-columns: 1fr;
         gap: 40px;
@@ -2189,98 +2312,178 @@ img.card-bg {
         text-align: center;
         height: auto;
     }
+
     .hero-content {
         align-items: center;
         max-width: 100%;
     }
+
     .hero-tag {
         margin: 0 auto;
     }
+
     .hero-title {
         font-size: clamp(2.4rem, 7vw, 4rem);
     }
+
     .hero-description {
         max-width: 100%;
     }
+
     .btn-primary,
     .btn-secondary {
         width: 100%;
         max-width: 300px;
     }
+
     .hero {
         height: auto;
         min-height: 100vh;
     }
+
     .system-viewport {
         height: 380px;
     }
+
     .angle-wrapper {
         transform: rotate(-15deg) scale(0.5);
     }
+
     .engine-wrap {
         transform: scale(0.7);
     }
+
     .sourceq-header {
         position: relative;
         top: unset;
     }
+
     .step-row,
     .step-row.reverse {
         flex-direction: column !important;
-        gap: 30px;
-        margin-bottom: 40px;
-        text-align: center;
-        position: relative;
-        top: unset !important;
-        padding: 30px 20px;
+        /* text-align: center; */
+        padding: 16px 14px !important;
+        gap: 10px !important;
+        margin-bottom: 24px !important;
     }
+
+    /* 2. Step number aur badge ka margin hata dein */
+    .step-number {
+        margin-bottom: 5px !important;
+        padding: 5px 12px !important;
+        font-size: 14px !important;
+    }
+
+    /* 3. Heading ka top/bottom margin zero karein */
+    .step-title-heading {
+        margin: 5px 0 !important;
+        font-size: 21px !important;
+    }
+
+    /* 4. Description paragraph ka margin zero karein */
+    .step-text p {
+        margin-top: 0 !important;
+        margin-bottom: 8px !important;
+        font-size: 13.5px !important;
+        line-height: 1.4 !important;
+    }
+
+    /* 5. Features list items ka margin bilkul kam karein */
+    .step-features {
+        margin-top: 0 !important;
+        margin-bottom: 8px !important;
+    }
+
+    .step-features li {
+        font-size: 13.5px !important;
+        margin-bottom: 5px !important; /* Top-bottom spacing minimum */
+    }
+
+    /* 6. Dashboard mockup ki height ko compact karein taaki image/visual poori dikhe */
+    .dashboard-mockup {
+        height: 180px !important;
+        margin-top: 4px !important;
+        margin-bottom: 0 !important;
+    }
+
+
+
+    .sourceq-stack-wrapper .step-row:nth-child(1) {
+        top: 90px;
+        margin-bottom: 40px !important;
+    }
+
+    .sourceq-stack-wrapper .step-row:nth-child(2) {
+        top: 110px;
+        margin-bottom: 40px !important;
+    }
+
+    .sourceq-stack-wrapper .step-row:nth-child(3) {
+        top: 130px;
+    }
+
+
+
+
+
     .step-text {
         order: 1;
         max-width: 100%;
     }
+
     .step-features {
         text-align: left;
         display: inline-block;
     }
+
     .step-visual {
         order: 2;
         width: 100%;
     }
+
     /* ===================================
    MOBILE ONLY SEARCH BAR OVERFLOW FIX
 =================================== */
-@media (max-width: 768px) {
-    .floating-search-box {
-        width: calc(100% - 32px) !important;
-        max-width: 290px !important;
-        left: 16px !important;
-        right: 16px !important;
-        margin: 0 auto !important;
-        box-sizing: border-box !important;
+    @media (max-width: 768px) {
+        .floating-search-box {
+            width: calc(100% - 32px) !important;
+            max-width: 290px !important;
+            left: 16px !important;
+            right: 16px !important;
+            margin: 0 auto !important;
+            box-sizing: border-box !important;
+        }
     }
-}
+
     .dashboard-mockup {
         height: 280px;
     }
+
     .ticker-container {
         padding: 0 24px;
     }
+
     .ticker-track {
         gap: 30px;
         animation-duration: 80s;
     }
+
     .tick {
         font-size: 14px;
     }
+
     .ticker-left {
-        animation-duration: 390s !important; /* Mobile par speed slow karne ke liye duration badha di gayi hai */
+        animation-duration: 390s !important;
+        /* Mobile par speed slow karne ke liye duration badha di gayi hai */
     }
+
     /* .ticker-right {
         animation-duration: 250s !important;
     } */
     .site-footer {
         padding: 40px 24px 20px;
     }
+
     .footer-cta {
         flex-direction: column;
         text-align: center;
@@ -2288,16 +2491,19 @@ img.card-bg {
         gap: 25px;
         margin-bottom: 50px;
     }
+
     .cta-actions,
     .cta-actions a {
         width: 100%;
         text-align: center;
         flex-direction: column;
     }
+
     .footer-main {
         flex-direction: column;
         gap: 40px;
     }
+
     .footer-links {
         flex-direction: column;
         gap: 30px;
@@ -2309,21 +2515,24 @@ img.card-bg {
    SIRF TEXT SECTION MOBILE RESPONSIVE FIX
 =================================== */
 @media (max-width: 768px) {
+
     /* Tablet / Medium Screens ke liye text ko control karein */
     #portalTextGroup {
         transform: translate(35px, 0px);
     }
-    
+
     /* Text font size adjustment */
     .portal-overlay svg text[font-size="36"] {
         font-size: 24px !important;
     }
+
     .portal-overlay svg text[font-size="16"] {
         font-size: 11px !important;
     }
 }
 
 @media (max-width: 480px) {
+
     /* Chote Mobile Screens ke liye text ko aur adjust karein */
     #portalTextGroup {
         transform: translate(55px, 0px);
@@ -2332,6 +2541,7 @@ img.card-bg {
     .portal-overlay svg text[font-size="36"] {
         font-size: 20px !important;
     }
+
     .portal-overlay svg text[font-size="16"] {
         font-size: 9.5px !important;
     }
