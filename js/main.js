@@ -243,12 +243,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
 const portalGroup = document.getElementById('portalGroup');
 const heroFixed = document.querySelector('.hero-fixed');
 const portalOverlay = document.querySelector('.portal-overlay');
 
-const ZOOM_MULTIPLIER = 3.7;
+const ZOOM_MULTIPLIER = 2.7; // Zoom speed control
 const MAX_SCALE = 14;
 
 function ease(t) {
@@ -263,6 +262,7 @@ function updatePortal() {
     const t = Math.min(Math.max(y / dist, 0), 1);
     const s = 1 + ease(t) * (MAX_SCALE - 1);
 
+    // Ab transform-origin CSS/SVG ki wajah se zoom exact right position se hi hoga
     portalGroup.style.transform = `scale(${s})`;
 
     if (t >= 1) {
@@ -280,6 +280,3 @@ window.addEventListener('scroll', () => {
 
 // Run on load
 updatePortal();
-
-
-

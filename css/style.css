@@ -48,12 +48,13 @@ body {
 .hero-fixed {
     height: 200vh;
     position: relative;
-    background: #050816;
+    background: #111827;
 }
 
 .hero-fixed__inner {
     position: sticky;
     top: 50vh;
+    padding-left: 42%;
     transform: translateY(-50%);
     text-align: center;
     width: 100%;
@@ -82,8 +83,6 @@ body {
     align-items: center;
     justify-content: center;
 }
-
-
 
 
 
@@ -2273,6 +2272,12 @@ img.card-bg {
     .tick {
         font-size: 14px;
     }
+    .ticker-left {
+        animation-duration: 390s !important; /* Mobile par speed slow karne ke liye duration badha di gayi hai */
+    }
+    /* .ticker-right {
+        animation-duration: 250s !important;
+    } */
     .site-footer {
         padding: 40px 24px 20px;
     }
@@ -2297,5 +2302,21 @@ img.card-bg {
         flex-direction: column;
         gap: 30px;
         justify-content: flex-start;
+    }
+}
+
+
+/* 2. Portal Mobile Text Size & Layout Fit Fix */
+@media (max-width: 768px) {
+    /* Portal overlay ke andar ke SVG ko mobile screen ke hisab se scale down karna */
+    .portal-overlay svg g[transform*="scale(3.5)"] {
+        transform: translate(-180px, 320px) scale(1.6) !important;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Bahut chote mobile devices ke liye scale aur translation adjust karna */
+    .portal-overlay svg g[transform*="scale(3.5)"] {
+        transform: translate(-230px, 320px) scale(1.3) !important;
     }
 }
