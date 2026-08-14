@@ -2305,18 +2305,34 @@ img.card-bg {
     }
 }
 
-
-/* 2. Portal Mobile Text Size & Layout Fit Fix */
+/* ===================================
+   SIRF TEXT SECTION MOBILE RESPONSIVE FIX
+=================================== */
 @media (max-width: 768px) {
-    /* Portal overlay ke andar ke SVG ko mobile screen ke hisab se scale down karna */
-    .portal-overlay svg g[transform*="scale(3.5)"] {
-        transform: translate(-180px, 320px) scale(1.6) !important;
+    /* Tablet / Medium Screens ke liye text ko control karein */
+    #portalTextGroup {
+        transform: translate(35px, 0px);
+    }
+    
+    /* Text font size adjustment */
+    .portal-overlay svg text[font-size="36"] {
+        font-size: 24px !important;
+    }
+    .portal-overlay svg text[font-size="16"] {
+        font-size: 11px !important;
     }
 }
 
 @media (max-width: 480px) {
-    /* Bahut chote mobile devices ke liye scale aur translation adjust karna */
-    .portal-overlay svg g[transform*="scale(3.5)"] {
-        transform: translate(-230px, 320px) scale(1.3) !important;
+    /* Chote Mobile Screens ke liye text ko aur adjust karein */
+    #portalTextGroup {
+        transform: translate(55px, 0px);
+    }
+
+    .portal-overlay svg text[font-size="36"] {
+        font-size: 20px !important;
+    }
+    .portal-overlay svg text[font-size="16"] {
+        font-size: 9.5px !important;
     }
 }
