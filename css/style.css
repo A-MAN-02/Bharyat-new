@@ -4,6 +4,8 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace&display=swap');
+
 :root {
     --navbar-height: 84px;
     --bg-primary: #111827;
@@ -80,6 +82,16 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+
+
+
+
+
+
+
+
+
 
 .portal-svg {
     width: 100vw;
@@ -295,7 +307,7 @@ nav {
 }
 
 .q-radar-nav-link,
-.q-lens-nav-link,
+.q-lense-nav-link,
 .q-procure-nav-link {
     display: inline-flex !important;
     align-items: center !important;
@@ -309,20 +321,20 @@ nav {
 }
 
 .q-radar-nav-link svg,
-.q-lens-nav-link svg,
+.q-lense-nav-link svg,
 .q-procure-nav-link svg {
     margin-bottom: 0px !important;
     transform: translateY(1px);
 }
 
 .q-radar-nav-link:hover,
-.q-lens-nav-link:hover,
+.q-lense-nav-link:hover,
 .q-procure-nav-link:hover {
     color: var(--primary) !important;
 }
 
 .q-radar-nav-link::after,
-.q-lens-nav-link::after,
+.q-lense-nav-link::after,
 .q-procure-nav-link::after {
     content: "";
     position: absolute;
@@ -337,7 +349,7 @@ nav {
 }
 
 .q-radar-nav-link:hover::after, .q-radar-nav-link.active::after,
-.q-lens-nav-link:hover::after, .q-lens-nav-link.active::after,
+.q-lense-nav-link:hover::after, .q-lense-nav-link.active::after,
 .q-procure-nav-link:hover::after, .q-procure-nav-link.active::after {
     transform: scaleX(1);
 }
@@ -995,24 +1007,24 @@ nav {
 }
 
 /* ====================================================
-   CUSTOMER INTELLIGENCE CONSULTING SECTION (IMAGE 1 STYLE)
+   CUSTOMER INTELLIGENCE CONSULTING SECTION
 ==================================================== */
 .consulting-section {
     background: var(--bg-primary);
-    padding: 100px 0;
+    padding: 80px 0 100px 0;
     position: relative;
     color: #fff;
     text-align: center;
 }
 
 .consulting-container {
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
     padding: 0 24px;
 }
 
 .consulting-advisory-header {
-    margin-bottom: 60px;
+    margin-bottom: 50px;
 }
 
 .advisory-tag {
@@ -1026,11 +1038,12 @@ nav {
 }
 
 .consulting-advisory-header h2 {
-    font-size: clamp(32px, 4.5vw, 52px);
+    font-size: clamp(28px, 3.8vw, 46px);
     font-weight: 800;
-    margin-bottom: 16px;
-    color: #ffffff;
-    font-family: serif; /* Image 1 jaisa classic feel dene ke liye */
+    margin-bottom: 12px;
+    background: linear-gradient(90deg, #ffffff, #aeb8c5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .consulting-advisory-header p {
@@ -1046,6 +1059,7 @@ nav {
     grid-template-columns: repeat(3, 1fr);
     gap: 0;
     position: relative;
+    margin-bottom: 40px;
 }
 
 .consulting-node {
@@ -1058,7 +1072,6 @@ nav {
     transition: all 0.3s ease;
 }
 
-/* Beech wali line ke liye vertical separator (jaise image 1 mein hai) */
 .consulting-node:not(:last-child)::after {
     content: "";
     position: absolute;
@@ -1087,7 +1100,6 @@ nav {
     transition: all 0.3s ease;
 }
 
-/* Niche wali choti indicator line */
 .node-line {
     width: 30px;
     height: 2px;
@@ -1111,7 +1123,31 @@ nav {
     background: #00D084;
 }
 
-/* Responsive for Mobile */
+/* Original Button Styles Preserved */
+.consulting-action {
+    margin-top: 20px;
+}
+
+.consulting-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 36px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 14px;
+    transition: var(--transition);
+    box-shadow: 0 10px 30px rgba(0, 208, 132, 0.3);
+}
+
+.consulting-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0, 208, 132, 0.4);
+}
+
 @media (max-width: 768px) {
     .consulting-nodes {
         grid-template-columns: 1fr;
@@ -1170,35 +1206,35 @@ nav {
     animation: tailglowInline 2s ease-in-out infinite;
 }
 
-@keyframes ringpulseLensInline {
+@keyframes ringpulselenseInline {
     0% { opacity: 0.9; transform: scale(0.75); }
     70% { opacity: 0; }
     100% { opacity: 0; transform: scale(1.35); }
 }
 
-@keyframes glintmoveLensInline {
+@keyframes glintmovelenseInline {
     0% { transform: translate(-30%,-30%) rotate(20deg); opacity: 0; }
     15% { opacity: 0.9; }
     55% { opacity: 0; }
     100% { transform: translate(130%,130%) rotate(20deg); opacity: 0; }
 }
 
-@keyframes tailglowLensInline {
+@keyframes tailglowlenseInline {
     0%, 100% { opacity: 0.55; }
     50% { opacity: 1; }
 }
 
-.ring-pulse-lens-inline {
+.ring-pulse-lense-inline {
     transform-origin: 15px 15px;
-    animation: ringpulseLensInline 2.6s ease-out infinite;
+    animation: ringpulselenseInline 2.6s ease-out infinite;
 }
 
-.glint-lens-inline {
-    animation: glintmoveLensInline 3.2s ease-in-out infinite;
+.glint-lense-inline {
+    animation: glintmovelenseInline 3.2s ease-in-out infinite;
 }
 
-.tail-line-lens-inline {
-    animation: tailglowLensInline 2s ease-in-out infinite;
+.tail-line-lense-inline {
+    animation: tailglowlenseInline 2s ease-in-out infinite;
 }
 
 @keyframes ringpulseProcureInline {
@@ -1478,7 +1514,7 @@ nav {
     box-shadow: 0 15px 35px rgba(0, 208, 132, 0.4);
 }
 
-.badge-qlens {
+.badge-qlense {
     background: #9e7dff;
     top: 5px;
     right: 5px;
@@ -1847,8 +1883,9 @@ nav {
     display: flex;
     align-items: center;
     gap: 4px;
-    font-family: cursive;
-    font-weight: 700;
+    font-family: "Bruno Ace", sans-serif;
+  font-weight: 400;
+  font-style: normal;
     font-size: 38px;
     color: #EAEEF4;
     margin: 15px 0 20px 0;
@@ -2210,6 +2247,19 @@ img.card-bg {
         order: 2;
         width: 100%;
     }
+    /* ===================================
+   MOBILE ONLY SEARCH BAR OVERFLOW FIX
+=================================== */
+@media (max-width: 768px) {
+    .floating-search-box {
+        width: calc(100% - 32px) !important;
+        max-width: 290px !important;
+        left: 16px !important;
+        right: 16px !important;
+        margin: 0 auto !important;
+        box-sizing: border-box !important;
+    }
+}
     .dashboard-mockup {
         height: 280px;
     }

@@ -1123,13 +1123,13 @@ nav {
 
 
  
-@keyframes ringpulseLensInline { 0% { opacity: 0.9; transform: scale(0.75); } 70% { opacity: 0; } 100% { opacity: 0; transform: scale(1.35); } }
-@keyframes glintmoveLensInline { 0% { transform: translate(-30%,-30%) rotate(20deg); opacity: 0; } 15% { opacity: 0.9; } 55% { opacity: 0; } 100% { transform: translate(130%,130%) rotate(20deg); opacity: 0; } }
-@keyframes tailglowLensInline { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+@keyframes ringpulselenseInline { 0% { opacity: 0.9; transform: scale(0.75); } 70% { opacity: 0; } 100% { opacity: 0; transform: scale(1.35); } }
+@keyframes glintmovelenseInline { 0% { transform: translate(-30%,-30%) rotate(20deg); opacity: 0; } 15% { opacity: 0.9; } 55% { opacity: 0; } 100% { transform: translate(130%,130%) rotate(20deg); opacity: 0; } }
+@keyframes tailglowlenseInline { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
                                   
-.ring-pulse-lens-inline { transform-origin: 15px 15px; animation: ringpulseLensInline 2.6s ease-out infinite; }
-.glint-lens-inline { animation: glintmoveLensInline 3.2s ease-in-out infinite; }
-.tail-line-lens-inline { animation: tailglowLensInline 2s ease-in-out infinite; }
+.ring-pulse-lense-inline { transform-origin: 15px 15px; animation: ringpulselenseInline 2.6s ease-out infinite; }
+.glint-lense-inline { animation: glintmovelenseInline 3.2s ease-in-out infinite; }
+.tail-line-lense-inline { animation: tailglowlenseInline 2s ease-in-out infinite; }
 
 
 @keyframes ringpulseProcureInline { 0%{ opacity:0.9; transform:scale(0.75); } 70%{ opacity:0; } 100%{ opacity:0; transform:scale(1.35); } }
@@ -1344,7 +1344,7 @@ nav {
     box-shadow: 0 15px 35px rgba(0, 208, 132, 0.4);
 }
 
-.badge-qlens {
+.badge-qlense {
     background: #9e7dff;
     top: 5px;
     right: 5px;

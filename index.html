@@ -9,7 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -24,22 +26,64 @@
         </div>
     </div>
 
-    <div class="portal-overlay">
-        <svg class="portal-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-            <defs>
-                <mask id="portalMask">
-                    <rect x="0" y="0" width="1000" height="1000" fill="white" />
-                    <ellipse id="maskHole" cx="500" cy="465" rx="79" ry="162" fill="black"
-                        transform="rotate(-10 500 500)" />
-                </mask>
-            </defs>
-            <g id="portalGroup" style="transform-origin: 500px 500px;">
-                <rect x="-1000" y="-1000" width="3000" height="3000" fill="#050816" mask="url(#portalMask)" />
-                <text id="qGlyph" x="500" y="460" text-anchor="middle" dominant-baseline="central"
-                    font-family="Fraunces, serif" font-weight="900" font-size="450" fill="#00D084">Q</text>
+   <div class="portal-overlay">
+    <svg class="portal-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
+        <defs>
+            <!-- Mask Hole jo center Q ke ring ko transparent banayega -->
+            <mask id="portalMask">
+                <rect x="0" y="0" width="1000" height="1000" fill="white" />
+                <circle id="maskHole" cx="515" cy="475" r="95" fill="black" />
+            </mask>
+        </defs>
+
+        <g id="portalGroup" style="transform-origin: 500px 500px;">
+            <!-- Background jo mask ke sath zoom hoga -->
+            <rect x="-1000" y="-1000" width="3000" height="3000" fill="#050816" mask="url(#portalMask)" />
+
+            <!-- Navbar Logo Structure scaled & centered for Portal Reveal -->
+            <g transform="translate(10, 300) scale(3.5)">
+                <!-- Top Row: SOURCE text and Quantum-Q Logo -->
+                <g>
+                    <!-- "SOURCE" Text on the left -->
+                    <text x="0" y="95" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="24" fill="#ffffff" letter-spacing="-0.5">SOURCE</text>
+                    
+                    <!-- Quantum-Q Logo Wrapper -->
+                    <g transform="translate(70, -10)">
+                        <!-- Orbit 1 -->
+                        <g class="orbit-group orbitl-1">
+                            <ellipse cx="70" cy="70" rx="52" ry="18" fill="none" stroke="#65a7ff"
+                                stroke-width="2" transform="rotate(-30 70 70)" />
+                            <circle cx="25" cy="45" r="3.5" fill="#65a7ff" />
+                        </g>
+
+                        <!-- Orbit 2 -->
+                        <g class="orbit-group orbitl-2">
+                            <ellipse cx="70" cy="70" rx="52" ry="18" fill="none" stroke="#00D084"
+                                stroke-width="2" transform="rotate(30 70 70)" />
+                            <circle cx="115" cy="95" r="3.5" fill="#00D084" />
+                        </g>
+
+                        <!-- Orbit 3 -->
+                        <g class="orbit-group orbitl-3">
+                            <ellipse cx="70" cy="70" rx="18" ry="52" fill="none" stroke="#4fe0d7"
+                                stroke-width="2" transform="rotate(15 70 70)" />
+                            <circle cx="70" cy="20" r="3.5" fill="#4fe0d7" />
+                        </g>
+
+                        <!-- The Letter Q -->
+                        <circle cx="70" cy="65" r="28" fill="none" stroke="#00D084" stroke-width="13"
+                            class="q-circle" />
+                        <line x1="88" y1="83" x2="112" y2="108" stroke="#00D084" stroke-width="15"
+                            stroke-linecap="round" class="q-tail" />
+                    </g>
+                </g>
+
+                <!-- Bottom Row: Tagline -->
+                <text x="0" y="120" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="14" fill="#4fe0d7" letter-spacing="0.8">NOT JUST AI. <tspan fill="#ffffff" font-weight="700">QUANTUM AI.</tspan></text>
             </g>
-        </svg>
-    </div>
+        </g>
+    </svg>
+</div>
 
     <!-- Scroll Spacer (Animation height ke liye) -->
     <!-- <div class="scroll-spacer"></div> -->
@@ -143,9 +187,9 @@
                         </a>
                     </li>
 
-                    <!-- QLens Navbar Link -->
+                    <!-- Qlense Navbar Link -->
                     <li>
-                        <a href="#costiq" class="q-lens-nav-link">
+                        <a href="#costiq" class="q-lense-nav-link">
                             <svg width="19" height="22" viewBox="0 0 34 40" style="overflow: visible;"
                                 filter="url(#glowCyanInline)">
                                 <defs>
@@ -161,24 +205,24 @@
                                             <feMergeNode in="SourceGraphic" />
                                         </feMerge>
                                     </filter>
-                                    <clipPath id="clipLensInline">
+                                    <clipPath id="cliplenseInline">
                                         <circle cx="15" cy="15" r="12.1" />
                                     </clipPath>
                                 </defs>
                                 <circle cx="15" cy="15" r="12.1" stroke="url(#gradCyanInline)" stroke-width="3.3"
                                     fill="none" />
-                                <circle class="ring-pulse-lens-inline" cx="15" cy="15" r="7.3"
+                                <circle class="ring-pulse-lense-inline" cx="15" cy="15" r="7.3"
                                     stroke="url(#gradCyanInline)" stroke-width="1.95" fill="none" opacity="0.6" />
                                 <circle cx="15" cy="15" r="3.4" stroke="url(#gradCyanInline)" stroke-width="1.8"
                                     fill="none" opacity="0.9" />
-                                <g clip-path="url(#clipLensInline)">
-                                    <rect class="glint-lens-inline" x="-4" y="-4" width="8" height="46" fill="#FFFFFF"
+                                <g clip-path="url(#cliplenseInline)">
+                                    <rect class="glint-lense-inline" x="-4" y="-4" width="8" height="46" fill="#FFFFFF"
                                         opacity="0.5" transform="rotate(20 15 15)" />
                                 </g>
-                                <line class="tail-line-lens-inline" x1="23.5" y1="23.5" x2="31.5" y2="35"
+                                <line class="tail-line-lense-inline" x1="23.5" y1="23.5" x2="31.5" y2="35"
                                     stroke="url(#gradCyanInline)" stroke-width="4.2" stroke-linecap="round" />
                             </svg>
-                            <span style="font-family: cursive;">lens</span>
+                            <span style="font-family: cursive;">lense</span>
                         </a>
                     </li>
 
@@ -433,7 +477,7 @@
                     <div class="step-row">
                         <div class="step-text">
                             <span class="step-number">01</span><span>Search Faster.</span>
-                            <h3 class="step-title-heading">
+                            <h3 class="step-title-heading" style="padding-bottom: 10px;">
                                 <svg width="36" height="36" viewBox="0 0 34 40" style="overflow: visible;"
                                     filter="url(#glowTeal)">
                                     <defs>
@@ -469,7 +513,7 @@
                                         stroke="url(#gradTealInline)" stroke-width="3.9" stroke-linecap="round" />
                                     <circle cx="16" cy="16" r="2.6" fill="#5CF0C4" />
                                 </svg>
-                                <span style="padding-bottom: 15px;">radar</span>
+                                <span style="padding-bottom: 5px;">radar</span>
                             </h3>
                             <p>Search millions of components instantly with our AI-powered engine. Upload your BOM and
                                 let the system do the heavy lifting.</p>
@@ -516,7 +560,7 @@
                         </div>
                     </div>
 
-                    <!-- Step 02: QLens -->
+                    <!-- Step 02: Qlense -->
                     <div class="step-row reverse" style="margin-bottom:60px">
                         <div class="step-text">
                             <span class="step-number">02</span><span>Analyze Deeper.</span>
@@ -536,24 +580,24 @@
                                                 <feMergeNode in="SourceGraphic" />
                                             </feMerge>
                                         </filter>
-                                        <clipPath id="clipLensInline">
+                                        <clipPath id="cliplenseInline">
                                             <circle cx="15" cy="15" r="12.1" />
                                         </clipPath>
                                     </defs>
                                     <circle cx="15" cy="15" r="12.1" stroke="url(#gradCyanInline)" stroke-width="3.3"
                                         fill="none" />
-                                    <circle class="ring-pulse-lens-inline" cx="15" cy="15" r="7.3"
+                                    <circle class="ring-pulse-lense-inline" cx="15" cy="15" r="7.3"
                                         stroke="url(#gradCyanInline)" stroke-width="1.95" fill="none" opacity="0.6" />
                                     <circle cx="15" cy="15" r="3.4" stroke="url(#gradCyanInline)" stroke-width="1.8"
                                         fill="none" opacity="0.9" />
-                                    <g clip-path="url(#clipLensInline)">
-                                        <rect class="glint-lens-inline" x="-4" y="-4" width="8" height="46"
+                                    <g clip-path="url(#cliplenseInline)">
+                                        <rect class="glint-lense-inline" x="-4" y="-4" width="8" height="46"
                                             fill="#FFFFFF" opacity="0.5" transform="rotate(20 15 15)" />
                                     </g>
-                                    <line class="tail-line-lens-inline" x1="23.5" y1="23.5" x2="31.5" y2="35"
+                                    <line class="tail-line-lense-inline" x1="23.5" y1="23.5" x2="31.5" y2="35"
                                         stroke="url(#gradCyanInline)" stroke-width="4.2" stroke-linecap="round" />
                                 </svg>
-                                <span>lens</span>
+                                <span>lense</span>
                             </h3>
                             <p>Make data-driven decisions with predictive pricing analytics, lifecycle risk assessments,
                                 and historical trend data.</p>
@@ -566,8 +610,8 @@
                         <div class="step-visual">
                             <div class="dashboard-mockup analytics" style="position: relative;">
                                 <img style="width: 100%; height: 100%; object-fit: cover;"
-                                    src="./assets/images/qlens.jpeg" alt="Analytics Dashboard">
-                                <div class="floating-badge badge-qlens">
+                                    src="./assets/images/qlense.jpeg" alt="Analytics Dashboard">
+                                <div class="floating-badge badge-qlense">
                                     <span style="font-size: 24px; color: #fff;">📊</span>
                                 </div>
                                 <div class="floating-mini-card pos-bottom-left">
@@ -652,6 +696,9 @@
         <!-- =========================
      CUSTOMER INTELLIGENCE CONSULTING
 ========================== -->
+        <!-- =========================
+     CUSTOMER INTELLIGENCE CONSULTING
+========================== -->
         <section class="consulting-section" id="consulting">
             <div class="consulting-container">
 
@@ -663,22 +710,28 @@
                 </div>
 
                 <!-- Three Hoverable Sections -->
+                <!-- Three Hoverable Sections (onclick yahan se remove kar diya gaya hai) -->
                 <div class="consulting-nodes">
-                    <div class="consulting-node" onclick="consultingModal.classList.add('active')">
+                    <div class="consulting-node">
                         <span class="node-num">01</span>
                         <h4>Proto sourcing partnership</h4>
                         <div class="node-line"></div>
                     </div>
-                    <div class="consulting-node" onclick="consultingModal.classList.add('active')">
+                    <div class="consulting-node">
                         <span class="node-num">02</span>
                         <h4>Custom predictive BOM report</h4>
                         <div class="node-line"></div>
                     </div>
-                    <div class="consulting-node" onclick="consultingModal.classList.add('active')">
+                    <div class="consulting-node">
                         <span class="node-num">03</span>
                         <h4>Inventory planning & scenario analysis</h4>
                         <div class="node-line"></div>
                     </div>
+                </div>
+
+                <!-- Original Button Unchanged -->
+                <div class="consulting-action">
+                    <a href="#" id="consultingBtn" class="consulting-btn">Connect with our team</a>
                 </div>
 
                 <!-- Requirement Form Modal -->
@@ -775,7 +828,7 @@
                     <h4>Products</h4>
                     <ul>
                         <li><a href="#">QRadar Search</a></li>
-                        <li><a href="#">QLens Analytics</a></li>
+                        <li><a href="#">Qlense Analytics</a></li>
                         <li><a href="#">QProcure</a></li>
                         <li><a href="#">CostIQ</a></li>
                     </ul>

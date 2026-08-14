@@ -280,3 +280,6 @@ window.addEventListener('scroll', () => {
 
 // Run on load
 updatePortal();
+
+
+
