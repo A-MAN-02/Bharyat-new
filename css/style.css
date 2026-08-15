@@ -85,7 +85,18 @@ body {
     justify-content: center;
 }
 
+/* Shuru mein portal ko hidden rakhein taaki text akele pehle na dikhe */
+.portal-overlay {
+    /* opacity: 0; */
+    visibility: hidden;
+    transition: opacity 0.5s ease;
+}
 
+/* Jaise hi video load hogi, ye class body par aate hi sab kuch ek sath dikhega */
+body.video-loaded .portal-overlay {
+    opacity: 1;
+    visibility: visible;
+}
 
 
 /* Portal Logo Animations */

@@ -11,7 +11,7 @@ const portalGroup = document.getElementById('portalGroup');
 const heroFixed = document.querySelector('.hero-fixed');
 const portalOverlay = document.querySelector('.portal-overlay');
 
-const ZOOM_MULTIPLIER = 2.7; // Zoom speed control (Aapka purana value)
+const ZOOM_MULTIPLIER = 1.8; // Zoom speed control (Aapka purana value)
 const MAX_SCALE = 20;         // Aapka purana value
 
 function ease(t) {
