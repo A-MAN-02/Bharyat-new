@@ -1,0 +1,6 @@
+# MOUSER_API_KEY="fd2500ec-cac5-4622-a3bd-ea3adfbb2c78"
+NEXAR_CLIENT_ID="d69e7ef9-cb2e-4ce2-8822-f740e49f111d"      
+NEXAR_CLIENT_SECRET="zsmndKnc_uOvQPmjHp378JKldp4zOMDarkiv"
+
+
+SERPER_API_KEY="b2b8c7949f3e10aab149f9d094d8c754dfec5620"

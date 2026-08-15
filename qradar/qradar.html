@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QRadar — Part Search</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style>
+  :root{
+    --bg: #111827;
+    --panel: #10141b;
+    --panel-2: #0d1117;
+    --border: rgba(255,255,255,0.08);
+    --text: #e8ecf2;
+    --text-dim: #8b95a5;
+    --text-faint: #5c6577;
+    --ih: #34e8b0;
+    --ih-glow: rgba(52,232,176,0.15);
+    --ad: #38bdf8;
+    --ad-glow: rgba(56,189,248,0.15);
+    --ib: #a78bfa;
+    --ib-glow: rgba(167,139,250,0.15);
+    --amber: #f5a524;
+    --rated-a: #34e8b0;
+    --mono: 'JetBrains Mono', 'SF Mono', 'Roboto Mono', ui-monospace, Consolas, monospace;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    padding: 0 0 80px 0;
+  }
+
+  .topbar{ height: 4px; background: linear-gradient(90deg, var(--ih), var(--ad), var(--ib)); }
+
+  .wrap{ max-width: 1180px; margin: 0 auto; padding: 56px 32px 40px; }
+
+  .eyebrow{
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em;
+    color: var(--ad); text-transform: uppercase; margin-bottom: 18px;
+  }
+
+  h1{ font-size: 34px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 10px; }
+  .sub{ color: var(--text-dim); font-size: 15px; margin-bottom: 40px; max-width: 620px; }
+
+  /* ---- Source Cards (overview) ---- */
+  .cards{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 40px; }
+
+  .card{
+    background: var(--panel); border: 1px solid var(--border); border-radius: 16px;
+    padding: 24px; position: relative; overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .card::before{
+    content:''; position: absolute; inset: -1px; border-radius: inherit; padding: 1px;
+    background: linear-gradient(160deg, var(--accent), transparent 45%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+  }
+  .card:hover{ transform: translateY(-2px); box-shadow: 0 12px 32px -12px var(--glow); }
+  .card.ih{ --accent: var(--ih); --glow: var(--ih-glow); }
+  .card.ad{ --accent: var(--ad); --glow: var(--ad-glow); }
+  .card.ib{ --accent: var(--ib); --glow: var(--ib-glow); }
+
+  .card-head{ display:flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+  .card-title{ font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+  .card-subtitle{
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em;
+    color: var(--text-faint); text-transform: uppercase;
+  }
+  .card-stock{ text-align: right; }
+  .stock-label{
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
+    color: var(--text-faint); text-transform: uppercase; margin-bottom: 4px;
+  }
+  .stock-value{ font-family: var(--mono); font-size: 24px; font-weight: 700; color: var(--accent); }
+
+  .card-icon-panel{
+    background: linear-gradient(160deg, var(--glow), transparent 70%);
+    border-radius: 12px; height: 110px; display:flex; align-items:center; justify-content:center;
+    margin-bottom: 20px;
+  }
+  .icon-badge{
+    width: 60px; height:60px; border-radius: 50%; background: var(--accent); color: #05070a;
+    display:flex; align-items:center; justify-content:center; font-weight: 800; font-size: 18px;
+  }
+
+  .card-stats{ display:flex; flex-direction: column; gap: 10px; margin-bottom: 22px; }
+  .stat-row{ display:flex; justify-content: space-between; align-items:center; font-size: 13.5px; color: var(--text-dim); }
+  .stat-row .dot{ width:6px; height:6px; border-radius:50%; background: var(--accent); display:inline-block; margin-right: 8px; }
+  .stat-row .label-wrap{ display:flex; align-items:center; }
+  .stat-row .val{ color: var(--text); font-family: var(--mono); font-weight: 600; font-size: 13px; }
+
+  .card-footer{ display:flex; justify-content: space-between; align-items:center; padding-top: 16px; border-top: 1px solid var(--border); }
+  .pill{
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 999px; background: var(--glow); color: var(--accent); font-weight: 700;
+  }
+  .stars{ color: var(--accent); font-size: 14px; letter-spacing: 1px; }
+  .stars .empty{ color: rgba(255,255,255,0.15); }
+
+  /* ---- Search bar ---- */
+  .search-wrap{ position: relative; }
+  .searchbar{
+    display:flex; align-items:center; gap: 14px; background: var(--panel);
+    border: 1px solid var(--border); border-radius: 14px; padding: 16px 20px;
+  }
+  .searchbar svg{ flex-shrink:0; color: var(--text-faint); }
+  .searchbar input{
+    flex:1; background: none; border: none; outline: none; color: var(--text);
+    font-family: var(--mono); font-size: 16px; letter-spacing: 0.02em;
+  }
+  .searchbar input::placeholder{ color: var(--text-faint); }
+  .meta-pill{
+    font-family: var(--mono); font-size: 12px; color: var(--text-dim);
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+    padding: 8px 14px; border-radius: 10px; white-space: nowrap;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .spinner{
+    width: 12px; height: 12px; border: 2px solid rgba(255,255,255,0.15);
+    border-top-color: var(--ad); border-radius: 50%; animation: spin 0.7s linear infinite; display: none;
+  }
+  .spinner.active{ display: inline-block; }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+
+  .card.searching{ animation: pulse-glow 1.2s ease-in-out infinite; }
+  @keyframes pulse-glow{ 0%, 100%{ opacity: 1; } 50%{ opacity: 0.55; } }
+
+  /* ---- Autocomplete dropdown ---- */
+  .suggest-dropdown{
+    position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+    overflow: hidden; z-index: 20; display: none;
+    box-shadow: 0 12px 32px -8px rgba(0,0,0,0.5);
+  }
+  .suggest-dropdown.visible{ display: block; }
+  .suggest-item{
+    padding: 11px 18px; font-family: var(--mono); font-size: 13.5px; color: var(--text-dim);
+    cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+  .suggest-item:last-child{ border-bottom: none; }
+  .suggest-item:hover, .suggest-item.active{ background: rgba(56,189,248,0.08); color: var(--text); }
+  .suggest-item .match-tag{ font-size: 10px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.06em; }
+
+  /* ---- Full-page loading overlay ---- */
+  .loading-overlay{
+    position: fixed; inset: 0; background: rgba(17,24,39,0.88);
+    display: none; align-items: center; justify-content: center; flex-direction: column;
+    gap: 20px; z-index: 999; backdrop-filter: blur(3px);
+  }
+  .loading-overlay.visible{ display: flex; }
+  .loading-ring{
+    width: 56px; height: 56px; border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--ad);
+    animation: spin 0.8s linear infinite;
+  }
+  .loading-text{
+    font-family: var(--mono); font-size: 14px; color: var(--text-dim);
+    letter-spacing: 0.04em;
+  }
+  .loading-text .dots::after{
+    content: '...'; animation: dots 1.2s steps(4, end) infinite;
+  }
+  @keyframes dots{ 0%{ content:''; } 25%{ content:'.'; } 50%{ content:'..'; } 75%,100%{ content:'...'; } }
+
+  /* ---- Recent search history (sidebar) ---- */
+  .sidebar{
+    width: 260px; flex-shrink: 0; background: var(--panel-2); border-right: 1px solid var(--border);
+    padding: 32px 20px; position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  }
+  .qradar-logo-row{ display: flex; align-items: center; gap: 3px; }
+  @keyframes spinInline{ to{ transform: rotate(360deg); } }
+  @keyframes ringpulseInline{
+    0%{ opacity: 0.9; transform: scale(0.75); }
+    70%{ opacity: 0; }
+    100%{ opacity: 0; transform: scale(1.35); }
+  }
+  .sweep-inline{ transform-origin: 16px 16px; animation: spinInline 4.5s linear infinite; }
+  .ring-inline{ transform-origin: 16px 16px; animation: ringpulseInline 2.6s ease-out infinite; }
+  .ring-inline.r2{ animation-delay: 1.3s; }
+
+  /* .sidebar-brand{
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; color: var(--ad);
+    text-transform: uppercase; margin-bottom: 28px;
+  } */
+   .sidebar-brand {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--ad);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    }
+
+  .sidebar-brand svg {
+    width: 32px;
+    height: 32px;
+    }
+  .sidebar-title{
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; color: var(--text-faint);
+    text-transform: uppercase; margin-bottom: 14px;
+  }
+  .history-list{ display: flex; flex-direction: column; gap: 8px; }
+  .history-item{
+    display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 13px;
+    color: var(--text-dim); background: var(--panel); border: 1px solid var(--border);
+    padding: 10px 12px; border-radius: 10px; cursor: pointer; overflow: hidden; white-space: nowrap;
+    transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  }
+  .history-item .pn-text{ overflow:hidden; text-overflow:ellipsis; }
+  .history-item:hover{ border-color: var(--ad); color: var(--text); transform: translateX(2px); }
+  .history-item .clock{ opacity:0.5; font-size:11px; flex-shrink:0; }
+  .history-empty{ font-size: 12.5px; color: var(--text-faint); font-style: italic; line-height: 1.5; }
+
+  .main-content{ flex: 1; min-width: 0; }
+  .app-shell{ display: flex; align-items: stretch; min-height: 100vh; }
+
+  /* ---- Product summary panel ---- */
+  /* .qradar-title { */
+
+ .qradar-title {
+    font-family: cursive;
+    font-size: 28px;
+    font-weight: 400;
+    color: #ffffff;
+    letter-spacing: -1px;
+}
+ 
+  .summary-panel{
+    background: var(--panel); border: 1px solid var(--border); border-radius: 16px;
+    padding: 22px 26px; margin-top: 24px;
+  }
+  .summary-title{ font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+  .summary-title-row{ display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .summary-title-row .summary-title{ margin-bottom: 0; }
+  #datasheetLink{
+    color: var(--ad); font-size: 12.5px; font-family: var(--mono);
+    text-decoration: none; border: 1px solid rgba(56,189,248,0.3);
+    background: var(--ad-glow); padding: 5px 12px; border-radius: 8px;
+  }
+  #datasheetLink:hover{ opacity: 0.85; }
+  .summary-text{ color: var(--text-dim); font-size: 13.5px; line-height: 1.6; }
+  .summary-text.loading{ font-style: italic; color: var(--text-faint); }
+
+  .spec-grid{
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border);
+  }
+  .spec-item{
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 12.5px; color: var(--text-dim); line-height: 1.4;
+  }
+  .spec-item .spec-dot{
+    width: 6px; height: 6px; border-radius: 50%; background: var(--ad);
+    flex-shrink: 0; margin-top: 5px;
+  }
+
+  /* ---- Detail view ---- */
+  #detailView{ display:none; }
+  .part-head{ display:flex; justify-content: space-between; align-items: flex-end; margin: 36px 0 28px; flex-wrap: wrap; gap: 16px; }
+  .part-title-row{ display:flex; align-items:center; gap: 12px; margin-bottom: 8px; }
+  .part-title{ font-family: var(--mono); font-size: 26px; font-weight: 700; }
+  .badge-nrnd{
+    font-family: var(--mono); font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em;
+    color: var(--amber); background: rgba(245,165,36,0.12); border: 1px solid rgba(245,165,36,0.3);
+    padding: 3px 9px; border-radius: 6px;
+  }
+  .badge-active{
+    font-family: var(--mono); font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em;
+    color: var(--ih); background: rgba(52,232,176,0.12); border: 1px solid rgba(52,232,176,0.3);
+    padding: 3px 9px; border-radius: 6px;
+  }
+  .part-desc{ color: var(--text-dim); font-size: 14px; }
+  .part-total{ text-align: right; }
+  .part-total .num{ font-family: var(--mono); font-size: 30px; font-weight: 700; }
+  .part-total .unit{ color: var(--text-dim); font-size: 13px; margin-left: 6px; }
+
+  /* ---- BOM upload ---- */
+  .bom-row{ display:flex; align-items:center; gap: 12px; margin-top: 14px; }
+  .bom-upload-btn{
+    font-family: var(--mono); font-size: 13px; color: var(--text-dim);
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 10px 16px; cursor: pointer; transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .bom-upload-btn:hover{ border-color: var(--ad); color: var(--text); }
+  .bom-hint{ font-size: 12px; color: var(--text-faint); }
+
+  .bom-progress-wrap{ margin-top: 16px; display: none; }
+  .bom-progress-wrap.visible{ display: block; }
+  .bom-progress-label{
+    font-family: var(--mono); font-size: 12.5px; color: var(--text-dim); margin-bottom: 8px;
+    display: flex; justify-content: space-between;
+  }
+  .bom-progress-bar{ height: 6px; background: var(--panel); border-radius: 999px; overflow: hidden; }
+  .bom-progress-fill{ height: 100%; background: linear-gradient(90deg, var(--ih), var(--ad)); width: 0%; transition: width 0.3s ease; }
+
+  .bom-summary-cards{
+    display: none; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 24px;
+  }
+  .bom-summary-cards.visible{ display: grid; }
+  .bom-summary-cards .card{ padding: 20px; }
+  .bom-summary-cards .card-title{ font-size: 13px; font-weight: 600; color: var(--text-dim); margin-bottom: 10px; }
+  .bom-summary-cards .stock-value{ font-size: 26px; margin-bottom: 4px; }
+  .bom-summary-cards .card-subtitle{ font-size: 11px; }
+
+  .bom-results{ margin-top: 32px; display: none; }
+  .bom-results.visible{ display: block; }
+  .bom-results-header{ display:flex; justify-content: space-between; align-items:center; margin-bottom: 16px; }
+  .bom-results-header h2{ font-size: 18px; font-weight: 700; }
+  .bom-export-btn{
+    font-family: var(--mono); font-size: 12.5px; color: var(--ih); background: var(--ih-glow);
+    border: 1px solid rgba(52,232,176,0.3); border-radius: 8px; padding: 8px 14px; cursor: pointer;
+  }
+  .bom-export-btn:hover{ opacity: 0.85; }
+
+  .bom-table-wrap{ background: var(--panel); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; overflow-x: auto; }
+  .bom-table{ width: 100%; border-collapse: collapse; font-size: 13px; }
+  .bom-table th{
+    text-align: left; padding: 12px 16px; font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-faint);
+    border-bottom: 1px solid var(--border); white-space: nowrap;
+  }
+  .bom-table td{ padding: 12px 16px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  .bom-cell-stock{ font-weight: 600; }
+  .bom-cell-price{ display: block; font-family: var(--mono); font-size: 11px; color: var(--text-faint); margin-top: 2px; }
+  .bom-table tr:last-child td{ border-bottom: none; }
+  .bom-table tr:hover td{ background: rgba(255,255,255,0.02); }
+  .bom-pn{ font-family: var(--mono); font-weight: 600; cursor: pointer; color: var(--ad); }
+  .bom-pn:hover{ text-decoration: underline; }
+  .bom-src{ font-family: var(--mono); font-size: 10.5px; padding: 2px 7px; border-radius: 4px; }
+  .bom-src.cache{ background: var(--ih-glow); color: var(--ih); }
+  .bom-src.nexar{ background: var(--ad-glow); color: var(--ad); }
+  .bom-src.error{ background: rgba(245,85,85,0.12); color: #f55555; }
+
+  .detail-cards{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 24px; }
+  .dcard{ background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 22px; position: relative; }
+  .dcard::before{
+    content:''; position: absolute; inset: -1px; border-radius: inherit; padding: 1px;
+    background: linear-gradient(160deg, var(--accent), transparent 45%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+  }
+  .dcard.ih{ --accent: var(--ih); }
+  .dcard.ad{ --accent: var(--ad); }
+  .dcard.ib{ --accent: var(--ib); }
+
+  .dcard-title{ display:flex; align-items:center; gap: 10px; font-size: 14.5px; font-weight: 700; margin-bottom: 18px; }
+  .dcard-title .dot{ width:8px; height:8px; border-radius:50%; background: var(--accent); }
+  .dcard-qty{ font-family: var(--mono); font-size: 32px; font-weight: 700; margin-bottom: 4px; }
+  .dcard-qty .u{ font-size: 14px; color: var(--text-dim); font-weight: 500; margin-left: 6px; }
+  .dcard-range{ font-size: 13px; color: var(--text-dim); margin-bottom: 18px; font-family: var(--mono); }
+
+  .dcard-rows{
+    display:flex; flex-direction: column; gap: 11px; padding-top: 14px;
+    border-top: 1px solid var(--border); margin-bottom: 12px; min-height: 60px;
+  }
+  .drow{ display:flex; justify-content: space-between; align-items:center; font-size: 13.5px; }
+  .drow .name{ display:flex; align-items:center; gap:8px; color: var(--text); }
+  .drow .qty{ font-family: var(--mono); color: var(--text-dim); }
+
+  .show-all-link{
+    font-family: var(--mono); font-size: 12px; color: var(--accent); cursor: pointer;
+    padding: 6px 0 14px; text-align: center; opacity: 0.85;
+  }
+  .show-all-link:hover{ opacity: 1; text-decoration: underline; }
+
+  .dcard-note{ font-size: 12.5px; color: var(--text-faint); line-height: 1.5; padding-top: 14px; border-top: 1px solid var(--border); }
+
+  .back-link{
+    display:inline-flex; align-items:center; gap: 6px; color: var(--text-faint); font-size: 13px;
+    font-family: var(--mono); cursor: pointer; margin-bottom: 20px; transition: color 0.2s ease;
+  }
+  .back-link:hover{ color: var(--ad); }
+
+  @media (max-width: 900px){
+    .cards, .detail-cards{ grid-template-columns: 1fr; }
+    .wrap{ padding: 36px 18px 40px; }
+    h1{ font-size: 26px; }
+    .part-head{ flex-direction: column; align-items: flex-start; }
+    .part-total{ text-align: left; }
+    .app-shell{ flex-direction: column; }
+    .sidebar{ width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border); padding: 18px; }
+    .history-list{ flex-direction: row; flex-wrap: wrap; }
+    .history-item{ white-space: nowrap; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar"></div>
+
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-ring"></div>
+  <div class="loading-text"><span id="loadingText">Extracting data</span><span class="dots"></span></div>
+</div>
+
+<div class="app-shell">
+
+  <aside class="sidebar">
+    <div class="sidebar-brand qradar-logo-row">
+      <svg width="40" height="40" viewBox="0 0 34 40" style="overflow: visible;">
+        <defs>
+          <linearGradient id="gradTeal-sb" x1="0" y1="0" x2="34" y2="40" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#5CF0C4" /><stop offset="100%" stop-color="#1FA383" />
+          </linearGradient>
+          <clipPath id="clipRadar-sb"><circle cx="16" cy="16" r="13.4" /></clipPath>
+        </defs>
+        <circle class="ring-inline" cx="16" cy="16" r="8.4" stroke="url(#gradTeal-sb)" stroke-width="2.1" fill="none" />
+        <circle class="ring-inline r2" cx="16" cy="16" r="8.4" stroke="url(#gradTeal-sb)" stroke-width="2.1" fill="none" />
+        <circle cx="16" cy="16" r="13.4" stroke="url(#gradTeal-sb)" stroke-width="3.3" fill="none" />
+        <g class="sweep-inline" clip-path="url(#clipRadar-sb)">
+          <path d="M16 16 L16 1.5 A14.5 14.5 0 0 1 29 9.25 Z" fill="url(#gradTeal-sb)" opacity="0.35" />
+          <line x1="16" y1="16" x2="16" y2="2" stroke="url(#gradTeal-sb)" stroke-width="2.7" stroke-linecap="round" />
+        </g>
+        <line x1="24" y1="24" x2="31" y2="35" stroke="url(#gradTeal-sb)" stroke-width="3.9" stroke-linecap="round" />
+        <circle cx="16" cy="16" r="2.6" fill="#5CF0C4" />
+      </svg>
+      <span class="qradar-title">Radar</span>
+    </div>
+    <div class="sidebar-title">Recent Searches</div>
+    <div class="history-list" id="historyList">
+      <div class="history-empty" id="historyEmpty">No searches yet this session.</div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+  <div class="wrap">
+
+  <div class="eyebrow qradar-logo-row">
+    <svg width="40" height="40" viewBox="0 0 34 40" style="overflow: visible;">
+      <defs>
+        <linearGradient id="gradTeal-eb" x1="0" y1="0" x2="34" y2="40" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#5CF0C4" /><stop offset="100%" stop-color="#1FA383" />
+        </linearGradient>
+        <clipPath id="clipRadar-eb"><circle cx="16" cy="16" r="13.4" /></clipPath>
+      </defs>
+      <circle class="ring-inline" cx="16" cy="16" r="8.4" stroke="url(#gradTeal-eb)" stroke-width="2.1" fill="none" />
+      <circle class="ring-inline r2" cx="16" cy="16" r="8.4" stroke="url(#gradTeal-eb)" stroke-width="2.1" fill="none" />
+      <circle cx="16" cy="16" r="13.4" stroke="url(#gradTeal-eb)" stroke-width="3.3" fill="none" />
+      <g class="sweep-inline" clip-path="url(#clipRadar-eb)">
+        <path d="M16 16 L16 1.5 A14.5 14.5 0 0 1 29 9.25 Z" fill="url(#gradTeal-eb)" opacity="0.35" />
+        <line x1="16" y1="16" x2="16" y2="2" stroke="url(#gradTeal-eb)" stroke-width="2.7" stroke-linecap="round" />
+      </g>
+      <line x1="24" y1="24" x2="31" y2="35" stroke="url(#gradTeal-eb)" stroke-width="3.9" stroke-linecap="round" />
+      <circle cx="16" cy="16" r="2.6" fill="#5CF0C4" />
+    </svg>
+    <span class="qradar-title">RADAR — PART SEARCH</span>
+  </div>
+
+  <div class="search-wrap">
+    <div class="searchbar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input id="searchInput" type="text" placeholder="Search part number…" value="" autocomplete="off">
+      <div class="meta-pill" id="metaPill"><span class="spinner" id="metaSpinner"></span><span id="metaText">Type a part number ↵</span></div>
+    </div>
+    <div class="suggest-dropdown" id="suggestDropdown"></div>
+  </div>
+
+  <div class="bom-row">
+    <input type="file" id="bomFileInput" accept=".xlsx,.xls,.csv,.txt" style="display:none">
+    <button class="bom-upload-btn" onclick="document.getElementById('bomFileInput').click()">📋 Upload BOM</button>
+    <span class="bom-hint">.xlsx, .csv, or .txt — part numbers in the first column</span>
+  </div>
+
+  <div class="bom-progress-wrap" id="bomProgressWrap">
+    <div class="bom-progress-label">
+      <span id="bomProgressLabel">Processing 0 / 0</span>
+      <span id="bomProgressSourceLabel"></span>
+    </div>
+    <div class="bom-progress-bar"><div class="bom-progress-fill" id="bomProgressFill"></div></div>
+  </div>
+
+  <div class="bom-summary-cards" id="bomSummaryCards">
+    <div class="card ih">
+      <div class="card-title">Total Quantity</div>
+      <div class="stock-value" id="bomTotalQty">—</div>
+      <div class="card-subtitle">across whole BOM</div>
+    </div>
+    <div class="card ad">
+      <div class="card-title">Total Cost @ Min Price</div>
+      <div class="stock-value" id="bomCostMin">—</div>
+      <div class="card-subtitle">authorized distributors</div>
+    </div>
+    <div class="card ib">
+      <div class="card-title">Total Cost @ Max Price</div>
+      <div class="stock-value" id="bomCostMax">—</div>
+      <div class="card-subtitle">authorized distributors</div>
+    </div>
+  </div>
+
+  <div class="bom-results" id="bomResults">
+    <div class="bom-results-header">
+      <h2>BOM Results — <span id="bomResultsCount">0</span> parts</h2>
+      <button class="bom-export-btn" onclick="exportBomResults()">⬇ Export Excel</button>
+    </div>
+    <div class="bom-table-wrap">
+      <table class="bom-table">
+        <thead>
+          <tr>
+            <th>Part Number</th>
+            <th>Qty</th>
+            <th>In-house</th>
+            <th>Authorized</th>
+            <th>Independent</th>
+            <th>Total Stock</th>
+          </tr>
+        </thead>
+        <tbody id="bomTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="overviewHead" style="display:none; margin-top: 36px;">
+    <h1 id="overviewTitle">Availability across every source</h1>
+    <div class="sub" id="overviewSub">Each source gets its own card — quantity, price and depth visible immediately, no click required.</div>
+
+    <div class="cards">
+      <div class="card ih">
+        <div class="card-head">
+          <div>
+            <div class="card-title">In-house Inventory</div>
+            <div class="card-subtitle">SourceQ Owned Stock</div>
+          </div>
+          <div class="card-stock">
+            <div class="stock-label">Stock</div>
+            <div class="stock-value" id="ovIhStock">—</div>
+          </div>
+        </div>
+        <div class="card-icon-panel"><div class="icon-badge">IH</div></div>
+        <div class="card-stats">
+          <div class="stat-row"><span class="label-wrap"><span class="dot"></span>Price</span><span class="val" id="ovIhPriceRange">—</span></div>
+          <div class="stat-row"><span class="label-wrap"><span class="dot"></span>Lead time</span><span class="val">0 wks</span></div>
+          <div class="stat-row"><span class="label-wrap"><span class="dot"></span>Counterfeit risk</span><span class="val">None</span></div>
+        </div>
+        <div class="card-footer"><div class="pill">Owned Stock</div><div class="stars">★★★★★</div></div>
+      </div>
+
+      <div class="card ad">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Authorized Distributors</div>
+            <div class="card-subtitle">Manufacturer-Traceable</div>
+          </div>
+          <div class="card-stock">
+            <div class="stock-label">Stock</div>
+            <div class="stock-value" id="ovAdStock">—</div>
+          </div>
+        </div>
+        <div class="card-icon-panel"><div class="icon-badge">AD</div></div>
+        <div class="card-stats">
+          <div class="stat-row"><span class="label-wrap"><span class="dot"></span>Min price</span><span class="val" id="ovAdMin">—</span></div>
+          <div class="stat-row"><span class="label-wrap"><span class="dot"></span>Max price</span><span class="val" id="ovAdMax">—</span></div>
+          <div class="stat-row"><span class="label-wrap"><span class="dot"></span>Traceability</span><span class="val">Full</span></div>
+        </div>
+        <div class="card-footer"><div class="pill">Verified Channel</div><div class="stars">★★★★<span class="empty">★</span></div></div>
+      </div>
+
+      <div class="card ib">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Independent / Broker</div>
+            <div class="card-subtitle">Unauthorised — Rated by SourceQ</div>
+          </div>
+          <div class="card-stock">
+            <div class="stock-label">Stock</div>
+            <div class="stock-value" id="ovIbStock">—</div>
+          </div>
+        </div>
+        <div class="card-icon-panel"><div class="icon-badge">IB</div></div>
+        <div class="card-stats">
+          <div class="stat-row"><span class="label-wrap"><span class="dot"></span>Min price</span><span class="val" id="ovIbMin">—</span></div>
+          <div class="stat-row"><span class="label-wrap"><span class="dot"></span>Max price</span><span class="val" id="ovIbMax">—</span></div>
+          <div class="stat-row"><span class="label-wrap"><span class="dot"></span>Depth</span><span class="val">Deepest pool</span></div>
+        </div>
+        <div class="card-footer"><div class="pill">Rated Market</div><div class="stars">★★★<span class="empty">★★</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DETAIL VIEW -->
+  <div id="detailView">
+    <div class="back-link" onclick="resetView()">← clear search</div>
+
+    <div class="part-head">
+      <div>
+        <div class="part-title-row">
+          <div class="part-title" id="dPartNum">STM32F103C8T6</div>
+          <div class="badge-nrnd" id="dBadge">NRND</div>
+        </div>
+        <div class="part-desc" id="dDesc"></div>
+      </div>
+      <div class="part-total"><span class="num" id="dTotal">21,340</span><span class="unit">pcs total</span></div>
+    </div>
+
+    <div class="detail-cards">
+      <div class="dcard ih">
+        <div class="dcard-title"><span class="dot"></span>In-house — SourceQ inventory</div>
+        <div class="dcard-qty" id="ihQty">800<span class="u">pcs</span></div>
+        <div class="dcard-range" id="ihPriceRange">Price —</div>
+        <div class="dcard-rows" id="ihRows"></div>
+        <div class="dcard-note">Ships same day from your own stock — zero lead time, zero counterfeit risk.</div>
+      </div>
+
+      <div class="dcard ad">
+        <div class="dcard-title"><span class="dot"></span>Authorized distributors</div>
+        <div class="dcard-qty" id="adQty">7,050<span class="u">pcs</span></div>
+        <div class="dcard-range" id="adPrice">Range —</div>
+        <div class="dcard-rows" id="adRows"></div>
+        <div class="show-all-link" id="adShowAll" style="display:none;" onclick="toggleExpand('ad')"></div>
+        <div class="dcard-note">Full manufacturer traceability. Lead time 4–6 wks if reordering from source.</div>
+      </div>
+
+      <div class="dcard ib">
+        <div class="dcard-title"><span class="dot"></span>Independent / broker market</div>
+        <div class="dcard-qty" id="ibQty">13,490<span class="u">pcs</span></div>
+        <div class="dcard-range" id="ibPrice">Range —</div>
+        <div class="dcard-rows" id="ibRows"></div>
+        <div class="show-all-link" id="ibShowAll" style="display:none;" onclick="toggleExpand('ib')"></div>
+        <div class="dcard-note">Unauthorised / independent sources — not manufacturer-traceable. Verify before purchase.</div>
+      </div>
+    </div>
+
+    <div class="summary-panel" id="summaryPanel" style="display:none;">
+      <div class="summary-title-row">
+        <div class="summary-title">Product summary</div>
+        <a href="#" id="datasheetLink" target="_blank" rel="noopener" style="display:none;">📄 Datasheet ↗</a>
+      </div>
+      <div class="summary-text" id="summaryText">—</div>
+      <div class="spec-grid" id="specGrid" style="display:none;"></div>
+    </div>
+  </div>
+
+  </div>
+  </main>
+
+</div>
+
+<script>
+  // ============================================================
+  // CONFIG
+  // ============================================================
+  const SUPABASE_URL = "https://ccxcqxjfhbqnnzepwerr.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNjeGNxeGpmaGJxbm56ZXB3ZXJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk2ODUxMDIsImV4cCI6MjA5NTI2MTEwMn0.rdHMlH1YVY_kbJSqIS151ySUQskhi95qY6zNLTzN9Fk";
+  // Nexar/Serper/PDF-summary all go through the backend now — no secrets live here.
+  const API_BASE = "http://localhost:8002";
+
+  const IH_STOCK_PCT_MIN = 8, IH_STOCK_PCT_MAX = 15;   // % of AD stock, randomized per part
+  const IH_PRICE_DISCOUNT_MIN = 18, IH_PRICE_DISCOUNT_MAX = 25; // % below avg AD price, randomized per part
+
+  // Deterministic pseudo-random float in [min, max), seeded by a string.
+  // Same seed (e.g. same part number + purpose) always gives the same value —
+  // so a given part's in-house stock/price % stays consistent, while
+  // different parts get different randomized values.
+  function seededRandomRange(seedStr, min, max){
+    let h = 0;
+    for(let i = 0; i < seedStr.length; i++){ h = (h * 31 + seedStr.charCodeAt(i)) >>> 0; }
+    h ^= h << 13; h >>>= 0;
+    h ^= h >>> 17;
+    h ^= h << 5; h >>>= 0;
+    const rand = (h % 10000) / 10000;
+    return min + rand * (max - min);
+  }
+  const MAX_ROWS_PER_CARD = 5;
+
+  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const input = document.getElementById('searchInput');
+  const overviewHead = document.getElementById('overviewHead');
+  const detailView = document.getElementById('detailView');
+  const historyList = document.getElementById('historyList');
+  const suggestDropdown = document.getElementById('suggestDropdown');
+  const loadingOverlay = document.getElementById('loadingOverlay');
+  const loadingText = document.getElementById('loadingText');
+
+  // ---- Search history (in-memory, session only) ----
+  let searchHistory = [];
+
+  function addToHistory(pn){
+    searchHistory = searchHistory.filter(p => p.toLowerCase() !== pn.toLowerCase());
+    searchHistory.unshift(pn);
+    if(searchHistory.length > 10) searchHistory = searchHistory.slice(0, 10);
+    renderHistory();
+  }
+
+  function renderHistory(){
+    if(searchHistory.length === 0){
+      historyList.innerHTML = '<div class="history-empty" id="historyEmpty">No searches yet this session.</div>';
+      return;
+    }
+    historyList.innerHTML = searchHistory.map(pn => `
+      <div class="history-item" title="${pn}" onclick="runSearch('${pn}')"><span class="clock">&#9201;</span><span class="pn-text">${pn}</span></div>
+    `).join('');
+  }
+
+  // ============================================================
+  // Autocomplete — suggests part numbers from Supabase as you type
+  // ============================================================
+  let suggestDebounce = null;
+  let activeSuggestIndex = -1;
+
+  input.addEventListener('input', () => {
+    const q = input.value.trim();
+    clearTimeout(suggestDebounce);
+    if(q.length < 2){
+      hideSuggestions();
+      return;
+    }
+    suggestDebounce = setTimeout(() => fetchSuggestions(q), 200); // debounce
+  });
+
+  input.addEventListener('keydown', (e) => {
+    const items = suggestDropdown.querySelectorAll('.suggest-item');
+    if(suggestDropdown.classList.contains('visible') && items.length){
+      if(e.key === 'ArrowDown'){
+        e.preventDefault();
+        activeSuggestIndex = Math.min(activeSuggestIndex + 1, items.length - 1);
+        updateActiveSuggestion(items);
+        return;
+      }
+      if(e.key === 'ArrowUp'){
+        e.preventDefault();
+        activeSuggestIndex = Math.max(activeSuggestIndex - 1, 0);
+        updateActiveSuggestion(items);
+        return;
+      }
+      if(e.key === 'Escape'){
+        hideSuggestions();
+        return;
+      }
+    }
+    if(e.key === 'Enter' && input.value.trim() !== ''){
+      if(activeSuggestIndex >= 0 && items[activeSuggestIndex]){
+        runSearch(items[activeSuggestIndex].dataset.part);
+      } else {
+        runSearch(input.value.trim());
+      }
+      hideSuggestions();
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if(!e.target.closest('.search-wrap')) hideSuggestions();
+  });
+
+  function updateActiveSuggestion(items){
+    items.forEach((el, i) => el.classList.toggle('active', i === activeSuggestIndex));
+  }
+
+  function hideSuggestions(){
+    suggestDropdown.classList.remove('visible');
+    suggestDropdown.innerHTML = '';
+    activeSuggestIndex = -1;
+  }
+
+  async function fetchSuggestions(q){
+    const { data, error } = await supabaseClient
+      .from('octopart_category_pricing')
+      .select('part_number')
+      .ilike('part_number', `${q}%`)
+      .limit(30);
+
+    if(error || !data || data.length === 0){ hideSuggestions(); return; }
+
+    const distinct = [...new Set(data.map(r => r.part_number))].slice(0, 8);
+    if(distinct.length === 0){ hideSuggestions(); return; }
+
+    activeSuggestIndex = -1;
+    suggestDropdown.innerHTML = distinct.map(pn => `
+      <div class="suggest-item" data-part="${pn}" onclick="runSearch('${pn}')">
+        <span>${pn}</span><span class="match-tag">in database</span>
+      </div>
+    `).join('');
+    suggestDropdown.classList.add('visible');
+  }
+
+  // ============================================================
+  // Loading overlay
+  // ============================================================
+  function setLoading(isLoading, label){
+    loadingOverlay.classList.toggle('visible', isLoading);
+    if(label) loadingText.textContent = label;
+    const spinner = document.getElementById('metaSpinner');
+    const text = document.getElementById('metaText');
+    spinner.classList.toggle('active', isLoading);
+    if(label) text.textContent = label;
+    document.querySelectorAll('.cards .card').forEach(c => c.classList.toggle('searching', isLoading));
+  }
+
+  // ============================================================
+  // STEP 1 — Supabase cache
+  // ============================================================
+  async function queryCategoryTable(pn){
+    const { data, error } = await supabaseClient
+      .from('octopart_category_pricing')
+      .select('*')
+      .ilike('part_number', pn);
+
+    if(error){
+      console.error('Supabase query error:', error.message);
+      return null;
+    }
+    if(!data || data.length === 0) return null;
+
+    return data.map(row => ({
+      ...row,
+      price_10k: row.price_10k ?? row.price_1 ?? null,
+    }));
+  }
+
+  // ============================================================
+  // STEP 2 — Nexar via backend proxy (cache miss)
+  // ============================================================
+  async function nexarSearchViaBackend(pn){
+    const res = await fetch(`${API_BASE}/nexar/search`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ part_number: pn })
+    });
+    if(!res.ok) throw new Error(`Nexar proxy failed: ${res.status}`);
+    return await res.json(); // { rows, datasheet_url, description }
+  }
+
+  // ---- Datasheet lookup for cache-hit parts (cheap, via Serper) ----
+  async function fetchDatasheetViaBackend(pn){
+    try {
+      const res = await fetch(`${API_BASE}/datasheet/serper`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ part_number: pn })
+      });
+      if(!res.ok) return null;
+      const data = await res.json();
+      return data.datasheet_url || null;
+    } catch(e){
+      console.error('Datasheet lookup failed:', e);
+      return null;
+    }
+  }
+
+  // ---- Datasheet PDF -> extracted summary + spec features (async, non-blocking) ----
+  async function loadSummaryPanel(datasheetUrl, description){
+    const panel = document.getElementById('summaryPanel');
+    const textEl = document.getElementById('summaryText');
+    const specGrid = document.getElementById('specGrid');
+    specGrid.style.display = 'none';
+    specGrid.innerHTML = '';
+
+    // Show whatever we already have immediately (Nexar's short description),
+    // so the panel isn't empty while the (optional, slower) PDF summary loads.
+    if(description){
+      panel.style.display = 'block';
+      textEl.textContent = description;
+      textEl.classList.remove('loading');
+    } else if(!datasheetUrl){
+      panel.style.display = 'none';
+      return;
+    } else {
+      panel.style.display = 'block';
+      textEl.textContent = 'Extracting summary from datasheet…';
+      textEl.classList.add('loading');
+    }
+
+    if(!datasheetUrl) return; // nothing more to fetch — description (if any) stays as-is
+
+    try {
+      const res = await fetch(`${API_BASE}/datasheet/summarize`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ datasheet_url: datasheetUrl })
+      });
+      const data = await res.json();
+      textEl.classList.remove('loading');
+      if(data.summary){
+        // Datasheet summary is usually more detailed than Nexar's one-liner — prefer it
+        textEl.textContent = data.summary;
+      } else if(!description){
+        panel.style.display = 'none';
+      }
+      // else: keep showing the Nexar description we already set above
+
+      if(data.features && data.features.length){
+        specGrid.innerHTML = data.features.map(f =>
+          `<div class="spec-item"><span class="spec-dot"></span><span>${f}</span></div>`
+        ).join('');
+        specGrid.style.display = 'grid';
+        panel.style.display = 'block'; // specs alone are worth showing even with no prose summary
+      }
+    } catch(e){
+      console.error('Datasheet summary failed:', e);
+      textEl.classList.remove('loading');
+      if(!description) panel.style.display = 'none';
+    }
+  }
+
+  async function upsertToCategoryTable(pn, rows){
+    const payload = rows.map(r => ({
+      part_number: pn,
+      distributor: r.distributor,
+      sku: r.sku,
+      stock: r.stock,
+      price_10k: r.price_10k,
+      is_authorised: r.is_authorised,
+      category_type: 'nexar_api'
+    }));
+    const { error } = await supabaseClient
+      .from('octopart_category_pricing')
+      .upsert(payload, { onConflict: 'part_number,distributor,sku' });
+    if(error) console.error('Upsert back to cache failed:', error);
+  }
+
+  // ============================================================
+  // Master fetch
+  // ============================================================
+  async function fetchPartData(pn){
+    let rows = await queryCategoryTable(pn);
+    let source = 'cache';
+    let datasheetUrl = null;
+    let description = null;
+
+    if(!rows){
+      source = 'nexar';
+      const result = await nexarSearchViaBackend(pn);
+      rows = result.rows || [];
+      datasheetUrl = result.datasheet_url || null;
+      description = result.description || null;
+      if(rows.length > 0) upsertToCategoryTable(pn, rows);
+    } else {
+      datasheetUrl = await fetchDatasheetViaBackend(pn);
+    }
+
+    let adRows = rows.filter(r => r.is_authorised).sort((a,b) => (b.stock||0) - (a.stock||0));
+    let ibRows = rows.filter(r => !r.is_authorised).sort((a,b) => (b.stock||0) - (a.stock||0));
+
+    const adStock = adRows.reduce((s,r) => s + (r.stock||0), 0);
+    const ibStock = ibRows.reduce((s,r) => s + (r.stock||0), 0);
+
+    const adPrices = adRows.map(r=>r.price_10k).filter(p => p != null && p > 0);
+    const adMinPrice = adPrices.length ? Math.min(...adPrices) : null;
+    const adMaxPrice = adPrices.length ? Math.max(...adPrices) : null;
+    const adAvgPrice = adPrices.length ? adPrices.reduce((s,p)=>s+p,0)/adPrices.length : null;
+
+    const ibPrices = ibRows.map(r=>r.price_10k).filter(p => p != null && p > 0);
+    const ibMinPrice = ibPrices.length ? Math.min(...ibPrices) : null;
+    const ibMaxPrice = ibPrices.length ? Math.max(...ibPrices) : null;
+
+    // In-house stock/price: randomized per part number (deterministic — same
+    // part always gets the same %, different parts get different %).
+    const stockPct = seededRandomRange(pn + '-stock', IH_STOCK_PCT_MIN, IH_STOCK_PCT_MAX) / 100;
+    const pricePct = seededRandomRange(pn + '-price', IH_PRICE_DISCOUNT_MIN, IH_PRICE_DISCOUNT_MAX) / 100;
+    const ihStock = Math.round(adStock * stockPct);
+    const ihPrice = adAvgPrice != null ? +(adAvgPrice * (1 - pricePct)).toFixed(2) : null;
+
+    return {
+      source, part_number: pn, datasheetUrl, description,
+      adRows, ibRows, adStock, ibStock,
+      adMinPrice, adMaxPrice, ibMinPrice, ibMaxPrice,
+      ihStock, ihPrice
+    };
+  }
+
+  // ============================================================
+  // Expand/collapse state for AD/IB row lists
+  // ============================================================
+  let expandState = { ad: false, ib: false };
+  let currentData = null;
+
+  function buildRows(rows, showAll){
+    const list = showAll ? rows : rows.slice(0, MAX_ROWS_PER_CARD);
+    return list.map(r => {
+      const priceLabel = r.price_10k != null ? ` · ₹${r.price_10k}` : '';
+      const qtyLabel = r.stock > 0 ? `${r.stock.toLocaleString()}${priceLabel}` : 'Out of stock';
+      return `<div class="drow"><span class="name">${r.distributor}</span><span class="qty">${qtyLabel}</span></div>`;
+    }).join('');
+  }
+
+  function toggleExpand(tier){
+    expandState[tier] = !expandState[tier];
+    if(currentData) renderRowsForTier(tier, currentData);
+  }
+
+  function renderRowsForTier(tier, d){
+    const rows = tier === 'ad' ? d.adRows : d.ibRows;
+    const rowsEl = document.getElementById(tier === 'ad' ? 'adRows' : 'ibRows');
+    const showAllEl = document.getElementById(tier === 'ad' ? 'adShowAll' : 'ibShowAll');
+    const noun = tier === 'ad' ? 'distributors' : 'brokers';
+
+    rowsEl.innerHTML = rows.length ? buildRows(rows, expandState[tier]) : `<div class="drow"><span class="name">No ${noun} found</span></div>`;
+
+    if(rows.length > MAX_ROWS_PER_CARD){
+      showAllEl.style.display = 'block';
+      showAllEl.textContent = expandState[tier] ? 'Show top 5 only ↑' : `Show all ${rows.length} ${noun} ↓`;
+    } else {
+      showAllEl.style.display = 'none';
+    }
+  }
+
+  // ============================================================
+  // Count-up animation
+  // ============================================================
+  function animateCountUp(el, target, duration = 600){
+    const startTime = performance.now();
+    function tick(now){
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(target * eased).toLocaleString();
+      if(progress < 1) requestAnimationFrame(tick);
+      else el.textContent = target.toLocaleString();
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // ============================================================
+  // Render
+  // ============================================================
+  function renderDetail(pn, d){
+    document.getElementById('overviewTitle').textContent = pn;
+    const metaLine = `${d.source === 'cache' ? 'From cache' : 'Via Nexar API'} · ${d.adRows.length + d.ibRows.length} listings found`;
+    document.getElementById('overviewSub').textContent = d.description ? `${d.description} · ${metaLine}` : metaLine;
+
+    const datasheetLink = document.getElementById('datasheetLink');
+    if(d.datasheetUrl){
+      datasheetLink.href = d.datasheetUrl;
+      datasheetLink.style.display = 'inline-block';
+    } else {
+      datasheetLink.style.display = 'none';
+    }
+    loadSummaryPanel(d.datasheetUrl, d.description); // async, fills in summary panel when ready
+
+    // ---- In-house: stock + single price (randomized per part, see fetchPartData) ----
+    animateCountUp(document.getElementById('ovIhStock'), d.ihStock);
+    document.getElementById('ovIhPriceRange').textContent = d.ihPrice != null ? `₹${d.ihPrice}` : '—';
+
+    animateCountUp(document.getElementById('ovAdStock'), d.adStock);
+    document.getElementById('ovAdMin').textContent = d.adMinPrice != null ? `₹${d.adMinPrice}` : '—';
+    document.getElementById('ovAdMax').textContent = d.adMaxPrice != null ? `₹${d.adMaxPrice}` : '—';
+
+    animateCountUp(document.getElementById('ovIbStock'), d.ibStock);
+    document.getElementById('ovIbMin').textContent = d.ibMinPrice != null ? `₹${d.ibMinPrice}` : '—';
+    document.getElementById('ovIbMax').textContent = d.ibMaxPrice != null ? `₹${d.ibMaxPrice}` : '—';
+
+    // ---- Detail breakdown section ----
+    document.getElementById('dPartNum').textContent = pn;
+    document.getElementById('dBadge').textContent = d.source === 'cache' ? 'FROM CACHE' : 'NEXAR API';
+    document.getElementById('dBadge').className = d.source === 'cache' ? 'badge-active' : 'badge-nrnd';
+    document.getElementById('dDesc').textContent = d.description || '';
+
+    const total = d.ihStock + d.adStock + d.ibStock;
+    document.getElementById('dTotal').textContent = total.toLocaleString();
+
+    document.getElementById('ihQty').innerHTML = d.ihStock.toLocaleString() + '<span class="u">pcs</span>';
+    document.getElementById('ihPriceRange').textContent = d.ihPrice != null ? `Price ₹${d.ihPrice}` : 'No price data';
+    document.getElementById('ihRows').innerHTML = `
+      <div class="drow"><span class="name">Availability</span><span class="qty">Confirmed</span></div>
+      <div class="drow"><span class="name">Dispatch</span><span class="qty">Same day</span></div>
+      <div class="drow"><span class="name">Source</span><span class="qty">SourceQ warehouse</span></div>
+    `;
+
+    document.getElementById('adQty').innerHTML = d.adStock.toLocaleString() + '<span class="u">pcs</span>';
+    document.getElementById('adPrice').textContent = d.adMinPrice != null ? `Range ₹${d.adMinPrice} – ₹${d.adMaxPrice}` : 'No price data';
+
+    document.getElementById('ibQty').innerHTML = d.ibStock.toLocaleString() + '<span class="u">pcs</span>';
+    document.getElementById('ibPrice').textContent = d.ibMinPrice != null ? `Range ₹${d.ibMinPrice} – ₹${d.ibMaxPrice}` : 'No price data';
+
+    expandState = { ad: false, ib: false };
+    currentData = d;
+    renderRowsForTier('ad', d);
+    renderRowsForTier('ib', d);
+
+    detailView.style.display = 'block';
+  }
+
+  async function runSearch(query){
+    const pn = query.trim().toUpperCase();
+    if(!pn) return;
+    input.value = pn;
+    hideSuggestions();
+    setLoading(true, 'Extracting data');
+
+    // A single search replaces the BOM view — hide any leftover BOM results/progress
+    document.getElementById('bomResults').classList.remove('visible');
+    document.getElementById('bomProgressWrap').classList.remove('visible');
+    document.getElementById('bomSummaryCards').classList.remove('visible');
+
+    try {
+      const data = await fetchPartData(pn);
+      overviewHead.style.display = 'block';
+      renderDetail(pn, data);
+      addToHistory(pn);
+    } catch(err){
+      console.error(err);
+      document.getElementById('metaText').textContent = 'Error — check console';
+    } finally {
+      setLoading(false, 'Search again ↵');
+    }
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function resetView(){
+    input.value = '';
+    detailView.style.display = 'none';
+    overviewHead.style.display = 'none';
+    document.getElementById('overviewTitle').textContent = 'Availability across every source';
+    document.getElementById('overviewSub').textContent = 'Each source gets its own card — quantity, price and depth visible immediately, no click required.';
+    document.getElementById('datasheetLink').style.display = 'none';
+    document.getElementById('summaryPanel').style.display = 'none';
+    setLoading(false, 'Type a part number ↵');
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  // ============================================================
+  // BOM Upload — parse file, process each part sequentially
+  // (sequential on purpose: Nexar's free tier is 100 parts/month,
+  // and hammering it in parallel risks rate-limit errors)
+  // ============================================================
+  let bomResultRows = [];
+
+  document.getElementById('bomFileInput').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if(!file) return;
+    try {
+      const items = await parseBomFile(file);
+      if(items.length === 0){
+        alert('No part numbers found in the first column of this file.');
+        return;
+      }
+      await processBom(items);
+    } catch(err){
+      console.error('BOM parse failed:', err);
+      alert('Could not read this file: ' + err.message);
+    } finally {
+      e.target.value = ''; // allow re-uploading the same file name
+    }
+  });
+
+  function parseBomFile(file){
+    return new Promise((resolve, reject) => {
+      const ext = file.name.split('.').pop().toLowerCase();
+
+      if(ext === 'txt' || ext === 'csv'){
+        const reader = new FileReader();
+        reader.onload = () => {
+          const lines = reader.result.split(/\r?\n/)
+            .map(l => l.split(','))
+            .filter(cols => cols[0] && cols[0].trim())
+            .map(cols => ({ part_number: cols[0].trim(), quantity: cols[1] ? parseFloat(cols[1]) : null }));
+          resolve(dedupePartNumbers(lines));
+        };
+        reader.onerror = () => reject(new Error('Failed to read file'));
+        reader.readAsText(file);
+        return;
+      }
+
+      // xlsx / xls
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const wb = XLSX.read(e.target.result, { type: 'array' });
+          const sheet = wb.Sheets[wb.SheetNames[0]];
+          const rows = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+          const items = rows
+            .filter(r => r[0] != null && String(r[0]).trim())
+            .map(r => ({
+              part_number: String(r[0]).trim(),
+              quantity: r[1] != null && r[1] !== '' ? parseFloat(r[1]) : null
+            }));
+          resolve(dedupePartNumbers(items));
+        } catch(err){
+          reject(err);
+        }
+      };
+      reader.onerror = () => reject(new Error('Failed to read file'));
+      reader.readAsArrayBuffer(file);
+    });
+  }
+
+  function dedupePartNumbers(items){
+    // Drop an obvious header row like "Part Number" / "MPN"
+    const cleaned = items.filter(it => !/^(part\s*number|mpn|part\s*no\.?)$/i.test(it.part_number));
+    const merged = new Map();
+    for(const it of cleaned){
+      const pn = it.part_number.toUpperCase();
+      const qty = (it.quantity != null && !isNaN(it.quantity)) ? it.quantity : 1;
+      if(merged.has(pn)){
+        merged.set(pn, merged.get(pn) + qty); // same part appears twice — sum quantities
+      } else {
+        merged.set(pn, qty);
+      }
+    }
+    return [...merged.entries()].map(([part_number, quantity]) => ({ part_number, quantity }));
+  }
+
+  async function processBom(items){
+    const progressWrap = document.getElementById('bomProgressWrap');
+    const progressLabel = document.getElementById('bomProgressLabel');
+    const progressSourceLabel = document.getElementById('bomProgressSourceLabel');
+    const progressFill = document.getElementById('bomProgressFill');
+
+    bomResultRows = [];
+    progressWrap.classList.add('visible');
+    document.getElementById('bomResults').classList.remove('visible');
+    document.getElementById('bomSummaryCards').classList.remove('visible');
+
+    // BOM view replaces the single-search view — hide any leftover results
+    overviewHead.style.display = 'none';
+    detailView.style.display = 'none';
+
+    let cacheCount = 0, nexarCount = 0;
+
+    for(let i = 0; i < items.length; i++){
+      const { part_number: pn, quantity } = items[i];
+      progressLabel.textContent = `Processing ${i + 1} / ${items.length} — ${pn}`;
+      progressFill.style.width = `${((i) / items.length) * 100}%`;
+
+      try {
+        const d = await fetchPartData(pn);
+        if(d.source === 'cache') cacheCount++; else nexarCount++;
+        progressSourceLabel.textContent = `${cacheCount} from cache · ${nexarCount} via Nexar`;
+
+        bomResultRows.push({
+          part_number: pn,
+          quantity,
+          source: d.source,
+          in_house_stock: d.ihStock,
+          ih_price: d.ihPrice,
+          ad_stock: d.adStock,
+          ad_min: d.adMinPrice,
+          ad_max: d.adMaxPrice,
+          ib_stock: d.ibStock,
+          ib_min: d.ibMinPrice,
+          ib_max: d.ibMaxPrice,
+          total_stock: d.ihStock + d.adStock + d.ibStock,
+          // kept for the per-part Excel sheets (full distributor breakdown)
+          adRows: d.adRows,
+          ibRows: d.ibRows,
+        });
+      } catch(err){
+        console.error(`BOM: failed to fetch ${pn}`, err);
+        bomResultRows.push({
+          part_number: pn, quantity, source: 'error',
+          in_house_stock: null, ih_price: null,
+          ad_stock: null, ad_min: null, ad_max: null,
+          ib_stock: null, ib_min: null, ib_max: null, total_stock: null,
+          adRows: [], ibRows: [],
+        });
+      }
+
+      renderBomTable(); // update table progressively, row by row
+    }
+
+    progressFill.style.width = '100%';
+    setTimeout(() => progressWrap.classList.remove('visible'), 600);
+    renderBomSummaryCards();
+  }
+
+  // ============================================================
+  // BOM summary cards — quantity-weighted totals across the whole BOM
+  // ============================================================
+  function renderBomSummaryCards(){
+    let totalQty = 0, costMin = 0, costMax = 0;
+    let hasAnyPrice = false;
+
+    for(const r of bomResultRows){
+      const qty = r.quantity || 0;
+      totalQty += qty;
+      if(r.ad_min != null){ costMin += qty * r.ad_min; hasAnyPrice = true; }
+      if(r.ad_max != null){ costMax += qty * r.ad_max; }
+    }
+
+    document.getElementById('bomTotalQty').textContent = totalQty.toLocaleString('en-IN');
+    document.getElementById('bomCostMin').textContent = hasAnyPrice ? `₹${costMin.toLocaleString('en-IN', {maximumFractionDigits: 2})}` : '—';
+    document.getElementById('bomCostMax').textContent = hasAnyPrice ? `₹${costMax.toLocaleString('en-IN', {maximumFractionDigits: 2})}` : '—';
+
+    document.getElementById('bomSummaryCards').classList.add('visible');
+  }
+
+  function renderBomTable(){
+    const tbody = document.getElementById('bomTableBody');
+    // Display-level clamp: stock is never negative — a negative value here means
+    // bad upstream data, but we still shouldn't show "-3" in the UI.
+    const fmt = (n) => n != null ? Math.max(0, n).toLocaleString('en-IN') : '—';
+    const priceRange = (min, max) => (min != null && max != null) ? `₹${min} – ₹${max}` : null;
+
+    const tierCell = (stock, min, max) => {
+      const range = priceRange(min, max);
+      return `<td><span class="bom-cell-stock">${fmt(stock)}</span>${range ? `<span class="bom-cell-price">${range}</span>` : ''}</td>`;
+    };
+    const ihCell = (stock, price) => {
+      return `<td><span class="bom-cell-stock">${fmt(stock)}</span>${price != null ? `<span class="bom-cell-price">₹${price}</span>` : ''}</td>`;
+    };
+
+    tbody.innerHTML = bomResultRows.map(r => `
+      <tr>
+        <td><span class="bom-pn" onclick="runSearch('${r.part_number}')">${r.part_number}</span></td>
+        <td>${r.quantity != null ? r.quantity.toLocaleString('en-IN') : '—'}</td>
+        ${ihCell(r.in_house_stock, r.ih_price)}
+        ${tierCell(r.ad_stock, r.ad_min, r.ad_max)}
+        ${tierCell(r.ib_stock, r.ib_min, r.ib_max)}
+        <td><strong>${fmt(r.total_stock)}</strong></td>
+      </tr>
+    `).join('');
+
+    document.getElementById('bomResultsCount').textContent = bomResultRows.length;
+    document.getElementById('bomResults').classList.add('visible');
+  }
+
+  function exportBomResults(){
+    if(bomResultRows.length === 0) return;
+
+    const wb = XLSX.utils.book_new();
+
+    // ---- Sheet 1: Summary (quantity + costs included) ----
+    const summaryData = bomResultRows.map(r => ({
+      'Part Number': r.part_number,
+      'Quantity': r.quantity,
+      'Source': r.source,
+      'In-house Stock': r.in_house_stock,
+      'In-house Price': r.ih_price,
+      'Authorized Stock': r.ad_stock,
+      'AD Min Price': r.ad_min,
+      'AD Max Price': r.ad_max,
+      'Cost @ Min (Qty × AD Min)': (r.quantity != null && r.ad_min != null) ? r.quantity * r.ad_min : null,
+      'Cost @ Max (Qty × AD Max)': (r.quantity != null && r.ad_max != null) ? r.quantity * r.ad_max : null,
+      'Independent Stock': r.ib_stock,
+      'IB Min Price': r.ib_min,
+      'IB Max Price': r.ib_max,
+      'Total Stock': r.total_stock,
+    }));
+    const summaryWs = XLSX.utils.json_to_sheet(summaryData);
+    XLSX.utils.book_append_sheet(wb, summaryWs, 'Summary');
+
+    // ---- One sheet per part: full distributor-level breakdown ----
+    const usedNames = new Set();
+    for(const r of bomResultRows){
+      const detailRows = [];
+
+      detailRows.push({
+        Tier: 'In-house', Distributor: 'SourceQ warehouse', SKU: '—',
+        Stock: r.in_house_stock, Price: r.ih_price,
+      });
+      for(const row of (r.adRows || [])){
+        detailRows.push({
+          Tier: 'Authorized', Distributor: row.distributor, SKU: row.sku || '—',
+          Stock: row.stock, Price: row.price_10k,
+        });
+      }
+      for(const row of (r.ibRows || [])){
+        detailRows.push({
+          Tier: 'Independent', Distributor: row.distributor, SKU: row.sku || '—',
+          Stock: row.stock, Price: row.price_10k,
+        });
+      }
+
+      // Excel sheet names: max 31 chars, no \ / ? * [ ] : — sanitize + dedupe
+      let sheetName = r.part_number.replace(/[\\/?*\[\]:]/g, '').slice(0, 31) || 'Part';
+      let uniqueName = sheetName, n = 1;
+      while(usedNames.has(uniqueName)){ uniqueName = `${sheetName.slice(0, 28)}_${n++}`; }
+      usedNames.add(uniqueName);
+
+      const detailWs = XLSX.utils.json_to_sheet(detailRows);
+      XLSX.utils.book_append_sheet(wb, detailWs, uniqueName);
+    }
+
+    XLSX.writeFile(wb, `QRadar_BOM_${Date.now()}.xlsx`);
+  }
+  // Page load hote hi URL parameter check karega aur search run karega
+window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const queryParam = urlParams.get('q');
+    
+    if (queryParam) {
+        // Agar URL mein ?q=... hai toh search input mein daal kar runSearch chala do
+        runSearch(queryParam);
+    }
+});
+</script>
+
+</body>
+</html>

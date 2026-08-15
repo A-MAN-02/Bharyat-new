@@ -192,7 +192,8 @@ function handleInlineSearch(event) {
     if (inputField) {
         const query = inputField.value.trim();
         if (query) {
-            window.location.href = `search-results.html?q=${encodeURIComponent(query)}`;
+            // Yahan file ka naam match kar lein (jaise qradar.html)
+            window.location.href = `./qradar/qradar.html?q=${encodeURIComponent(query)}`;
         }
     }
 }
