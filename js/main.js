@@ -1,10 +1,22 @@
 /* =====================================
    OPTIMIZED SINGLE SCROLL EVENT HANDLER
-   (Navbar Hide/Show + Quantum AI + Zig-Zag Shapes)
+   (Navbar Hide/Show + Quantum AI + Zig-Zag Shapes + Portal)
 ===================================== */
 let lastScrollPosition = window.pageYOffset;
 const siteHeader = document.querySelector(".site-header");
 let tickingViewport = false;
+
+// Portal Elements
+const portalGroup = document.getElementById('portalGroup');
+const heroFixed = document.querySelector('.hero-fixed');
+const portalOverlay = document.querySelector('.portal-overlay');
+
+const ZOOM_MULTIPLIER = 2.7; // Zoom speed control (Aapka purana value)
+const MAX_SCALE = 20;         // Aapka purana value
+
+function ease(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
 
 window.addEventListener("scroll", () => {
     let currentScrollPosition = window.pageYOffset;
@@ -17,10 +29,32 @@ window.addEventListener("scroll", () => {
     }
     lastScrollPosition = currentScrollPosition;
 
-    // --- 2. QUANTUM AI & ZIG-ZAG ANIMATIONS (Throttled using rAF) ---
+    // --- 2. COMBINED RENDER LOOP (Portal + Quantum AI + Zig-Zag) ---
     if (!tickingViewport) {
         window.requestAnimationFrame(() => {
-            // Quantum AI Pieces Animation
+            
+            // --- A. PORTAL REVEAL ZOOM LOGIC (Aapka exact original logic) ---
+            if (portalGroup && heroFixed && portalOverlay) {
+                const dist = window.innerHeight * ZOOM_MULTIPLIER;
+                const y = window.scrollY;
+                const t = Math.min(Math.max(y / dist, 0), 1);
+                const s = 1 + ease(t) * (MAX_SCALE - 1);
+
+                const moveX = ease(t) * 8; 
+                const moveY = ease(t) * 9; 
+
+                portalGroup.style.transform = `scale(${s}) translate(${moveX}px, ${moveY}px)`;
+
+                if (t >= 1) {
+                    portalOverlay.style.visibility = 'hidden';
+                    heroFixed.style.visibility = 'hidden';
+                } else {
+                    portalOverlay.style.visibility = 'visible';
+                    heroFixed.style.visibility = 'visible';
+                }
+            }
+
+            // --- B. Quantum AI Pieces Animation ---
             const quantumSection = document.querySelector(".quantum-section");
             const pieces = document.querySelectorAll(".piece");
             const systemViewport = document.getElementById("solar-system-viewport");
@@ -52,7 +86,7 @@ window.addEventListener("scroll", () => {
                 });
             }
 
-            // SourceQ Zig-Zag Connection Shapes
+            // --- C. SourceQ Zig-Zag Connection Shapes ---
             const zigZagSection = document.getElementById("sourceq-steps");
             const shape1 = document.querySelector(".shape-1-to-2");
             const shape2 = document.querySelector(".shape-2-to-3");
@@ -138,12 +172,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const inlineSearchInput = document.getElementById('inlineSearchInput');
 
     if (inlineSearchInput && mockupCard) {
-        // Jab user search box par click ya focus kare toh background blur ho jaye
         inlineSearchInput.addEventListener('focus', () => {
             mockupCard.classList.add('search-active');
         });
 
-        // Jab user focus hataaye toh blur hat jaye
         inlineSearchInput.addEventListener('blur', () => {
             setTimeout(() => {
                 if (document.activeElement !== inlineSearchInput) {
@@ -154,7 +186,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// Handle search and redirect to second page
 function handleInlineSearch(event) {
     event.preventDefault();
     const inputField = document.getElementById('inlineSearchInput');
@@ -208,7 +239,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const list1 = data.slice(0, mid);
             const list2 = data.slice(mid);
 
-            // Content ko 4 baar repeat karte hain taaki track lamba bane aur -50% loop seamless ho
             for (let i = 0; i < 4; i++) {
                 list1.forEach(item => {
                     htmlContent1 += `
@@ -240,47 +270,3 @@ document.addEventListener("DOMContentLoaded", () => {
             track2.innerHTML = '<span class="tick">⚠️ Failed to load stream.</span>';
         });
 });
-
-
-
-const portalGroup = document.getElementById('portalGroup');
-const heroFixed = document.querySelector('.hero-fixed');
-const portalOverlay = document.querySelector('.portal-overlay');
-
-const ZOOM_MULTIPLIER = 2.7; // Zoom speed control
-const MAX_SCALE = 20;
-
-function ease(t) {
-    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-}
-
-function updatePortal() {
-    if (!portalGroup || !heroFixed || !portalOverlay) return;
-    
-    const dist = window.innerHeight * ZOOM_MULTIPLIER;
-    const y = window.scrollY;
-    const t = Math.min(Math.max(y / dist, 0), 1);
-    const s = 1 + ease(t) * (MAX_SCALE - 1);
-
-    // Ab transform-origin CSS/SVG ki wajah se zoom exact right position se hi hoga
-    const moveX = ease(t) * 8; // Horizontal shift
-    const moveY = ease(t) * 9; // Vertical shift
-
-portalGroup.style.transform = `scale(${s}) translate(${moveX}px, ${moveY}px)`;
-
-
-    if (t >= 1) {
-        portalOverlay.style.visibility = 'hidden';
-        heroFixed.style.visibility = 'hidden';
-    } else {
-        portalOverlay.style.visibility = 'visible';
-        heroFixed.style.visibility = 'visible';
-    }
-}
-
-window.addEventListener('scroll', () => {
-    requestAnimationFrame(updatePortal);
-}, { passive: true });
-
-// Run on load
-updatePortal();
