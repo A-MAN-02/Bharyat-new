@@ -2540,16 +2540,16 @@ img.card-bg {
 
     /* Tablet / Medium Screens ke liye text ko control karein */
     #portalTextGroup {
-        transform: translate(35px, 0px);
+        transform: translate(15px, 0px);
     }
 
     /* Text font size adjustment */
-    .portal-overlay svg text[font-size="36"] {
-        font-size: 24px !important;
+    .portal-overlay svg text[font-size="16"] {
+        font-size: 12px !important;
     }
 
-    .portal-overlay svg text[font-size="16"] {
-        font-size: 11px !important;
+    .portal-overlay svg text[font-size="6.5"] {
+        font-size: 5px !important;
     }
 }
 
@@ -2557,14 +2557,14 @@ img.card-bg {
 
     /* Chote Mobile Screens ke liye text ko aur adjust karein */
     #portalTextGroup {
-        transform: translate(55px, 0px);
-    }
-
-    .portal-overlay svg text[font-size="36"] {
-        font-size: 20px !important;
+        transform: translate(26px, 0px); /* Positive se hata kar negative karein taaki left aaye */
     }
 
     .portal-overlay svg text[font-size="16"] {
-        font-size: 9.5px !important;
+        font-size: 10px !important;
+    }
+
+    .portal-overlay svg text[font-size="6.5"] {
+        font-size: 4px !important;
     }
 }
