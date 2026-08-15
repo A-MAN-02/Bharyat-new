@@ -248,7 +248,7 @@ const heroFixed = document.querySelector('.hero-fixed');
 const portalOverlay = document.querySelector('.portal-overlay');
 
 const ZOOM_MULTIPLIER = 2.7; // Zoom speed control
-const MAX_SCALE = 14;
+const MAX_SCALE = 20;
 
 function ease(t) {
     return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -263,7 +263,11 @@ function updatePortal() {
     const s = 1 + ease(t) * (MAX_SCALE - 1);
 
     // Ab transform-origin CSS/SVG ki wajah se zoom exact right position se hi hoga
-    portalGroup.style.transform = `scale(${s})`;
+    const moveX = ease(t) * 8; // Horizontal shift
+    const moveY = ease(t) * 9; // Vertical shift
+
+portalGroup.style.transform = `scale(${s}) translate(${moveX}px, ${moveY}px)`;
+
 
     if (t >= 1) {
         portalOverlay.style.visibility = 'hidden';
