@@ -74,17 +74,26 @@ button, input {
 
 .hero-fixed__inner {
     position: sticky;
-    top: 50vh;
-    padding-left: 42%;
+    top: 36vh;
+    padding-left: 20%;
     transform: translateY(-50%);
     text-align: center;
     width: 100%;
 }
 
+.hero-fixed-text{
+    font-size:0.39rem;
+    letter-spacing:0.35em;
+     text-transform:uppercase;
+     color:var(--primary);
+     margin-bottom:1.2rem;
+    /* font-size: 10px; */
+}
+
 .hero-fixed__title {
     font-family: 'Fraunces', serif;
     font-weight: 900;
-    font-size: clamp(2.5rem, 8vw, 6rem);
+    font-size: clamp(2.2rem, 8vw, 6rem);
     line-height: 1.02;
     color: #ffffff;
 }
@@ -240,7 +249,7 @@ nav {
 }
 
 .logo-source {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: var(--font-tech);
     font-size: clamp(22px, 2.2vw, 28px);
     font-weight: 800;
     color: #ffffff;
@@ -256,8 +265,8 @@ nav {
 }
 
 .logo-tagline {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 9.5px;
+    font-family: var(--font-tech);
+    font-size: 8px;
     font-weight: 600;
     color: #4fe0d7;
     letter-spacing: 0.8px;
@@ -1862,7 +1871,7 @@ nav {
 .footer-logo-container {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 8px;
     margin-bottom: 20px;
 }
 
@@ -1874,39 +1883,38 @@ nav {
 }
 
 .footer-company-info {
-    /* display: flex;
-    flex-direction: column; */
-    margin-top: 16px;
-    margin-left: -10px;
+    display: flex;
+    align-items: center; 
+    gap: 4px; /* Words ('A', 'Bharyat...', 'Company') ke beech ka gap */
+    margin-top: 0; /* Pehle ka 16px hata diya taaki text niche na jaye */
+    margin-left: 0; 
+    width: max-content;
 }
 
 .footer-company-info span {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 13px;
+    font-size: 16px;
     font-weight: 800;
-
-    /* color: #ffffff; */
-    /* letter-spacing: -0.5px; */
-    /* line-height: 1.1; */
+    white-space: nowrap; /* Isse text kabhi do line me nahi tootega */
 }
 
 .footer-company-name {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 30px;
+    font-size: 26px; /* Font size ko bada kiya gaya hai */
     font-weight: 800;
-
-    color: #4fe0d7;
+    color: #4fe0d7; /* Teal/Cyan color */
     letter-spacing: -0.5px;
-    line-height: 1.1;
+    line-height: 1;
 }
 
+/* 'Bharyat Advanced Systems' ke liye CSS */
 .footer-company-sub {
-    /* font-size: 9.5px;
-    font-weight: 500; */
-    color: #ffffff;
-    /* Tagline color jaisa match karne ke liye
-    letter-spacing: 0.3px;
-    margin-top: 2px; */
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 26px; /* Sabhi text ka size uniform rakha gaya hai */
+    font-weight: 800;
+    color: #ffffff; /* White color */
+    letter-spacing: -0.5px;
+    line-height: 1;
 }
 
 .footer-brand p {
@@ -2334,6 +2342,22 @@ img.card-bg {
 }
 
 @media (max-width:992px) {
+    .hero-fixed__inner {
+    position: sticky;
+    top: 42vh;
+    padding-left: 20%;
+    transform: translateY(-50%);
+    text-align: center;
+    width: 100%;
+}
+.hero-fixed-text{
+    font-size:0.29rem;
+    letter-spacing:0.1em;
+     text-transform:uppercase;
+     color:var(--primary);
+     margin-bottom:1.2rem;
+    /* font-size: 10px; */
+}
     nav {
         padding: 0 24px;
     }
@@ -2584,9 +2608,25 @@ img.card-bg {
 =================================== */
 @media (max-width: 768px) {
 
+    .hero-fixed__inner {
+    position: sticky;
+    top: 43.5vh;
+    padding-left: 20%;
+    transform: translateY(-50%);
+    text-align: center;
+    width: 100%;
+}
+.hero-fixed-text{
+    font-size:0.24rem;
+    letter-spacing:0.1em;
+     text-transform:uppercase;
+     color:var(--primary);
+     margin-bottom:1.2rem;
+    /* font-size: 10px; */
+}
     /* Tablet / Medium Screens ke liye text ko control karein */
     #portalTextGroup {
-        transform: translate(15px, 0px);
+        transform: translate(-2px, 0px);
     }
 
     /* Text font size adjustment */
@@ -2600,10 +2640,33 @@ img.card-bg {
 }
 
 @media (max-width: 480px) {
+    .hero-fixed__inner {
+    position: sticky;
+    top: 44vh;
+    padding-left: 30.5%;
+    transform: translateY(-50%);
+    text-align: center;
+    width: 100%;
+}
+.hero-fixed-text{
+    font-size:0.16rem;
+    letter-spacing:0.3em;
+     text-transform:uppercase;
+     color:var(--primary);
+     margin-bottom:1.2rem;
+    /* font-size: 10px; */
+}
+/* .hero-fixed__title {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(1.2rem, 2vw, 3rem);
+    line-height: 1.02;
+    color: #ffffff;
+} */
 
     /* Chote Mobile Screens ke liye text ko aur adjust karein */
     #portalTextGroup {
-        transform: translate(26px, 0px); /* Positive se hata kar negative karein taaki left aaye */
+        transform: translate(-2px, 0px); /* Positive se hata kar negative karein taaki left aaye */
     }
 
     .portal-overlay svg text[font-size="16"] {
