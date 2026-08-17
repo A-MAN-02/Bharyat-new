@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Submit your quote - Bharyat</title>
+<style>
+  :root {
+    --bg: #0b0e14; --panel: #11151d; --panel-2: #161b26; --border: #232935;
+    --text: #e8ebf0; --muted: #8890a0; --primary: #3b8ff0; --accent: #00e68a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px;
+  }
+  .card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 28px; width: 100%; max-width: 440px;
+  }
+  .brand { font-size: 15px; font-weight: 700; color: var(--muted); margin-bottom: 4px; }
+  .title { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+  .sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+  table.lines { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12px; }
+  table.lines th, table.lines td { padding: 8px; text-align: left; border-bottom: 1px solid var(--border); color: var(--muted); }
+  table.lines th { text-transform: uppercase; font-size: 10px; }
+  label { display: block; font-size: 12px; color: var(--muted); margin: 14px 0 6px; }
+  input, textarea {
+    width: 100%; background: var(--panel-2); border: 1px solid var(--border); color: var(--text);
+    padding: 10px 12px; border-radius: 6px; font-size: 14px; font-family: inherit;
+  }
+  button {
+    width: 100%; margin-top: 20px; background: var(--primary); border: none; color: #fff;
+    padding: 12px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer;
+  }
+  button:hover { filter: brightness(1.1); }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .msg { text-align: center; padding: 40px 10px; }
+  .msg.success { color: var(--accent); }
+  .msg.error { color: #f0553b; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="card" id="card">
+  <div class="msg" id="loadingMsg">Loading RFQ details...</div>
+
+  <div id="formWrap" class="hidden">
+    <div class="brand">Bharyat Advanced Systems</div>
+    <div class="title" id="rfqTitle">Submit your quote</div>
+    <div class="sub" id="rfqSub"></div>
+
+    <table class="lines" id="linesTable"></table>
+
+    <label>Price (per unit)</label>
+    <input type="number" step="0.01" id="price" placeholder="e.g. 42.50">
+
+    <label>MOQ (minimum order quantity)</label>
+    <input type="number" id="moq" placeholder="e.g. 500">
+
+    <label>Lead time (weeks)</label>
+    <input type="number" step="0.1" id="leadTime" placeholder="e.g. 3">
+
+    <label>Condition</label>
+    <select id="condition">
+      <option value="">Select...</option>
+      <option>New</option>
+      <option>Refurbished</option>
+      <option>Bulk</option>
+      <option>Grade A pool</option>
+      <option>Cool pool</option>
+      <option>Data code</option>
+    </select>
+
+    <label>Warranty</label>
+    <select id="warranty">
+      <option value="">Select...</option>
+      <option>Six months</option>
+      <option>1 year</option>
+      <option>2 years</option>
+      <option>3 years</option>
+      <option>5 years</option>
+    </select>
+
+    <label>Notes (optional)</label>
+    <textarea id="notes" rows="2" placeholder="Any additional details"></textarea>
+
+    <button onclick="submitQuote()" id="submitBtn">Submit quote</button>
+  </div>
+
+  <div class="msg hidden" id="successMsg">
+    <div style="font-size:32px;">✓</div>
+    <div style="margin-top:10px; font-weight:600;">Quote submitted</div>
+    <div style="color:var(--muted); font-size:13px; margin-top:6px;">Thank you — we'll be in touch.</div>
+  </div>
+
+  <div class="msg hidden error" id="errorMsg"></div>
+</div>
+
+<script>
+const API_BASE = "http://localhost:8002";
+const params = new URLSearchParams(window.location.search);
+const dispatchId = params.get("d");
+
+async function loadForm() {
+  if (!dispatchId) {
+    showError("Invalid link — missing reference ID.");
+    return;
+  }
+  try {
+    const res = await fetch(`${API_BASE}/responses/form/${dispatchId}`);
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+
+    if (data.already_responded) {
+      showError("A quote has already been submitted for this RFQ. Contact us if you need to update it.");
+      return;
+    }
+
+    document.getElementById("rfqTitle").textContent = `RFQ ${data.rfq_number}`;
+    document.getElementById("rfqSub").textContent = `Hi ${data.vendor_name}, please quote for the items below.`;
+
+    const table = document.getElementById("linesTable");
+    table.innerHTML = `
+      <tr><th>Part</th><th>Qty</th><th>Target price</th></tr>
+      ${data.lines.map(l => `<tr><td>${l.part_number}</td><td>${l.qty}</td><td>${l.target_price || "-"}</td></tr>`).join("")}
+    `;
+
+    document.getElementById("loadingMsg").classList.add("hidden");
+    document.getElementById("formWrap").classList.remove("hidden");
+  } catch (e) {
+    showError("Could not load this RFQ. The link may have expired.");
+  }
+}
+
+async function submitQuote() {
+  const price = parseFloat(document.getElementById("price").value);
+  const moq = parseInt(document.getElementById("moq").value);
+  const leadTime = parseFloat(document.getElementById("leadTime").value);
+  const condition = document.getElementById("condition").value;
+  const warranty = document.getElementById("warranty").value;
+  const notes = document.getElementById("notes").value;
+
+  if (!price || !moq || !leadTime || !condition || !warranty) {
+    alert("Please fill in price, MOQ, lead time, condition, and warranty.");
+    return;
+  }
+
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true;
+  btn.textContent = "Submitting...";
+
+  try {
+    const res = await fetch(`${API_BASE}/responses/form/${dispatchId}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ price, moq, lead_time_weeks: leadTime, condition, warranty, notes }),
+    });
+    console.log(res);
+    if (!res.ok) throw new Error();
+
+    document.getElementById("formWrap").classList.add("hidden");
+    document.getElementById("successMsg").classList.remove("hidden");
+  } catch (e) {
+    btn.disabled = false;
+    btn.textContent = "Submit quote";
+    alert("Failed to submit. Please try again.");
+  }
+}
+
+function showError(msg) {
+  document.getElementById("loadingMsg").classList.add("hidden");
+  const el = document.getElementById("errorMsg");
+  el.textContent = msg;
+  el.classList.remove("hidden");
+}
+
+loadForm();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QProcure</title>
+<style>
+  :root {
+    --bg: #0b0e14;
+    --panel: #11151d;
+    --panel-2: #161b26;
+    --border: #232935;
+    --text: #e8ebf0;
+    --muted: #8890a0;
+    --primary: #3b8ff0;
+    --accent: #00e68a;
+    --warn: #f0b93b;
+    --danger: #f0553b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+  }
+  .app { display: flex; min-height: 100vh; }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar {
+    width: 220px; flex-shrink: 0; background: var(--panel);
+    border-right: 1px solid var(--border); padding: 20px 0;
+  }
+  .brand { padding: 0 20px 20px; font-size: 20px; font-weight: 700; letter-spacing: 0.5px; }
+  .brand span { color: var(--primary); }
+  .nav-item {
+    padding: 13px 20px; font-size: 15px; color: var(--muted); cursor: pointer;
+    border-left: 3px solid transparent; display: flex; align-items: center; gap: 8px;
+  }
+  .nav-item:hover { color: var(--text); background: var(--panel-2); }
+  .nav-item.active { color: var(--text); border-left-color: var(--primary); background: var(--panel-2); font-weight: 600; }
+  .nav-num { font-size: 11px; color: var(--muted); }
+
+  /* ---------- Main ---------- */
+  .main { flex: 1; padding: 28px 32px; max-width: 1200px; }
+  .page-title { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .page-sub { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* ---------- Reusable bits ---------- */
+  .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; gap: 10px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border);
+    background: var(--panel-2); color: var(--text); padding: 8px 14px; border-radius: 6px;
+    font-size: 13px; cursor: pointer; transition: all .15s;
+  }
+  .btn:hover { border-color: var(--primary); }
+  .btn-primary { background: var(--primary); border-color: var(--primary); color: #fff; font-weight: 600; }
+  .btn-primary:hover { filter: brightness(1.1); }
+  .btn-accent { background: var(--accent); border-color: var(--accent); color: #06251a; font-weight: 600; }
+  .btn-ghost { background: transparent; }
+  .btn-sm { padding: 5px 10px; font-size: 12px; }
+  input, select, textarea {
+    background: var(--panel-2); border: 1px solid var(--border); color: var(--text);
+    padding: 8px 12px; border-radius: 6px; font-size: 13px;
+  }
+  input::placeholder { color: var(--muted); }
+
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+  .stat-tile { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+  .stat-tile .num { font-size: 24px; font-weight: 700; }
+  .stat-tile .lbl { font-size: 11px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.4px; }
+
+  table { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  th, td { padding: 12px 14px; text-align: left; font-size: 13px; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px; background: var(--panel-2); }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--panel-2); }
+
+  .avatar {
+    width: 26px; height: 26px; border-radius: 50%; background: var(--panel-2);
+    border: 1px solid var(--border); display: inline-flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; margin-right: 8px; color: var(--primary);
+  }
+  .pill { display: inline-block; padding: 2px 10px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .pill-a { background: rgba(0,230,138,0.15); color: var(--accent); }
+  .pill-b { background: rgba(240,185,59,0.15); color: var(--warn); }
+  .pill-c { background: rgba(240,85,59,0.15); color: var(--danger); }
+  .pill-d { background: rgba(136,144,160,0.2); color: var(--muted); }
+
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 18px; margin-bottom: 16px; }
+  .card-title { font-size: 13px; font-weight: 700; margin-bottom: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .form-row label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .form-row input, .form-row select { width: 100%; }
+
+  .line-item { display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 10px; margin-bottom: 8px; align-items: center; }
+
+  .checkbox-row { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px; margin-bottom: 8px; background: var(--panel-2); }
+  .checkbox-row input[type=checkbox] { width: 16px; height: 16px; accent-color: var(--primary); }
+  .vendor-name { font-weight: 600; flex: 1; }
+
+  .filter-bar { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+
+  .badge-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+  .dot-green { background: var(--accent); }
+  .dot-amber { background: var(--warn); }
+  .dot-red { background: var(--danger); }
+  .dot-muted { background: var(--muted); }
+
+  .empty-state { text-align: center; padding: 40px; color: var(--muted); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 340px; gap: 18px; align-items: start; }
+
+  .stars { color: var(--warn); letter-spacing: 2px; font-size: 13px; }
+
+  .doc-check { display: flex; align-items: center; gap: 8px; padding: 8px 0; font-size: 13px; }
+  .doc-check input { accent-color: var(--primary); }
+
+  .toast {
+    position: fixed; bottom: 20px; right: 20px; background: var(--panel-2);
+    border: 1px solid var(--accent); border-radius: 8px; padding: 12px 18px;
+    font-size: 13px; display: none; align-items: center; gap: 8px; z-index: 100;
+  }
+  .toast.show { display: flex; }
+
+  /* ---------- Modal ---------- */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+    align-items: center; justify-content: center; z-index: 200; padding: 16px;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 22px; width: 100%; max-width: 420px;
+  }
+  .modal-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+  .modal label { display: block; font-size: 12px; color: var(--muted); margin: 12px 0 6px; }
+  .modal input, .modal select { width: 100%; }
+  .modal-actions { display: flex; gap: 8px; margin-top: 20px; }
+  .modal-actions .btn { flex: 1; }
+
+  /* ---------- Responsive ---------- */
+  .table-wrap { overflow-x: auto; border-radius: 8px; }
+  .tag-check {
+    display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px;
+    border: 1px solid var(--border); border-radius: 16px; font-size: 12px;
+    background: var(--panel-2); cursor: pointer;
+  }
+  .tag-check input { accent-color: var(--primary); }
+  .contact-row {
+    display: grid; grid-template-columns: 1.2fr 1fr 1.3fr 1fr 1fr 1fr auto;
+    gap: 8px; margin-bottom: 8px; align-items: center;
+  }
+  .contact-row input, .contact-row select { width: 100%; }
+  .tooltip-wrap { position: relative; display: inline-flex; }
+  .tooltip-icon {
+    width: 16px; height: 16px; border-radius: 50%; background: var(--panel-2);
+    border: 1px solid var(--border); color: var(--muted); font-size: 11px;
+    display: flex; align-items: center; justify-content: center; cursor: help;
+  }
+  .tooltip-box {
+    display: none; position: absolute; top: 22px; left: 0; z-index: 20;
+    background: var(--panel-2); border: 1px solid var(--border); border-radius: 6px;
+    padding: 12px; width: 260px; font-size: 11px; line-height: 1.6; color: var(--text);
+    font-weight: 400; box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+  }
+  .tooltip-wrap:hover .tooltip-box, .tooltip-wrap:focus .tooltip-box { display: block; }
+  @media (max-width: 900px) {
+    .app { flex-direction: column; }
+    .sidebar { width: 100%; padding: 12px 0; display: flex; overflow-x: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    .brand { display: none; }
+    .nav-item { border-left: none; border-bottom: 3px solid transparent; white-space: nowrap; padding: 10px 14px; }
+    .nav-item.active { border-left: none; border-bottom-color: var(--primary); }
+    .main { padding: 18px 16px; max-width: 100%; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .two-col { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .contact-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .stat-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .stat-tile { padding: 12px; }
+    .stat-tile .num { font-size: 18px; }
+    .toolbar { flex-direction: column; align-items: stretch; }
+    .filter-bar { flex-direction: column; }
+    .filter-bar input, .filter-bar select { width: 100%; }
+    .line-item { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ================= SIDEBAR ================= -->
+  <div class="sidebar">
+    <div class="brand">QPro<span>cure</span></div>
+    <div class="nav-item active" data-screen="vendor-registration"><span class="nav-num">01</span> Vendor registration</div>
+    <div class="nav-item" data-screen="vendor-directory"><span class="nav-num">02</span> Vendor directory</div>
+    <div class="nav-item" data-screen="rfq-create"><span class="nav-num">03</span> RFQ creation</div>
+    <div class="nav-item" data-screen="rfq-dispatch"><span class="nav-num">04</span> Selection &amp; dispatch</div>
+    <div class="nav-item" data-screen="rfq-dashboard"><span class="nav-num">05</span> Response dashboard</div>
+    <div class="nav-item" data-screen="vendor-scorecard"><span class="nav-num">06</span> Vendor scorecard</div>
+    <div class="nav-item" data-screen="award"><span class="nav-num">07</span> Award &amp; PO</div>
+  </div>
+
+  <!-- ================= MAIN ================= -->
+  <div class="main">
+
+    <!-- ============ 1. VENDOR DIRECTORY ============ -->
+    <div class="screen" id="vendor-directory">
+      <div class="page-title">Vendor directory</div>
+      <div class="page-sub">All vendors across in-house, authorized distributor, and independent/broker tiers.</div>
+
+      <div class="toolbar">
+        <div class="filter-bar">
+          <input type="text" placeholder="Search vendors..." id="vendorSearch">
+          <select><option>Category</option></select>
+          <select><option>Region</option></select>
+          <select><option>Rating</option></select>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-tile"><div class="num" id="statTotalVendors">-</div><div class="lbl">Total vendors</div></div>
+        <div class="stat-tile"><div class="num" id="statRatedA">-</div><div class="lbl">Rated A</div></div>
+        <div class="stat-tile"><div class="num" id="statPending">-</div><div class="lbl">Pending verification</div></div>
+        <div class="stat-tile"><div class="num" id="statCategories">-</div><div class="lbl">Categories</div></div>
+      </div>
+
+      <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Vendor</th><th>Category</th><th>Region</th><th>Rating</th><th>Email</th><th></th></tr>
+        </thead>
+        <tbody id="vendorTableBody">
+          <tr><td colspan="6" class="empty-state">Loading vendors...</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <!-- ============ 2. RFQ CREATION ============ -->
+    <div class="screen" id="rfq-create">
+      <div class="page-title">Create RFQ</div>
+      <div class="page-sub">Add line items, choose a template, save as draft or move to vendor selection.</div>
+
+      <div class="card">
+        <div class="card-title">RFQ details</div>
+        <div class="form-row">
+          <div><label>RFQ number</label><input type="text" id="rfqNumber" placeholder="RFQ-1042"></div>
+          <div><label>Title</label><input type="text" id="rfqTitle" placeholder="Q3 component sourcing"></div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label>Template</label>
+            <select id="rfqTemplate">
+              <option value="standard_component_rfq">Standard component RFQ</option>
+            </select>
+          </div>
+          <div><label>Created by</label><input type="text" id="rfqCreatedBy" placeholder="Arpita"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Line items</div>
+        <div id="lineItems">
+          <div class="line-item">
+            <input type="text" placeholder="Part number" class="li-part">
+            <input type="number" placeholder="Qty" class="li-qty">
+            <input type="number" placeholder="Target price" class="li-price">
+            <button class="btn btn-sm" onclick="this.parentElement.remove()">✕</button>
+          </div>
+        </div>
+        <button class="btn btn-sm" onclick="addLineItem()">+ Add line</button>
+      </div>
+
+      <button class="btn btn-primary" onclick="createRFQ()">Save RFQ &amp; continue to vendor selection →</button>
+    </div>
+
+    <!-- ============ 3. VENDOR SELECTION & DISPATCH ============ -->
+    <div class="screen" id="rfq-dispatch">
+      <div class="page-title">Vendor selection &amp; dispatch</div>
+      <div class="page-sub">Pick vendors for this RFQ. Email only — WhatsApp channel not enabled yet.</div>
+
+      <div class="two-col">
+        <div>
+          <div class="filter-bar">
+            <select><option>Tier: All</option><option>In-house</option><option>Authorized distributor</option><option>Independent / broker</option></select>
+            <select><option>Category</option></select>
+            <select><option>Responded in last 30 days</option></select>
+          </div>
+          <div class="table-wrap">
+          <table>
+            <thead><tr><th></th><th>Vendor</th><th>Rating</th><th>Channel</th></tr></thead>
+            <tbody id="dispatchVendorBody">
+              <tr><td colspan="4" class="empty-state">Loading vendors...</td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Message preview</div>
+          <div style="font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:14px;">
+            Dear [vendor], please quote for the components under this RFQ. Kindly reply with price, MOQ, and lead time at the earliest.
+          </div>
+          <div style="font-size:12px; color:var(--muted); margin-bottom:8px;">RFQ: <span id="dispatchRfqLabel">— select RFQ —</span></div>
+          <div style="font-size:12px; color:var(--muted); margin-bottom:14px;">Selected vendors: <span id="selectedCount">0</span></div>
+          <button class="btn btn-accent" style="width:100%;" onclick="dispatchRFQ()">Send RFQ →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 4. RESPONSE DASHBOARD ============ -->
+    <div class="screen" id="rfq-dashboard">
+      <div class="page-title">RFQ response dashboard</div>
+      <div class="page-sub">No manual reading required — replies are parsed automatically from the inbox.</div>
+
+      <div class="toolbar">
+        <select id="dashboardRfqSelect"><option>Select RFQ...</option></select>
+        <button class="btn" onclick="pollInbox()">↻ Check inbox now</button>
+      </div>
+
+      <div class="stat-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="stat-tile"><div class="num" id="statResponded">-</div><div class="lbl">Vendors responded</div></div>
+        <div class="stat-tile"><div class="num" id="statBestPrice">-</div><div class="lbl">Best price</div></div>
+        <div class="stat-tile"><div class="num" id="statNeedsReview">-</div><div class="lbl">Needs manual review</div></div>
+      </div>
+
+      <div class="table-wrap">
+      <table>
+        <thead><tr><th>Vendor</th><th>Rating</th><th>Price</th><th>MOQ</th><th>Lead time</th><th>Status</th><th></th></tr></thead>
+        <tbody id="dashboardBody">
+          <tr><td colspan="7" class="empty-state">Select an RFQ to view responses</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <!-- ============ 5. VENDOR SCORECARD ============ -->
+    <div class="screen" id="vendor-scorecard">
+      <div class="page-title">Vendor scorecard</div>
+      <div class="page-sub">Auto-computed rating from response history, delivery, and pricing.</div>
+
+      <div class="toolbar">
+        <select id="scorecardVendorSelect"><option>Select vendor...</option></select>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title">Quote history</div>
+          <table>
+            <thead><tr><th>RFQ</th><th>Price</th><th>MOQ</th><th>Lead time</th></tr></thead>
+            <tbody id="scorecardHistoryBody">
+              <tr><td colspan="4" class="empty-state">Select a vendor</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-title">Scores</div>
+          <div id="scorecardScores" style="font-size:13px; color:var(--muted);">Select a vendor to see scores.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 6. AWARD & PO CONVERSION ============ -->
+    <div class="screen" id="award">
+      <div class="page-title">Award &amp; PO conversion</div>
+      <div class="page-sub">Confirm the winning vendor, justify the decision, and generate the PO.</div>
+
+      <div class="card">
+        <div class="card-title">Award decision</div>
+        <div class="form-row">
+          <div><label>RFQ</label><select id="awardRfqSelect"><option>Select RFQ...</option></select></div>
+          <div><label>Winning vendor</label><select id="awardVendorSelect"><option>Select vendor...</option></select></div>
+        </div>
+        <div class="form-row">
+          <div>
+            <label>Justification</label>
+            <select id="awardJustification">
+              <option value="lowest_price">Lowest price</option>
+              <option value="best_rating">Best rating</option>
+              <option value="fastest_lead_time">Fastest lead time</option>
+            </select>
+          </div>
+          <div><label>PO number</label><input type="text" id="awardPoNumber" placeholder="PO-2026-0113"></div>
+        </div>
+        <label style="display:block; margin-bottom:6px;">Note</label>
+        <input type="text" id="awardNote" placeholder="Optional note on why this vendor was selected" style="width:100%; margin-bottom:16px;">
+
+        <div class="card-title" style="margin-top:6px;">Required documents</div>
+        <label class="doc-check"><input type="checkbox" value="Certificate of origin" checked> Certificate of origin</label>
+        <label class="doc-check"><input type="checkbox" value="RoHS declaration" checked> RoHS declaration</label>
+        <label class="doc-check"><input type="checkbox" value="Counterfeit report"> Counterfeit avoidance report</label>
+
+        <div style="margin-top:18px;" id="awardActionRow">
+          <button class="btn btn-primary" onclick="createAward()">Confirm award →</button>
+        </div>
+      </div>
+
+      <div class="card hidden-view" id="poPreviewCard" style="display:none;">
+        <div class="card-title">PO preview</div>
+        <div id="poPreviewBody" style="font-size:13px; line-height:1.9;"></div>
+
+        <div class="table-wrap" style="margin-top:14px;">
+        <table>
+          <thead><tr><th>Part</th><th>Qty</th><th>Target price</th><th>Quoted price</th></tr></thead>
+          <tbody id="poPreviewLines"></tbody>
+        </table>
+        </div>
+
+        <div id="poPreviewDocs" style="margin-top:14px; font-size:13px;"></div>
+
+        <div style="margin-top:18px;">
+          <button class="btn btn-accent" onclick="sendPO()" id="sendPoBtn">Send PO to vendor →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ 7. VENDOR REGISTRATION ============ -->
+    <div class="screen active" id="vendor-registration">
+      <div class="page-title">Vendor registration</div>
+      <div class="page-sub">Full onboarding profile — identity, compliance, banking, and documents. All fields required.</div>
+
+      <div class="toolbar" id="vendorRegToolbar">
+        <div></div>
+        <div>
+          <button class="btn" onclick="showVendorRegImport()">Import vendors (CSV)</button>
+          <button class="btn btn-primary" onclick="showVendorRegForm()">+ Add vendor</button>
+        </div>
+      </div>
+
+      <!-- ---- List view ---- -->
+      <div id="vendorRegListView">
+        <div class="table-wrap">
+        <table>
+          <thead><tr><th>Company</th><th>Type</th><th>Risk rating</th><th>Geography</th><th>Contacts</th><th>Docs</th></tr></thead>
+          <tbody id="vendorRegListBody">
+            <tr><td colspan="6" class="empty-state">Loading registered vendors...</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <!-- ---- Import CSV view ---- -->
+      <div id="vendorRegImportView" class="hidden-view" style="display:none;">
+        <div class="card">
+          <div class="card-title">Import vendors from CSV</div>
+          <p style="font-size:12px; color:var(--muted); margin-bottom:14px; line-height:1.6;">
+            Quick bulk import for directory-only entries (name, email, category, region, rating).
+            This does <strong>not</strong> capture compliance, banking, or documents — use "+ Add vendor"
+            for a full registration with all required fields. CSV columns: <code>name,email,category,region,rating</code>
+          </p>
+          <input type="file" id="csvImportFile" accept=".csv">
+          <div style="margin-top:14px;">
+            <button class="btn btn-ghost" onclick="hideVendorRegPanels()">Cancel</button>
+            <button class="btn btn-primary" onclick="importVendorsCSV()">Import</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---- Full registration form ---- -->
+      <div id="vendorRegFormView" class="hidden-view" style="display:none;">
+
+        <div class="card">
+          <div class="card-title">Vendor identity</div>
+          <div class="form-row">
+            <div><label>Company name *</label><input type="text" id="reg_company_name" required></div>
+            <div><label>Email *</label><input type="text" id="reg_email" required></div>
+          </div>
+          <div class="form-row">
+            <div><label>Country *</label><input type="text" id="reg_country" required></div>
+            <div><label>Location / city *</label><input type="text" id="reg_location" required></div>
+          </div>
+          <div class="form-row">
+            <div><label>Website *</label><input type="text" id="reg_website" required></div>
+            <div><label>Year established *</label><input type="number" id="reg_year_established" required></div>
+          </div>
+          <label>Vendor type *</label>
+          <select id="reg_vendor_type" required>
+            <option value="">Select...</option>
+            <option>Manufacturer</option>
+            <option>Authorized Distributor</option>
+            <option>Franchise</option>
+            <option>Independent Distributor</option>
+            <option>Broker</option>
+            <option>Excess Inventory</option>
+          </select>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Component tags &amp; brands</div>
+          <label>Component tags (select all that apply) *</label>
+          <div id="reg_component_tags" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px;"></div>
+          <label>Brands / line card (comma separated) *</label>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <input type="text" id="reg_brands_line_card" placeholder="Texas Instruments, STMicroelectronics..." required style="flex:1;">
+            <label class="btn btn-sm" style="cursor:pointer; white-space:nowrap;" title="Attach line card document (optional)">
+              📎 Attach
+              <input type="file" id="reg_line_card_file" style="display:none;">
+            </label>
+          </div>
+          <div id="lineCardFileName" style="font-size:11px; color:var(--muted); margin-top:6px;"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Key contacts</div>
+          <div id="reg_contacts_list"></div>
+          <button class="btn btn-sm" onclick="addContactRow()">+ Add contact</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Compliance</div>
+          <div class="form-row">
+            <div><label>Company registration number *</label><input type="text" id="reg_company_registration_number" required></div>
+            <div><label>GST / VAT *</label><input type="text" id="reg_gst_vat" required></div>
+          </div>
+          <label>Quality certificates *</label>
+          <input type="text" id="reg_quality_certificates" placeholder="e.g. ISO 9001, AS9120" required>
+          <div class="form-row" style="margin-top:12px;">
+            <div><label>ISO certified? *</label><select id="reg_iso_certified" required><option value="">Select...</option><option>Y</option><option>N</option></select></div>
+            <div><label>References *</label><input type="text" id="reg_references_info" required></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title" style="display:flex; align-items:center; gap:6px;">
+            Commercial
+            <span class="tooltip-wrap" tabindex="0">
+              <span class="tooltip-icon">?</span>
+              <span class="tooltip-box">
+                <strong>Payment terms:</strong> e.g. 30% advance, 70% on delivery.<br>
+                <strong>Credit terms:</strong> e.g. Net 30, Net 60 days.<br>
+                <strong>MOQ:</strong> minimum order quantity vendor accepts.<br>
+                <strong>Freight terms:</strong> e.g. FOB, CIF, EXW.<br>
+                <strong>Warranty:</strong> standard warranty offered on parts.<br>
+                <strong>Accepted currencies:</strong> e.g. USD, INR, EUR.
+              </span>
+            </span>
+          </div>
+          <div class="form-row">
+            <div><label>Payment terms *</label><input type="text" id="reg_payment_terms" required></div>
+            <div><label>Credit terms *</label><input type="text" id="reg_credit_terms" required></div>
+          </div>
+          <div class="form-row">
+            <div><label>MOQ *</label><input type="number" id="reg_moq" required></div>
+            <div><label>Freight terms *</label><input type="text" id="reg_freight_terms" required></div>
+          </div>
+          <div class="form-row">
+            <div><label>Warranty *</label><input type="text" id="reg_warranty" required></div>
+            <div><label>Accepted currencies *</label><input type="text" id="reg_accepted_currencies" placeholder="USD, INR..." required></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Banking / payment details</div>
+          <div class="form-row">
+            <div><label>Bank name *</label><input type="text" id="reg_bank_name" required></div>
+            <div><label>Account number *</label><input type="text" id="reg_account_number" required></div>
+          </div>
+          <div class="form-row">
+            <div><label>SWIFT / IFSC *</label><input type="text" id="reg_swift_ifsc" required></div>
+            <div><label>Billing currency *</label><input type="text" id="reg_billing_currency" required></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Market capability *</div>
+          <div id="reg_market_capability" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;"></div>
+          <div class="card-title">Geography *</div>
+          <div id="reg_geography" style="display:flex; flex-wrap:wrap; gap:8px;"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Compliance risk rating *</div>
+          <select id="reg_compliance_risk_rating" required>
+            <option value="">Select...</option>
+            <option>Preferred</option><option>Approved</option><option>Conditional</option>
+            <option>High Risk</option><option>Do Not Use</option>
+          </select>
+          <label style="margin-top:14px;">Notes</label>
+          <textarea id="reg_compliance_notes" rows="3" placeholder="Any additional context on this vendor's risk rating..."></textarea>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Onboarding documents (all required)</div>
+          <label>Company profile PPT *</label>
+          <input type="file" id="doc_company_profile_ppt" required>
+          <label style="margin-top:12px;">Certificate of incorporation *</label>
+          <input type="file" id="doc_certificate_of_incorporation" required>
+          <label style="margin-top:12px;">ISO / quality certificate *</label>
+          <input type="file" id="doc_iso_quality_certificate" required>
+          <label style="margin-top:12px;">RoHS / REACH declaration *</label>
+          <input type="file" id="doc_rohs_reach_declaration" required>
+          <label style="margin-top:12px;">Insurance certificate *</label>
+          <input type="file" id="doc_insurance_certificate" required>
+        </div>
+
+        <div style="margin: 8px 0 30px;">
+          <button class="btn btn-ghost" onclick="hideVendorRegPanels()">Cancel</button>
+          <button class="btn btn-primary" onclick="submitVendorRegistration()">Submit registration →</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API_BASE = "http://localhost:8002";
+
+let state = {
+  vendors: [],
+  rfqs: [],
+  selectedDispatchVendors: new Set(),
+  currentRfqId: null,
+  currentAwardResponseId: null,
+};
+
+// ---------- Nav ----------
+document.querySelectorAll(".nav-item").forEach(item => {
+  item.addEventListener("click", () => {
+    document.querySelectorAll(".nav-item").forEach(i => i.classList.remove("active"));
+    document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+    item.classList.add("active");
+    document.getElementById(item.dataset.screen).classList.add("active");
+  });
+});
+
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 3000);
+}
+
+async function api(path, options = {}) {
+  const res = await fetch(API_BASE + path, {
+    headers: { "Content-Type": "application/json" },
+    ...options,
+  });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+// ---------- Module 1: Vendor directory ----------
+async function loadVendors() {
+  try {
+    const vendors = await api("/vendors");
+    state.vendors = vendors;
+    renderVendorTable(vendors);
+    populateVendorDropdowns(vendors);
+
+    document.getElementById("statTotalVendors").textContent = vendors.length;
+    document.getElementById("statRatedA").textContent = vendors.filter(v => v.rating === "A").length;
+    document.getElementById("statPending").textContent = "0";
+    document.getElementById("statCategories").textContent = new Set(vendors.map(v => v.category).filter(Boolean)).size;
+  } catch (e) {
+    document.getElementById("vendorTableBody").innerHTML =
+      `<tr><td colspan="6" class="empty-state">Could not load vendors — is the backend running on ${API_BASE}?</td></tr>`;
+  }
+}
+
+function renderVendorTable(vendors) {
+  const body = document.getElementById("vendorTableBody");
+  if (!vendors.length) {
+    body.innerHTML = `<tr><td colspan="6" class="empty-state">No vendors yet. Click "+ Add vendor" to create one.</td></tr>`;
+    return;
+  }
+  body.innerHTML = vendors.map(v => `
+    <tr>
+      <td><span class="avatar">${initials(v.name)}</span>${v.name}</td>
+      <td>${v.category || "—"}</td>
+      <td>${v.region || "—"}</td>
+      <td><span class="pill pill-${v.rating.toLowerCase()}">${v.rating}</span></td>
+      <td>${v.email}</td>
+      <td><button class="btn btn-sm" onclick="deleteVendor('${v.id}')">Delete</button></td>
+    </tr>
+  `).join("");
+}
+
+function initials(name) {
+  return name.split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
+}
+
+
+
+function deleteVendor(id) {
+  if (!confirm("Delete this vendor?")) return;
+  api(`/vendors/${id}`, { method: "DELETE" })
+    .then(() => { showToast("Vendor deleted"); loadVendors(); })
+    .catch(() => showToast("Failed to delete vendor"));
+}
+
+// ---------- Module 2: RFQ creation ----------
+function addLineItem() {
+  const div = document.createElement("div");
+  div.className = "line-item";
+  div.innerHTML = `
+    <input type="text" placeholder="Part number" class="li-part">
+    <input type="number" placeholder="Qty" class="li-qty">
+    <input type="number" placeholder="Target price" class="li-price">
+    <button class="btn btn-sm" onclick="this.parentElement.remove()">✕</button>
+  `;
+  document.getElementById("lineItems").appendChild(div);
+}
+
+async function createRFQ() {
+  const rfq_number = document.getElementById("rfqNumber").value.trim();
+  const title = document.getElementById("rfqTitle").value.trim();
+  const template = document.getElementById("rfqTemplate").value;
+  const created_by = document.getElementById("rfqCreatedBy").value.trim();
+
+  if (!rfq_number) { showToast("RFQ number is required"); return; }
+
+  const lines = Array.from(document.querySelectorAll("#lineItems .line-item")).map(row => ({
+    part_number: row.querySelector(".li-part").value.trim(),
+    qty: parseInt(row.querySelector(".li-qty").value) || 0,
+    target_price: parseFloat(row.querySelector(".li-price").value) || null,
+  })).filter(l => l.part_number);
+
+  try {
+    const rfq = await api("/rfq", { method: "POST", body: JSON.stringify({ rfq_number, title, template, created_by, lines }) });
+    showToast(`RFQ ${rfq.rfq_number} created`);
+    state.currentRfqId = rfq.id;
+    await loadRFQs();
+    document.querySelector('[data-screen="rfq-dispatch"]').click();
+    document.getElementById("dispatchRfqLabel").textContent = rfq.rfq_number;
+  } catch (e) {
+    showToast("Failed to create RFQ");
+  }
+}
+
+async function loadRFQs() {
+  try {
+    state.rfqs = await api("/rfq");
+    populateRfqDropdowns(state.rfqs);
+  } catch (e) { /* backend not up yet */ }
+}
+
+function populateRfqDropdowns(rfqs) {
+  const options = rfqs.map(r => `<option value="${r.id}">${r.rfq_number} — ${r.title || ""}</option>`).join("");
+  document.getElementById("dashboardRfqSelect").innerHTML = `<option value="">Select RFQ...</option>` + options;
+  document.getElementById("awardRfqSelect").innerHTML = `<option value="">Select RFQ...</option>` + options;
+}
+
+function populateVendorDropdowns(vendors) {
+  const options = vendors.map(v => `<option value="${v.id}">${v.name}</option>`).join("");
+  document.getElementById("scorecardVendorSelect").innerHTML = `<option value="">Select vendor...</option>` + options;
+  document.getElementById("awardVendorSelect").innerHTML = `<option value="">Select vendor...</option>` + options;
+  renderDispatchVendors(vendors);
+}
+
+// ---------- Module 3: Selection & dispatch ----------
+function renderDispatchVendors(vendors) {
+  const body = document.getElementById("dispatchVendorBody");
+  if (!vendors.length) {
+    body.innerHTML = `<tr><td colspan="4" class="empty-state">No vendors yet</td></tr>`;
+    return;
+  }
+  body.innerHTML = vendors.map(v => `
+    <tr>
+      <td><input type="checkbox" onchange="toggleDispatchVendor('${v.id}', this.checked)"></td>
+      <td><span class="avatar">${initials(v.name)}</span>${v.name}</td>
+      <td><span class="pill pill-${v.rating.toLowerCase()}">${v.rating}</span></td>
+      <td>@ email</td>
+    </tr>
+  `).join("");
+}
+
+function toggleDispatchVendor(id, checked) {
+  if (checked) state.selectedDispatchVendors.add(id);
+  else state.selectedDispatchVendors.delete(id);
+  document.getElementById("selectedCount").textContent = state.selectedDispatchVendors.size;
+}
+
+async function dispatchRFQ() {
+  if (!state.currentRfqId) { showToast("Create or select an RFQ first"); return; }
+  if (!state.selectedDispatchVendors.size) { showToast("Select at least one vendor"); return; }
+
+  try {
+    await api("/dispatch", {
+      method: "POST",
+      body: JSON.stringify({
+        rfq_id: state.currentRfqId,
+        vendor_ids: Array.from(state.selectedDispatchVendors),
+        message_body: "Standard RFQ template",
+        schedule_reminder_hours: 48,
+      }),
+    });
+    showToast("RFQ sent to selected vendors");
+    document.querySelector('[data-screen="rfq-dashboard"]').click();
+  } catch (e) {
+    showToast("Failed to dispatch RFQ");
+  }
+}
+
+// ---------- Module 4: Response dashboard ----------
+document.getElementById("dashboardRfqSelect").addEventListener("change", (e) => {
+  if (e.target.value) loadDashboard(e.target.value);
+});
+
+async function loadDashboard(rfqId) {
+  state.currentRfqId = rfqId;
+  try {
+    const data = await api(`/responses/${rfqId}`);
+    document.getElementById("statResponded").textContent = data.vendors_responded;
+    document.getElementById("statBestPrice").textContent = data.best_price ? `₹${data.best_price}` : "—";
+    document.getElementById("statNeedsReview").textContent = data.needs_manual_review;
+
+    const body = document.getElementById("dashboardBody");
+    if (!data.rows.length) {
+      body.innerHTML = `<tr><td colspan="7" class="empty-state">No vendors dispatched for this RFQ yet</td></tr>`;
+      return;
+    }
+    body.innerHTML = data.rows.map(r => `
+      <tr>
+        <td><span class="avatar">${initials(r.vendor_name)}</span>${r.vendor_name}</td>
+        <td><span class="pill pill-${r.rating.toLowerCase()}">${r.rating}</span></td>
+        <td>${r.price ? `₹${r.price}` : "—"}</td>
+        <td>${r.moq || "—"}</td>
+        <td>${r.lead_time_weeks ? r.lead_time_weeks + " wk" : "—"}</td>
+        <td>${statusBadge(r)}</td>
+        <td>${r.responded ? `<button class="btn btn-sm" onclick="jumpToAward('${r.response_id}')">Award →</button>` : "—"}</td>
+      </tr>
+    `).join("");
+  } catch (e) {
+    showToast("Failed to load dashboard");
+  }
+}
+
+function statusBadge(r) {
+  if (!r.responded) return `<span class="badge-dot dot-muted"></span>Awaiting reply`;
+  if (r.extraction_status === "needs_verify") return `<span class="badge-dot dot-amber"></span>Verify`;
+  return `<span class="badge-dot dot-green"></span>Parsed`;
+}
+
+async function pollInbox() {
+  showToast("Checking inbox...");
+  try {
+    const result = await api("/responses/poll-inbox", { method: "POST" });
+    showToast(`Found ${result.new_responses} new response(s)`);
+    if (state.currentRfqId) loadDashboard(state.currentRfqId);
+  } catch (e) {
+    showToast("Inbox check failed");
+  }
+}
+
+function jumpToAward(responseId) {
+  state.currentAwardResponseId = responseId;
+  document.querySelector('[data-screen="award"]').click();
+  document.getElementById("awardRfqSelect").value = state.currentRfqId;
+}
+
+// ---------- Module 5: Vendor scorecard ----------
+document.getElementById("scorecardVendorSelect").addEventListener("change", (e) => {
+  if (e.target.value) loadScorecard(e.target.value);
+});
+
+async function loadScorecard(vendorId) {
+  try {
+    const data = await api(`/scorecard/${vendorId}`);
+    const body = document.getElementById("scorecardHistoryBody");
+    if (!data.quote_history.length) {
+      body.innerHTML = `<tr><td colspan="4" class="empty-state">No quote history yet</td></tr>`;
+    } else {
+      body.innerHTML = data.quote_history.map(q => `
+        <tr>
+          <td>${q.qprocure_rfqs ? q.qprocure_rfqs.rfq_number : "—"}</td>
+          <td>${q.price ? `₹${q.price}` : "—"}</td>
+          <td>${q.moq || "—"}</td>
+          <td>${q.lead_time_weeks ? q.lead_time_weeks + " wk" : "—"}</td>
+        </tr>
+      `).join("");
+    }
+
+    const s = data.scores;
+    document.getElementById("scorecardScores").innerHTML = s ? `
+      <div style="margin-bottom:10px;">Response rate: <strong style="color:var(--text)">${s.response_rate ?? "—"}%</strong></div>
+      <div style="margin-bottom:10px;">Responsiveness: <span class="stars">${"★".repeat(s.responsiveness_stars || 0)}${"☆".repeat(5 - (s.responsiveness_stars || 0))}</span></div>
+      <div style="margin-bottom:10px;">On-time delivery: ${s.on_time_delivery_pct ?? "not tracked yet"}</div>
+      <div style="margin-bottom:10px;">Price vs reference: ${s.price_vs_ref_pct ?? "not tracked yet"}</div>
+      <button class="btn btn-sm" onclick="recalcScore('${vendorId}')">Recalculate</button>
+    ` : `<p>No score yet.</p><button class="btn btn-sm" onclick="recalcScore('${vendorId}')">Calculate now</button>`;
+  } catch (e) {
+    showToast("Failed to load scorecard");
+  }
+}
+
+async function recalcScore(vendorId) {
+  try {
+    await api(`/scorecard/${vendorId}/recalculate`, { method: "POST" });
+    showToast("Score recalculated");
+    loadScorecard(vendorId);
+  } catch (e) {
+    showToast("Failed to recalculate");
+  }
+}
+
+// ---------- Module 6: Award & PO ----------
+async function createAward() {
+  const rfq_id = document.getElementById("awardRfqSelect").value;
+  const vendor_id = document.getElementById("awardVendorSelect").value;
+  const justification = document.getElementById("awardJustification").value;
+  const justification_note = document.getElementById("awardNote").value;
+  const po_number = document.getElementById("awardPoNumber").value;
+  const requested_documents = Array.from(document.querySelectorAll(".doc-check input:checked")).map(el => el.value);
+
+  if (!rfq_id || !vendor_id) { showToast("Select RFQ and vendor"); return; }
+  if (!state.currentAwardResponseId) { showToast("Open this award from the response dashboard first"); return; }
+
+  try {
+    await api("/award", {
+      method: "POST",
+      body: JSON.stringify({
+        rfq_id, vendor_id, response_id: state.currentAwardResponseId,
+        justification, justification_note, requested_documents, po_number,
+      }),
+    });
+    showToast("Award confirmed — generating PO preview...");
+    await loadPOPreview(rfq_id);
+  } catch (e) {
+    showToast("Failed to confirm award");
+  }
+}
+
+async function loadPOPreview(rfqId) {
+  try {
+    const data = await api(`/award/${rfqId}/preview`);
+    state.currentAwardId = data.award_id;
+
+    document.getElementById("poPreviewBody").innerHTML = `
+      <div><strong>PO Number:</strong> ${data.po_number}</div>
+      <div><strong>Vendor:</strong> ${data.vendor.name} (${data.vendor.email})</div>
+      <div><strong>RFQ:</strong> ${data.rfq_number}</div>
+      <div><strong>MOQ:</strong> ${data.moq ?? "-"}</div>
+      <div><strong>Lead time:</strong> ${data.lead_time_weeks ? data.lead_time_weeks + " weeks" : "-"}</div>
+      <div><strong>Condition:</strong> ${data.condition || "-"}</div>
+      <div><strong>Warranty:</strong> ${data.warranty || "-"}</div>
+      <div><strong>Justification:</strong> ${(data.justification || "-").replace(/_/g, " ")}</div>
+      <div><strong>Status:</strong> ${data.po_status}</div>
+    `;
+
+    document.getElementById("poPreviewLines").innerHTML = data.lines.map(l => `
+      <tr>
+        <td>${l.part_number}</td>
+        <td>${l.qty}</td>
+        <td>${l.target_price ?? "-"}</td>
+        <td>${data.price ?? "-"}</td>
+      </tr>
+    `).join("") || `<tr><td colspan="4" class="empty-state">No line items</td></tr>`;
+
+    document.getElementById("poPreviewDocs").innerHTML = data.requested_documents && data.requested_documents.length
+      ? `<strong>Required documents:</strong> ${data.requested_documents.join(", ")}`
+      : "";
+
+    document.getElementById("poPreviewCard").style.display = "block";
+
+    const sendBtn = document.getElementById("sendPoBtn");
+    if (data.po_status === "sent") {
+      sendBtn.textContent = "PO already sent ✓";
+      sendBtn.disabled = true;
+    } else {
+      sendBtn.textContent = "Send PO to vendor →";
+      sendBtn.disabled = false;
+    }
+  } catch (e) {
+    showToast("Could not load PO preview");
+  }
+}
+
+async function sendPO() {
+  if (!state.currentAwardId) { showToast("No award to send yet"); return; }
+  const btn = document.getElementById("sendPoBtn");
+  btn.disabled = true;
+  btn.textContent = "Sending...";
+  try {
+    await api(`/award/${state.currentAwardId}/send-po`, { method: "PUT" });
+    showToast("PO sent to vendor's email");
+    btn.textContent = "PO sent ✓";
+  } catch (e) {
+    btn.disabled = false;
+    btn.textContent = "Send PO to vendor →";
+    showToast("Failed to send PO");
+  }
+}
+
+// ---------- Module 7: Vendor Registration ----------
+const COMPONENT_TAGS = ["Semiconductor","MCU/MPU","Analog","Power","Memory","Storage","RF","Passives","Connectors","Electromechanical","Displays","Sensors","Other"];
+const MARKET_CAPABILITIES = ["Franchise stock","Open-market sourcing","Excess stock","Hard-to-find","Allocation material"];
+const GEOGRAPHIES = ["India","HK-China","Singapore-Taiwan","US","Europe","Middle East"];
+
+function renderCheckGroup(containerId, options) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = options.map(opt => `
+    <label class="tag-check">
+      <input type="checkbox" value="${opt}"> ${opt}
+    </label>
+  `).join("");
+}
+
+function getCheckedValues(containerId) {
+  return Array.from(document.querySelectorAll(`#${containerId} input:checked`)).map(el => el.value);
+}
+
+let contactCount = 0;
+function addContactRow() {
+  contactCount++;
+  const row = document.createElement("div");
+  row.className = "contact-row";
+  row.dataset.contactRow = contactCount;
+  row.innerHTML = `
+    <input type="text" placeholder="Name *" class="c-name" required>
+    <select class="c-role" required>
+      <option value="">Role *</option>
+      <option>Sales</option><option>Sourcing</option><option>Management</option><option>Finance</option>
+    </select>
+    <input type="text" placeholder="Email *" class="c-email" required>
+    <input type="text" placeholder="Phone *" class="c-phone" required>
+    <input type="text" placeholder="WhatsApp *" class="c-whatsapp" required>
+    <select class="c-channel" required>
+      <option value="">Preferred *</option>
+      <option>Email</option><option>WhatsApp</option><option>Phone</option>
+    </select>
+    <button class="btn btn-sm" onclick="this.parentElement.remove()">✕</button>
+  `;
+  document.getElementById("reg_contacts_list").appendChild(row);
+}
+
+function showVendorRegListPanel() {
+  document.getElementById("vendorRegListView").style.display = "block";
+  document.getElementById("vendorRegImportView").style.display = "none";
+  document.getElementById("vendorRegFormView").style.display = "none";
+  document.getElementById("vendorRegToolbar").style.display = "flex";
+}
+
+function showVendorRegForm() {
+  document.getElementById("vendorRegListView").style.display = "none";
+  document.getElementById("vendorRegImportView").style.display = "none";
+  document.getElementById("vendorRegFormView").style.display = "block";
+  document.getElementById("vendorRegToolbar").style.display = "none";
+
+  renderCheckGroup("reg_component_tags", COMPONENT_TAGS);
+  renderCheckGroup("reg_market_capability", MARKET_CAPABILITIES);
+  renderCheckGroup("reg_geography", GEOGRAPHIES);
+  document.getElementById("reg_contacts_list").innerHTML = "";
+  contactCount = 0;
+  addContactRow();
+
+  const lineCardInput = document.getElementById("reg_line_card_file");
+  lineCardInput.value = "";
+  document.getElementById("lineCardFileName").textContent = "";
+  lineCardInput.onchange = () => {
+    document.getElementById("lineCardFileName").textContent =
+      lineCardInput.files[0] ? `Attached: ${lineCardInput.files[0].name}` : "";
+  };
+}
+
+function showVendorRegImport() {
+  document.getElementById("vendorRegListView").style.display = "none";
+  document.getElementById("vendorRegImportView").style.display = "block";
+  document.getElementById("vendorRegFormView").style.display = "none";
+  document.getElementById("vendorRegToolbar").style.display = "none";
+}
+
+function hideVendorRegPanels() {
+  showVendorRegListPanel();
+  loadVendorRegistrations();
+}
+
+async function loadVendorRegistrations() {
+  const body = document.getElementById("vendorRegListBody");
+  try {
+    const rows = await api("/vendor-registration");
+    if (!rows.length) {
+      body.innerHTML = `<tr><td colspan="6" class="empty-state">No vendors registered yet. Click "+ Add vendor" to start.</td></tr>`;
+      return;
+    }
+    body.innerHTML = rows.map(r => `
+      <tr>
+        <td>${r.company_name}</td>
+        <td>${r.vendor_type}</td>
+        <td>${r.compliance_risk_rating}</td>
+        <td>${(r.geography || []).join(", ")}</td>
+        <td>${r.qprocure_vendors ? r.qprocure_vendors.name : "-"}</td>
+        <td><button class="btn btn-sm" onclick="viewRegistration('${r.vendor_id}')">View</button></td>
+      </tr>
+    `).join("");
+  } catch (e) {
+    body.innerHTML = `<tr><td colspan="6" class="empty-state">Could not load registrations — is the backend running?</td></tr>`;
+  }
+}
+
+async function viewRegistration(vendorId) {
+  try {
+    const data = await api(`/vendor-registration/${vendorId}`);
+    alert(`${data.registration.company_name}\nType: ${data.registration.vendor_type}\nRisk rating: ${data.registration.compliance_risk_rating}\nContacts: ${data.contacts.length}\nDocuments: ${data.documents.length}`);
+  } catch (e) {
+    showToast("Failed to load registration details");
+  }
+}
+
+async function submitVendorRegistration() {
+  const requiredTextIds = [
+    "reg_company_name","reg_email","reg_country","reg_location","reg_website","reg_year_established",
+    "reg_vendor_type","reg_brands_line_card","reg_company_registration_number","reg_gst_vat",
+    "reg_quality_certificates","reg_iso_certified","reg_references_info",
+    "reg_payment_terms","reg_credit_terms","reg_moq",
+    "reg_freight_terms","reg_warranty","reg_accepted_currencies","reg_bank_name","reg_account_number",
+    "reg_swift_ifsc","reg_billing_currency",
+    "reg_compliance_risk_rating",
+  ];
+  for (const id of requiredTextIds) {
+    if (!document.getElementById(id).value.trim()) {
+      showToast("Please fill in all required fields");
+      document.getElementById(id).scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+  }
+
+  const componentTags = getCheckedValues("reg_component_tags");
+  const marketCapability = getCheckedValues("reg_market_capability");
+  const geography = getCheckedValues("reg_geography");
+  if (!componentTags.length || !marketCapability.length || !geography.length) {
+    showToast("Select at least one component tag, market capability, and geography");
+    return;
+  }
+
+  const contactRows = Array.from(document.querySelectorAll("#reg_contacts_list .contact-row"));
+  if (!contactRows.length) { showToast("Add at least one key contact"); return; }
+  const contacts = [];
+  for (const row of contactRows) {
+    const name = row.querySelector(".c-name").value.trim();
+    const role = row.querySelector(".c-role").value;
+    const email = row.querySelector(".c-email").value.trim();
+    const phone = row.querySelector(".c-phone").value.trim();
+    const whatsapp = row.querySelector(".c-whatsapp").value.trim();
+    const preferred_channel = row.querySelector(".c-channel").value;
+    if (!name || !role || !email || !phone || !whatsapp || !preferred_channel) {
+      showToast("Please fill in all fields for every contact");
+      return;
+    }
+    contacts.push({ name, role, email, phone, whatsapp, preferred_channel });
+  }
+
+  const docFileIds = [
+    "doc_company_profile_ppt","doc_certificate_of_incorporation","doc_iso_quality_certificate",
+    "doc_rohs_reach_declaration","doc_insurance_certificate",
+  ];
+  for (const id of docFileIds) {
+    if (!document.getElementById(id).files.length) {
+      showToast("All documents are required");
+      return;
+    }
+  }
+
+  const fd = new FormData();
+  fd.append("company_name", document.getElementById("reg_company_name").value.trim());
+  fd.append("email", document.getElementById("reg_email").value.trim());
+  fd.append("country", document.getElementById("reg_country").value.trim());
+  fd.append("location", document.getElementById("reg_location").value.trim());
+  fd.append("website", document.getElementById("reg_website").value.trim());
+  fd.append("year_established", document.getElementById("reg_year_established").value);
+  fd.append("vendor_type", document.getElementById("reg_vendor_type").value);
+  fd.append("component_tags", JSON.stringify(componentTags));
+  fd.append("brands_line_card", document.getElementById("reg_brands_line_card").value.trim());
+  fd.append("company_registration_number", document.getElementById("reg_company_registration_number").value.trim());
+  fd.append("gst_vat", document.getElementById("reg_gst_vat").value.trim());
+  fd.append("quality_certificates", document.getElementById("reg_quality_certificates").value.trim());
+  fd.append("iso_certified", document.getElementById("reg_iso_certified").value);
+  fd.append("references_info", document.getElementById("reg_references_info").value.trim());
+  fd.append("payment_terms", document.getElementById("reg_payment_terms").value.trim());
+  fd.append("credit_terms", document.getElementById("reg_credit_terms").value.trim());
+  fd.append("moq", document.getElementById("reg_moq").value);
+  fd.append("freight_terms", document.getElementById("reg_freight_terms").value.trim());
+  fd.append("warranty", document.getElementById("reg_warranty").value.trim());
+  fd.append("accepted_currencies", document.getElementById("reg_accepted_currencies").value.trim());
+  fd.append("bank_name", document.getElementById("reg_bank_name").value.trim());
+  fd.append("account_number", document.getElementById("reg_account_number").value.trim());
+  fd.append("swift_ifsc", document.getElementById("reg_swift_ifsc").value.trim());
+  fd.append("billing_currency", document.getElementById("reg_billing_currency").value.trim());
+  fd.append("market_capability", JSON.stringify(marketCapability));
+  fd.append("geography", JSON.stringify(geography));
+  fd.append("compliance_risk_rating", document.getElementById("reg_compliance_risk_rating").value);
+  fd.append("compliance_notes", document.getElementById("reg_compliance_notes").value.trim());
+  fd.append("contacts", JSON.stringify(contacts));
+
+  fd.append("company_profile_ppt", document.getElementById("doc_company_profile_ppt").files[0]);
+  fd.append("certificate_of_incorporation", document.getElementById("doc_certificate_of_incorporation").files[0]);
+  fd.append("iso_quality_certificate", document.getElementById("doc_iso_quality_certificate").files[0]);
+  fd.append("rohs_reach_declaration", document.getElementById("doc_rohs_reach_declaration").files[0]);
+  fd.append("insurance_certificate", document.getElementById("doc_insurance_certificate").files[0]);
+  const lineCardFile = document.getElementById("reg_line_card_file").files[0];
+  if (lineCardFile) fd.append("line_card_attachment", lineCardFile);
+
+  showToast("Submitting registration...");
+  try {
+    const res = await fetch(`${API_BASE}/vendor-registration`, { method: "POST", body: fd });
+    if (!res.ok) throw new Error(await res.text());
+    showToast("Vendor registered successfully");
+    hideVendorRegPanels();
+    loadVendors();
+  } catch (e) {
+    showToast("Failed to submit registration");
+  }
+}
+
+function importVendorsCSV() {
+  const fileInput = document.getElementById("csvImportFile");
+  if (!fileInput.files.length) { showToast("Choose a CSV file first"); return; }
+
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    const lines = e.target.result.split("\n").map(l => l.trim()).filter(Boolean);
+    const header = lines[0].split(",").map(h => h.trim());
+    const rows = lines.slice(1).map(line => {
+      const values = line.split(",").map(v => v.trim());
+      const obj = {};
+      header.forEach((h, i) => obj[h] = values[i] || "");
+      return obj;
+    });
+
+    let successCount = 0;
+    for (const row of rows) {
+      try {
+        await api("/vendors", {
+          method: "POST",
+          body: JSON.stringify({
+            name: row.name, email: row.email,
+            category: row.category || null, region: row.region || null,
+            rating: row.rating || "C",
+          }),
+        });
+        successCount++;
+      } catch (err) { /* skip failed rows */ }
+    }
+    showToast(`Imported ${successCount}/${rows.length} vendors`);
+    hideVendorRegPanels();
+    loadVendors();
+  };
+  reader.readAsText(fileInput.files[0]);
+}
+
+// ---------- Init ----------
+loadVendorRegistrations();
+loadVendors();
+loadRFQs();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+supabase
+resend
+python-dotenv
+pydantic
+python-multipart
+reportlab
