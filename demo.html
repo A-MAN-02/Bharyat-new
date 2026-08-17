@@ -1,257 +1,532 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bharyat — Golden Q Portal Reveal</title>
+    <title>QProcure - Dynamic Portal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,900&family=Inter:wght@400;500;600&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bruno+Ace&display=swap');
+
         :root {
-            --ink: #111827;
-            --paper: #f3efe7;
-            --gold: #d9a441;
+            --primary-bg: #050816;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-muted: #a0a4b8;
+            --accent-purple: #7C61E0;
+            --accent-purple-light: #C3B4FF;
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            background: var(--ink);
-            color: var(--paper);
             font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
         }
 
-        /* 1) Hero Fixed (Backend content jo Q ke hole se dikhega) */
-        .hero-fixed {
-            position: fixed;
-            inset: 0;
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-main);
             display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1;
-            background:
-                #111827;
-        }
-
-        .hero-fixed__inner {
-            text-align: center;
-        }
-
-        .hero-fixed__title {
-            font-family: 'Fraunces', serif;
-            font-weight: 900;
-            font-size: clamp(2.5rem, 8vw, 6rem);
-            line-height: 1.02;
-            color: var(--paper);
-        }
-
-        .hero-fixed__sub {
-            margin-top: 1rem;
-            font-size: 1rem;
-            color: rgba(243, 239, 231, 0.6);
-        }
-
-        /* 2) Portal Overlay (Golden Q + Black Surrounding) */
-        .portal-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 2;
-            pointer-events: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .portal-svg {
-            width: 100vw;
-            height: 100vh;
-            overflow: visible;
-        }
-
-        /* Scroll Spacer (Animation height) */
-        .scroll-spacer {
-            height: 320vh;
-            position: relative;
-            z-index: 0;
-        }
-
-        /* Main Page Content */
-        .page-content {
-            position: relative;
-            z-index: 3;
-            background: var(--ink);
-        }
-
-        .section {
+            flex-direction: column;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 6vw;
-            border-top: 1px solid rgba(243, 239, 231, 0.14);
         }
 
-        .section h2 {
-            font-family: 'Fraunces', serif;
-            font-size: clamp(1.8rem, 4.5vw, 3rem);
-            margin-bottom: 1.2rem;
+        /* --- CLEANED HEADER STYLES --- */
+        .site-header {
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(5, 8, 22, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .section p {
-            max-width: 48ch;
-            color: rgba(243, 239, 231, 0.65);
-            line-height: 1.7;
+        .q-procure-nav-link {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 5px;
+            font-weight: 700;
+            font-size: clamp(15px, 1.7vw, 27px);
+            color: #ffffff;
+            position: relative;
+            text-decoration: none;
+            transition: 300ms cubic-bezier(.4, 0, .2, 1);
         }
 
-        .scroll-hint {
-            position: fixed;
-            bottom: -1.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 4;
-            font-size: 0.72rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: #111827;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.6rem;
+        .q-procure-nav-link svg {
+            margin-bottom: 0px !important;
+            transform: translateY(1px);
         }
 
-        .scroll-hint__line {
-            width: 1px;
-            height: 32px;
-            background: linear-gradient(var(--gold), transparent);
-            animation: scrollhint 1.6s ease-in-out infinite;
+        .q-procure-nav-link:hover {
+            color: #00D084 !important;
         }
 
-        @keyframes scrollhint {
+        .q-procure-nav-link::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 100%;
+            height: 2px;
+            background: #00D084;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: 300ms cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .q-procure-nav-link:hover::after {
+            transform: scaleX(1);
+        }
+
+        .q-procure-nav-link span {
+            transform: translateY(-3px);
+
+
+            font-family: "Bruno Ace", sans-serif;
+            font-weight: 800;
+            font-style: normal;
+
+        }
+
+        /* Animations for Procure Icon */
+        @keyframes ringpulseProcureInline {
             0% {
-                transform: scaleY(0.2);
-                opacity: 0.2;
-                transform-origin: top;
+                opacity: 0.9;
+                transform: scale(0.75);
             }
 
-            50% {
-                transform: scaleY(1);
-                opacity: 1;
-                transform-origin: top;
+            70% {
+                opacity: 0;
             }
 
             100% {
-                transform: scaleY(0.2);
-                opacity: 0.2;
-                transform-origin: top;
+                opacity: 0;
+                transform: scale(1.35);
             }
+        }
+
+        @keyframes dashdrawProcureInline {
+            0% {
+                stroke-dashoffset: 24;
+            }
+
+            45% {
+                stroke-dashoffset: 0;
+            }
+
+            75% {
+                stroke-dashoffset: 0;
+                opacity: 1;
+            }
+
+            90% {
+                stroke-dashoffset: 0;
+                opacity: 0;
+            }
+
+            100% {
+                stroke-dashoffset: 24;
+                opacity: 0;
+            }
+        }
+
+        @keyframes tailglowProcureInline {
+
+            0%,
+            100% {
+                opacity: 0.55;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .ring-pulse-procure {
+            transform-origin: 16px 16px;
+            animation: ringpulseProcureInline 2.6s ease-out infinite;
+        }
+
+        .check-draw-procure {
+            stroke-dasharray: 24;
+            animation: dashdrawProcureInline 3s ease-in-out infinite;
+        }
+
+        .tail-line-procure {
+            animation: tailglowProcureInline 2s ease-in-out infinite;
+        }
+
+        /* --- REST OF THE STYLES --- */
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bg-glow {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(124, 97, 224, 0.22) 0%, rgba(5, 8, 22, 0) 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+
+        .auth-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 460px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 40px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .auth-form {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .auth-form.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .form-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        .form-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 13px 16px;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: white;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px rgba(124, 97, 224, 0.2);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            font-size: 0.88rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .link-btn {
+            color: var(--accent-purple-light);
+            text-decoration: none;
+            background: none;
+            border: none;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .link-btn:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.98rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-purple-light));
+            color: white;
+            box-shadow: 0 4px 15px rgba(124, 97, 224, 0.3);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.92;
+            box-shadow: 0 6px 20px rgba(124, 97, 224, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: white;
+        }
+
+        .switch-text {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            margin-top: 18px;
+        }
+
+        /* ===================================
+           FIXED FOOTER STYLES
+        =================================== */
+        .site-footer {
+            background: #02040a;
+            padding: 20px 40px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .footer-logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-logo {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+        }
+
+        .footer-company-info {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: nowrap;
+        }
+
+        .footer-company-name,
+        .footer-company-sub {
+            font-size: 0.9rem;
+            color: #4fe0d7;
+            font-weight: 500;
+        }
+
+        .footer-company-sub {
+            color: var(--text-main);
+            font-weight: 600;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- Backend Hero Content -->
-    <div class="hero-fixed">
-        <div class="hero-fixed__inner">
-            <div
-                style="font-size:0.75rem; letter-spacing:0.35em; text-transform:uppercase; color:var(--gold); margin-bottom:1.2rem;">
-                Scroll to reveal</div>
-            <div class="hero-fixed__title">Bharyat</div>
-            <div class="hero-fixed__sub">Q ke center hole se content dikh raha hai</div>
+    <header class="site-header">
+        <a href="./QProcure/QProcure_ui.html" class="q-procure-nav-link">
+            <svg width="29" height="27" viewBox="0 0 34 40" style="overflow: visible;" filter="url(#glowPurpleNav)">
+                <defs>
+                    <linearGradient id="gradPurpleNav" x1="0" y1="0" x2="34" y2="40" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#C3B4FF" />
+                        <stop offset="100%" stop-color="#7C61E0" />
+                    </linearGradient>
+                    <filter id="glowPurpleNav" x="-60%" y="-60%" width="220%" height="220%">
+                        <feGaussianBlur stdDeviation="1.4" result="b" />
+                        <feMerge>
+                            <feMergeNode in="b" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                </defs>
+                <circle cx="16" cy="16" r="13.4" stroke="url(#gradPurpleNav)" stroke-width="3.3" fill="none"
+                    opacity="0.9" />
+                <circle class="ring-pulse-procure" cx="16" cy="16" r="13.4" stroke="url(#gradPurpleNav)"
+                    stroke-width="2.4" fill="none" />
+                <path class="check-draw-procure" d="M9.5 16 L14.5 21.5 L23 10.5" stroke="url(#gradPurpleNav)"
+                    stroke-width="3.9" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+                <line class="tail-line-procure" x1="24" y1="24" x2="31" y2="35" stroke="url(#gradPurpleNav)"
+                    stroke-width="3.9" stroke-linecap="round" />
+            </svg>
+            <span>procure</span>
+        </a>
+    </header>
+
+    <main style="background-image: url(assets/images/qprocure.jpeg);">
+        <div class="bg-glow"></div>
+        <div class="auth-container">
+            <!-- 1. LOGIN FORM -->
+            <form id="loginForm" class="auth-form active" onsubmit="event.preventDefault(); handleAuth('login');">
+                <div class="form-header">
+                    <h1>Welcome Back</h1>
+                    <p>Enter your credentials to access QProcure</p>
+                </div>
+                <div class="form-group">
+                    <label for="loginEmail">Work Email</label>
+                    <input type="email" id="loginEmail" name="email" class="form-control" placeholder="name@company.com"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="password" class="form-control"
+                        placeholder="••••••••" required>
+                </div>
+                <div class="form-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="remember" checked> Remember me
+                    </label>
+                    <button type="button" class="link-btn" onclick="switchForm('forgotForm')">Forgot password?</button>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign In</button>
+                <button type="button" class="btn btn-outline">Sign In with Google</button>
+                <div class="switch-text">
+                    Don't have an account? <button type="button" class="link-btn"
+                        onclick="switchForm('registerForm')">Register here</button>
+                </div>
+            </form>
+
+            <!-- 2. REGISTER FORM -->
+            <form id="registerForm" class="auth-form" onsubmit="event.preventDefault(); handleAuth('register');">
+                <div class="form-header">
+                    <h1>Create Account</h1>
+                    <p>Start managing components with QProcure</p>
+                </div>
+                <div class="form-group">
+                    <label for="regName">Full Name</label>
+                    <input type="text" id="regName" name="fullName" class="form-control" placeholder="John Doe"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Work Email</label>
+                    <input type="email" id="regEmail" name="email" class="form-control" placeholder="name@company.com"
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Password</label>
+                    <input type="password" id="regPassword" name="password" class="form-control"
+                        placeholder="At least 8 characters" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Account</button>
+                <div class="switch-text">
+                    Already have an account? <button type="button" class="link-btn"
+                        onclick="switchForm('loginForm')">Sign In</button>
+                </div>
+            </form>
+
+            <!-- 3. FORGOT PASSWORD FORM -->
+            <form id="forgotForm" class="auth-form" onsubmit="event.preventDefault(); handleAuth('forgot');">
+                <div class="form-header">
+                    <h1>Reset Password</h1>
+                    <p>Enter your email address to receive reset instructions</p>
+                </div>
+                <div class="form-group">
+                    <label for="resetEmail">Work Email</label>
+                    <input type="email" id="resetEmail" name="email" class="form-control" placeholder="name@company.com"
+                        required>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Reset Link</button>
+                <div class="switch-text">
+                    Remembered your password? <button type="button" class="link-btn"
+                        onclick="switchForm('loginForm')">Back to Sign In</button>
+                </div>
+            </form>
         </div>
-    </div>
-
-    <!-- SVG Overlay -->
-    <!-- SVG Overlay -->
-    <div class="portal-overlay">
-        <svg class="portal-svg" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-            <defs>
-                <mask id="portalMask">
-                    <rect x="0" y="0" width="1000" height="1000" fill="white" />
-                    <ellipse id="maskHole" cx="500" cy="465" rx="79" ry="162" fill="black"
-                        transform="rotate(-10 500 500)" />
-                </mask>
-            </defs>
-
-            <g id="portalGroup" style="transform-origin: 500px 500px;">
-                <!-- Black Background with Mask -->
-                <rect x="-1000" y="-1000" width="3000" height="3000" fill="#98E8DE" mask="url(#portalMask)" />
-
-                <!-- Golden Q Body -->
-                <text id="qGlyph" x="500" y="460" text-anchor="middle" dominant-baseline="central"
-                    font-family="Fraunces, serif" font-weight="900" font-size="450" fill="#8B2626">Q</text>
-
-                <!-- New Paragraphs on the Left -->
-                <foreignObject x="50" y="300" width="300" height="400">
-                    <div xmlns="http://www.w3.org/1999/xhtml" style="color: #5e5a53; font-family: 'Inter', sans-serif;">
-                        <h3 style="margin-bottom: 1rem; color: #FFD700;">Innovation</h3>
-                        <p style="font-size: 20px; line-height: 1.4;">Yeh paragraph Q ke saath zoom hoga. Aap yahan apna
-                            content customize kar sakte hain.</p>
-                    </div>
-                </foreignObject>
-            </g>
-        </svg>
-    </div>
-
-    <div class="scroll-spacer"></div>
-
-    <main class="page-content">
-        <section class="section">
-            <h2>Bharyat Intelligence</h2>
-            <p>Aapne successfully golden Q portal effect implement kar liya hai. Yeh scroll ke sath zoom hokar poori
-                screen reveal karega.</p>
-        </section>
-        <section class="section">
-            <h2>About Us</h2>
-            <p>Yahan aap apni website ka agla section add kar sakte hain.</p>
-        </section>
     </main>
 
+    <footer class="site-footer">
+        <div class="footer-logo-container">
+            <img src="./images/logo.png" alt="BharYat Logo" class="footer-logo">
+            <div class="footer-company-info">
+                <span class="footer-company-name">A</span>
+                <span class="footer-company-sub">Bharyat Advanced Systems</span>
+                <span class="footer-company-name">Company</span>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        const portalGroup = document.getElementById('portalGroup');
-        const heroFixed = document.querySelector('.hero-fixed');
-        const portalOverlay = document.querySelector('.portal-overlay');
-
-        const ZOOM_MULTIPLIER = 3.2;
-        const MAX_SCALE = 14;
-
-        function ease(t) {
-            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        function switchForm(formId) {
+            const forms = document.querySelectorAll('.auth-form');
+            forms.forEach(form => form.classList.remove('active'));
+            const targetForm = document.getElementById(formId);
+            if (targetForm) targetForm.classList.add('active');
         }
 
-        function update() {
-            const dist = window.innerHeight * ZOOM_MULTIPLIER;
-            const y = window.scrollY;
-            const t = Math.min(Math.max(y / dist, 0), 1);
-            const s = 1 + ease(t) * (MAX_SCALE - 1);
-
-            portalGroup.style.transform = `scale(${s})`;
-
-            if (t >= 1) {
-                portalOverlay.style.visibility = 'hidden';
-                heroFixed.style.visibility = 'hidden';
-            } else {
-                portalOverlay.style.visibility = 'visible';
-                heroFixed.style.visibility = 'visible';
+        // Backend Integration Placeholder Function
+        function handleAuth(type) {
+            let formData = {};
+            if (type === 'login') {
+                formData = {
+                    email: document.getElementById('loginEmail').value,
+                    password: document.getElementById('loginPassword').value
+                };
+                console.log("Submitting Login Data:", formData);
+                // Yahan aap fetch() ya axios se backend API call kar sakte hain
+            } else if (type === 'register') {
+                formData = {
+                    fullName: document.getElementById('regName').value,
+                    email: document.getElementById('regEmail').value,
+                    password: document.getElementById('regPassword').value
+                };
+                console.log("Submitting Register Data:", formData);
+            } else if (type === 'forgot') {
+                formData = {
+                    email: document.getElementById('resetEmail').value
+                };
+                console.log("Submitting Password Reset:", formData);
             }
         }
-
-        window.addEventListener('scroll', () => {
-            requestAnimationFrame(update);
-        }, { passive: true });
-
-        update();
     </script>
 </body>
 

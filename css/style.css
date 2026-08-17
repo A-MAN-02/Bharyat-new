@@ -2,6 +2,10 @@
    VARIABLES
 =================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,600;9..144,900&display=swap');
+
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
 
 @import url('https://fonts.googleapis.com/css2?family=Bruno+Ace&display=swap');
@@ -21,6 +25,9 @@
     --radius-md: 16px;
     --radius-lg: 32px;
     --transition: 300ms cubic-bezier(.4, 0, .2, 1);
+    --font-tech: 'Bruno Ace', sans-serif;     /* Futuristic headings ke liye */
+    --font-heading: 'Fraunces', serif;        /* Main titles aur headings ke liye */
+    --font-body: 'Inter', sans-serif;         /* Normal paragraphs aur body text ke liye */
 }
 
 /* ===================================
@@ -37,17 +44,26 @@ html {
 }
 
 body {
-    font-family: "Inter", sans-serif;
+    font-family: var(--font-body);
     background: #111827;
     color: #111827;
     overflow-x: hidden;
 }
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+}
 
-.bruno{
+.bruno, .step-title-heading {
+    font-family: var(--font-tech);
+}
+button, input {
+    font-family: inherit;
+}
+/* .bruno{
     font-family: "Bruno Ace", sans-serif;
     font-weight: 800;
     font-style: normal;
-}
+} */
 
 /* Portal Reveal Styles */
 .hero-fixed {

@@ -35,7 +35,7 @@
     "recommendation": "EOL/obsolescence notice issued — evaluate last-time-buy or redesign"
   },
   {
-    "flag": "https://flagcdn.com/w40/asean.png",
+    "flag": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Infobox%20ASEAN%20flag.svg",
     "category": "FPGA",
     "recommendation": "pricing firming — lock pricing via LTA where possible"
   },
@@ -75,12 +75,12 @@
     "recommendation": "quality escape reported by peer buyers — request incoming inspection data"
   },
   {
-    "flag": "https://flagcdn.com/w40/asean.png",
+    "flag": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Infobox%20ASEAN%20flag.svg",
     "category": "PHY",
     "recommendation": "quality escape reported by peer buyers — request incoming inspection data"
   },
   {
-    "flag": "https://flagcdn.com/w40/asean.png",
+    "flag": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Infobox%20ASEAN%20flag.svg",
     "category": "BTB Connectors",
     "recommendation": "Connectors allocation risk detected — confirm allocation share with distributor"
   },
@@ -115,7 +115,7 @@
     "recommendation": "fab capacity shift reported — monitor for downstream price movement"
   },
   {
-    "flag": "https://flagcdn.com/w40/asean.png",
+    "flag": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Infobox%20ASEAN%20flag.svg",
     "category": "IGBT",
     "recommendation": "export-control change reported — review compliance and licensing status"
   },
@@ -200,7 +200,7 @@
     "recommendation": "geopolitical tension flagged in region — assess supplier concentration risk"
   },
   {
-    "flag": "https://flagcdn.com/w40/asean.png",
+    "flag": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Infobox%20ASEAN%20flag.svg",
     "category": "BTB Connectors",
     "recommendation": "Connectors lead times extending — build additional safety stock"
   },
@@ -220,7 +220,7 @@
     "recommendation": "export-control change reported — review compliance and licensing status"
   },
   {
-    "flag": "https://flagcdn.com/w40/asean.png",
+    "flag": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Infobox%20ASEAN%20flag.svg",
     "category": "IGBT",
     "recommendation": "allocation risk detected — confirm allocation share with distributor"
   },
@@ -270,7 +270,7 @@
     "recommendation": "demand softening — defer non-urgent orders"
   },
   {
-    "flag": "https://flagcdn.com/w40/asean.png",
+    "flag": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Infobox%20ASEAN%20flag.svg",
     "category": "eMMC/UFS",
     "recommendation": "logistics disruption reported — review freight routing and lead-time buffer"
   },
@@ -300,7 +300,7 @@
     "recommendation": "currency volatility flagged — consider hedging on cross-border POs"
   },
   {
-    "flag": "https://flagcdn.com/w40/asean.png",
+    "flag": "https://commons.wikimedia.org/wiki/Special:Redirect/file/Infobox%20ASEAN%20flag.svg",
     "category": "ADC",
     "recommendation": "quality escape reported by peer buyers — request incoming inspection data"
   },
@@ -308,4 +308,5 @@
     "flag": "https://flagcdn.com/w40/tw.png",
     "category": "Tantalum Cap.",
     "recommendation": "supply tightening — qualify a second source"
-  }]
+  }
+]
